@@ -11,6 +11,7 @@ import DropDown
 import Alamofire
 import ObjectMapper
 
+
 class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource ,UIScrollViewDelegate{
     @IBOutlet var searchTxt: UITextField!
     @IBOutlet var categoryTxt: UITextField!
@@ -21,6 +22,9 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     @IBOutlet var radiusLbl: UILabel!
     @IBOutlet var searchView: UIView!
     @IBOutlet var searchViewHeight: NSLayoutConstraint!
+    @IBOutlet var placePickerView: UIView!
+    
+    @IBOutlet var collectionviewHeight: NSLayoutConstraint!
     
     @IBOutlet var searchProductCollection: UICollectionView!
     @IBOutlet var baseScroll: UIScrollView!
@@ -36,24 +40,25 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     
     let defaults = UserDefaults.standard
     var baseUrl : String = ""
-    lazy var cellSizes: [CGSize] = {
-        var _cellSizes = [CGSize]()
-        
-        for _ in 0...100 {
-            let random = Int(arc4random_uniform((UInt32(100))))
-            
-            _cellSizes.append(CGSize(width: 155, height: 150 + random))
-        }
-        
-        return _cellSizes
-    }()
     
+    @IBOutlet var productCollectionBottom: NSLayoutConstraint!
+    @IBOutlet var searchViewBottom: NSLayoutConstraint!
     
+    var allProducts:[RentalProduct] = []
+    var offset : Int = 0
+    var isData : Bool = true
+    var presentWindow : UIWindow?
+    fileprivate  var lastContentOffset: CGFloat = 0
+    
+    var  paremeters :[String:AnyObject] = [:]
+    var selectedCateId : Int = 0
+    var selectedSubcateId :Int = 0
+    var radius :Float = 0.0
     override func viewDidLoad(){
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         baseUrl = defaults.string(forKey: "baseUrl")!
-        
+        presentWindow = UIApplication.shared.keyWindow
         self.prodCateHolder.isUserInteractionEnabled = true
         let cateGesture = UITapGestureRecognizer(target: self, action:#selector(SearchViewController.showHideCateDropDown) )
         self.prodCateHolder.addGestureRecognizer(cateGesture)
@@ -62,17 +67,24 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         let subCateGesture = UITapGestureRecognizer(target: self, action:#selector(SearchViewController.showHideSubCateDropDown) )
         self.proSubCateHolder.addGestureRecognizer(subCateGesture)
         
+        self.placePickerView.isUserInteractionEnabled = true
+        let pickplace = UITapGestureRecognizer(target: self, action:#selector(SearchViewController.pickPlaceAction) )
+        self.placePickerView.addGestureRecognizer(pickplace)
+        
         self.searchProductCollection.delegate = self
         self.searchProductCollection.dataSource = self
         
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-       // layout.itemSize = CGSize(width: SCREEN_WIDTH / 2, height: SCREEN_WIDTH / 2)
+        // layout.itemSize = CGSize(width: SCREEN_WIDTH / 2, height: SCREEN_WIDTH / 2)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         searchProductCollection.collectionViewLayout = layout
-       
+        
+        self.baseScroll.delegate = self
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,8 +101,8 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
             self.categoryTxt.attributedText  =  NSAttributedString(string: (item), attributes:[NSForegroundColorAttributeName : UIColor.gray])
             self.subCateTxt.attributedText  =  NSAttributedString(string:"Product Sub Category", attributes:[NSForegroundColorAttributeName : UIColor.gray])
             self.subCategoryList = self.categoryList[index].subcategory
+            self.selectedCateId  = self.categoryList[index].id
             if(self.subCategoryList.isEmpty){
-               // self.selectedCategory.append(self.categoryList[index].id)
                 self.subCateDropDown.dataSource = []
             }else{
                 var subCates = Array<String>();
@@ -105,26 +117,58 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         subCateDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             // print("Selected item: \(item) at index: \(index)")
             self.subCateTxt.attributedText  =  NSAttributedString(string: (item), attributes:[NSForegroundColorAttributeName : UIColor.gray])
-           // self.selectedCategory.append(self.subCategoryList[index].id)
+            self.selectedSubcateId = self.subCategoryList[index].id
         }
         
+        
+    }
+    override func viewDidLayoutSubviews() {
+        self.baseScroll.contentSize = CGSize(
+            width: self.view.frame.size.width,
+            height: self.view.frame.size.height + 407
+        );
         
     }
     @IBAction func sliderValueChange(_ sender: UISlider) {
         print (sender.value)
         self.radiusLbl.attributedText  =  NSAttributedString(string:"In Radius Of \(Int(sender.value)) KM", attributes:[NSForegroundColorAttributeName : UIColor.gray])
+        self.radius = Float(sender.value)
     }
     
     func showHideCateDropDown() {
-        print("Hello")
+        
         cateDropdown.show();
     }
     func showHideSubCateDropDown(){
         subCateDropDown.show()
     }
+    func pickPlaceAction (){
+        print("Hello")
+        
+     
+        
+    }
     @IBAction func seachButtonAction(_ sender: AnyObject) {
+        self.allProducts.removeAll()
+        self.searchProductCollection.reloadData()
+        self.setParams(offset: 0)
+        self.getSearchProduct(paremeters: self.paremeters)
     }
     
+    func setParams(offset : Int){
+        let limit = 6 as AnyObject!
+        self.paremeters = ["limit" : limit! , "offset" : offset as AnyObject ]
+        
+        if(self.selectedCateId != 0 && self.selectedSubcateId == 0  )
+        {
+            paremeters["categoryId"] = self.selectedCateId as AnyObject?
+        }else{
+            paremeters["categoryId"] = self.selectedSubcateId as AnyObject?
+        }
+        if(self.searchTxt.text != ""){
+            paremeters["title"] = self.searchTxt.text as AnyObject?
+        }
+    }
     
     // MARK: - UITextFieldDelegate Methods
     
@@ -142,55 +186,42 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         if(textField == self.searchTxt){
             self.viewUnderSearchTxt.backgroundColor = UIColor.lightGray.withAlphaComponent(0.6)
         }
-       
+        
     }
-
+    
     // MARK: - collectionview delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if(collectionView == self.offerCollection){
-//            return self.allProducts.count
-//        }
-        return 10;
+        
+        return self.allProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "seachCell", for: indexPath) as!SearchCollectionViewCell
-//            let data : RentalProduct = allProducts [(indexPath as NSIndexPath).row]
-//            let path = data.profileImage.original.path!
-//            print(URL(string: "\(baseUrl)images/\(path)")!)
-//            cell.productImageView.kf.setImage(with: URL(string: "\(baseUrl)images/\(path)")!,
-//                                              placeholder: nil,
-//                                              options: [.transition(.fade(1))],
-//                                              progressBlock: nil,
-//                                              completionHandler: nil)
-//            
-//            //            cell.productImageView.kf_setImageWithURL(URL(string: "\(baseUrl)/images/\(data.profileImage.original.path)")!,
-//            //                                                     placeholderImage: UIImage(named: "placeholder.gif"),
-//            //                                                     optionsInfo: nil,
-//            //                                                     progressBlock: { (receivedSize, totalSize) -> () in
-//            //                                                        //  print("Download Progress: \(receivedSize)/\(totalSize)")
-//            //                },
-//            //                                                     completionHandler: { (image, error, cacheType, imageURL) -> () in
-//            //                                                        // print("Downloaded and set!")
-//            //                }
-//            //            )
         
-            cell.productImgeView.image = UIImage(named:"dis1.png")
-            cell.productNameLbl.text = "Office Dex" // data.name
-            cell.rentFeeLbl.text = "$500/Week"     //"$\(data.rentFee!)/\(data.rentType.name!)"
-            
-            cell.tag = (indexPath as NSIndexPath).row
-            cell.isUserInteractionEnabled = true
-           // let selectGesture = UITapGestureRecognizer(target: self, action:#selector(HomeViewController.perfromNext) )
-            //selectGesture.numberOfTapsRequired = 2
-          //  cell.addGestureRecognizer(selectGesture)
-            
-            return cell
-            
-            
-       
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "seachCell", for: indexPath) as!SearchCollectionViewCell
+        
+        let data : RentalProduct = allProducts [(indexPath as NSIndexPath).row]
+        let path = data.profileImage.original.path!
+        print(URL(string: "\(baseUrl)images/\(path)")!)
+        cell.productImgeView.kf.setImage(with: URL(string: "\(baseUrl)images/\(path)")!,
+                                         placeholder: nil,
+                                         options: [.transition(.fade(1))],
+                                         progressBlock: nil,
+                                         completionHandler: nil)
+        cell.productNameLbl.text = data.name
+        cell.rentFeeLbl.text = "$\(data.rentFee!)/\(data.rentType.name!)"
+        
+        
+        cell.tag = (indexPath as NSIndexPath).row
+        cell.isUserInteractionEnabled = true
+        // let selectGesture = UITapGestureRecognizer(target: self, action:#selector(HomeViewController.perfromNext) )
+        //selectGesture.numberOfTapsRequired = 2
+        //  cell.addGestureRecognizer(selectGesture)
+        
+        return cell
+        
+        
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -200,79 +231,80 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         if(scrollView == self.searchProductCollection){
+            print("searchProductCollection")
             let offsetY = self.searchProductCollection.contentOffset.y
             let contentHeight = self.searchProductCollection.contentSize.height
             if offsetY > contentHeight - self.searchProductCollection.frame.size.height {
-                print("this is end, see you in console")
-                //self.getProducts()
+                self.setParams(offset: self.offset)
+                self.getSearchProduct(paremeters: self.paremeters)
+                
             }
         }else if(scrollView == self.baseScroll){
             
-//            print("baseScrolled ")
-//            
-//            if (self.lastContentOffset > scrollView.contentOffset.y) {
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    
-//                    self.productScrollHeight.constant =  self.productScrollHeight.constant - 412
-//                    self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
-//                    self.view.layoutIfNeeded()
-//                })
-//                self.listName.text = "FEATURED PRODUCTS"
-//                
-//            }
-//            else if (self.lastContentOffset < scrollView.contentOffset.y) {
-//                // print("Moved Down \(self.lastContentOffset)")
-//                
-//                UIView.animate(withDuration: 0.5, animations: {
-//                    
-//                    self.productScrollHeight.constant =  self.productScrollHeight.constant + 412
-//                    self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
-//                    self.view.layoutIfNeeded()
-//                })
-//                
-//                self.listName.text = "ALL PRODUCTS"
-//            }
-//            
-//            // update the new position acquired
-//            self.lastContentOffset = scrollView.contentOffset.y
-//            self.getProducts()
+            print("baseScrolled ")
+            
+            if (self.lastContentOffset > scrollView.contentOffset.y) {
+                print("if")
+                UIView.animate(withDuration: 0.5, animations: {
+                    
+                    self.collectionviewHeight.constant =  self.collectionviewHeight.constant - 412
+                    self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
+                    self.view.layoutIfNeeded()
+                })
+               
+                
+            }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+                print("Else")
+                self.collectionviewHeight.constant = 800
+                self.view.layoutIfNeeded()
+                // print("Moved Down \(self.lastContentOffset)")
+                
+                UIView.animate(withDuration: 0.5, animations: {
+                    
+                   self.collectionviewHeight.constant =  self.collectionviewHeight.constant + 412
+                    self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
+                    self.view.layoutIfNeeded()
+                })
+                
+                
+            }
+            
+            // update the new position acquired
+            self.lastContentOffset = self.baseScroll.contentOffset.y
+            self.setParams(offset: self.offset)
+            self.getSearchProduct(paremeters: self.paremeters)
         }
     }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize{
-        
-        if(collectionView == self.searchProductCollection){
-         return cellSizes[(indexPath as NSIndexPath).item]
-        }else{
-            return CGSize(width: 122, height:135)
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (searchProductCollection.frame.width)
+        if width < 500 {
+            let numberOfItemsPerRow:CGFloat = 2.0
+            let widthAdjustment = CGFloat(10.0)
+            let cellWidth = (width - widthAdjustment) / numberOfItemsPerRow
+            let cellHeight =  cellWidth + 3.0
+            return CGSize(width: cellWidth , height: cellHeight)
+        }
+        else {
+            let numberOfItemsPerRow:CGFloat = 3.0
+            let widthAdjustment =  CGFloat(15.0)
+            let cellWidth = (width - widthAdjustment) / numberOfItemsPerRow
+            let cellHeight =  cellWidth + 3.0
+            return CGSize(width: cellWidth , height: cellHeight)
         }
     }
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = (collectionView.frame.width)
-//        if width < 500 {
-//            let numberOfItemsPerRow:CGFloat = 2.0
-//            let widthAdjustment = CGFloat(1.0)
-//            let cellWidth = (width - widthAdjustment) / numberOfItemsPerRow
-//            let cellHeight =  cellWidth + 50.0
-//            return CGSize(width: cellWidth , height: cellHeight)
-//        }
-//        else {
-//            let numberOfItemsPerRow:CGFloat = 3.0
-//            let widthAdjustment =  CGFloat(3.0)
-//            let cellWidth = (width - widthAdjustment) / numberOfItemsPerRow
-//            let cellHeight =  cellWidth + 50.0
-//            return CGSize(width: cellWidth , height: cellHeight)
-//        }
-//    }
-//    
+    
+    override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
+        searchProductCollection?.reloadData()
+        self.view.layoutIfNeeded()
+    }
+    //
     //MARK : - ApiAccess
     
     
     func  getCategory()  {
-        
-        
         Alamofire.request(URL(string: "\(baseUrl)api/utility/get-category" )!, method: .get, encoding: JSONEncoding.default)
             
             .validate { request, response, data in
@@ -298,11 +330,56 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                     print(error)
                 }
         }
+    }
+    
+    func getSearchProduct(paremeters :[ String :AnyObject]) {
+        
+        // api/search/rental-product
+        
+        //title
+        //        lat
+        //        lng
+        //        radius // Float
+        //        *offset
+        //        *limit
+        //        categoryId
+        
+        self.view.makeToastActivity()
+        UIApplication.shared.beginIgnoringInteractionEvents()
         
         
-        
+        Alamofire.request( URL(string: "\(baseUrl)api/search/rental-product" )!,method :.get ,parameters: paremeters)
+            .validate(contentType: ["application/json"])
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    //  print(data)
+                    let proRes: ProductResponse = Mapper<ProductResponse>().map(JSONObject: data)!
+                    print(proRes.responseStat.status)
+                    
+                    if(proRes.responseStat.status != false){
+                        //  print(proRes.responseData!)
+                        for i in 0 ..< proRes.responseData!.count {
+                            let product : RentalProduct = proRes.responseData![i]
+                            self.allProducts.append(product)
+                        }
+                        self.offset += 1
+                        self.searchProductCollection.reloadData()
+                        
+                    }else{
+                        self.isData = false
+                        self.view.makeToast(message:"No Product Found", duration: 2, position: HRToastPositionCenter as AnyObject)
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    
+                }
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.view.hideToastActivity()
+        }
         
         
     }
-
+    
 }

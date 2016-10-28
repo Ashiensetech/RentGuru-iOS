@@ -44,7 +44,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.2</string>
+	<string>1.0.3</string>
 	<key>CLIENT_ID</key>
 	<string>584222961341-dbh261kkn2l5dbur713ecjt6l0d6kf7e.apps.googleusercontent.com</string>
 	<key>Fabric</key>
@@ -88,11 +88,10 @@
 		<string>com.google.gppconsent.2.3.0</string>
 		<string>com.google.gppconsent.2.2.0</string>
 		<string>com.google.gppconsent</string>
-        <string>org-appextension-feature-password-management</string>
-        <string>com.paypal.ppclient.touch.v1</string>
-        <string>com.paypal.ppclient.touch.v2</string>
+		<string>org-appextension-feature-password-management</string>
+		<string>com.paypal.ppclient.touch.v1</string>
+		<string>com.paypal.ppclient.touch.v2</string>
 	</array>
-    
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -100,6 +99,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app will access your photo library </string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>
@@ -125,7 +126,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app will access your photo library </string>
 </dict>
 </plist>

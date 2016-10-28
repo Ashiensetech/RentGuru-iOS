@@ -1676,10 +1676,11 @@
                                             <constraint firstItem="Sdx-xO-Ed5" firstAttribute="trailing" secondItem="I5S-lg-Igt" secondAttribute="trailing" id="x9i-A6-9e0"/>
                                         </constraints>
                                     </view>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h3I-An-x7r">
-                                        <rect key="frame" x="0.0" y="415" width="375" height="252"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="h3I-An-x7r">
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="376" id="9eT-Ar-NVz"/>
+                                        </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="brg-Mc-tu3">
                                             <size key="itemSize" width="155" height="153"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1754,10 +1755,15 @@
                                     </collectionView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="re5-0K-ATL" secondAttribute="bottom" constant="692" id="INf-4u-gHB"/>
+                                    <constraint firstAttribute="bottom" secondItem="h3I-An-x7r" secondAttribute="bottom" constant="-124" id="E36-fw-6Vz"/>
+                                    <constraint firstAttribute="bottom" secondItem="re5-0K-ATL" secondAttribute="bottom" constant="260" id="INf-4u-gHB"/>
                                     <constraint firstAttribute="trailing" secondItem="re5-0K-ATL" secondAttribute="trailing" id="NwU-8S-pnM"/>
                                     <constraint firstItem="re5-0K-ATL" firstAttribute="leading" secondItem="GV1-Z1-QhV" secondAttribute="leading" id="PO5-Be-OeD"/>
                                     <constraint firstItem="re5-0K-ATL" firstAttribute="top" secondItem="GV1-Z1-QhV" secondAttribute="top" id="Wbo-Nx-Bu2"/>
+                                    <constraint firstAttribute="bottom" secondItem="h3I-An-x7r" secondAttribute="bottom" constant="-124" id="g3C-bB-xmp"/>
+                                    <constraint firstItem="h3I-An-x7r" firstAttribute="leading" secondItem="re5-0K-ATL" secondAttribute="leading" id="glf-mz-zjj"/>
+                                    <constraint firstItem="h3I-An-x7r" firstAttribute="trailing" secondItem="re5-0K-ATL" secondAttribute="trailing" id="hCR-Cj-PYn"/>
+                                    <constraint firstItem="h3I-An-x7r" firstAttribute="top" secondItem="re5-0K-ATL" secondAttribute="bottom" constant="8" symbolic="YES" id="kOJ-Lz-umh"/>
                                     <constraint firstItem="re5-0K-ATL" firstAttribute="centerX" secondItem="GV1-Z1-QhV" secondAttribute="centerX" id="phS-VP-OsT"/>
                                 </constraints>
                             </scrollView>
@@ -1766,7 +1772,7 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="GV1-Z1-QhV" secondAttribute="trailing" id="8Ka-At-Srv"/>
                             <constraint firstItem="GV1-Z1-QhV" firstAttribute="leading" secondItem="AqT-NK-BKM" secondAttribute="leading" id="EOh-bP-iaZ"/>
-                            <constraint firstAttribute="bottom" secondItem="GV1-Z1-QhV" secondAttribute="bottom" constant="-432" id="eH0-Qq-Tn8"/>
+                            <constraint firstAttribute="bottom" secondItem="GV1-Z1-QhV" secondAttribute="bottom" id="eH0-Qq-Tn8"/>
                             <constraint firstItem="GV1-Z1-QhV" firstAttribute="top" secondItem="AqT-NK-BKM" secondAttribute="top" id="g0g-ru-8Ke"/>
                         </constraints>
                     </view>
@@ -1774,17 +1780,21 @@
                     <connections>
                         <outlet property="baseScroll" destination="GV1-Z1-QhV" id="SmD-rv-VUp"/>
                         <outlet property="categoryTxt" destination="yeF-Ar-48x" id="VjP-Yu-q8n"/>
+                        <outlet property="collectionviewHeight" destination="9eT-Ar-NVz" id="beq-YZ-Gft"/>
                         <outlet property="locTxt" destination="vWh-pr-vE0" id="Rq4-Qc-yH3"/>
+                        <outlet property="placePickerView" destination="Sdx-xO-Ed5" id="SCb-iC-dM2"/>
                         <outlet property="proSubCateHolder" destination="I5S-lg-Igt" id="eYx-J1-vEr"/>
                         <outlet property="prodCateArrowDown" destination="L6d-Dc-cIo" id="3GQ-2z-ssO"/>
                         <outlet property="prodCateHolder" destination="Igx-vt-g7Z" id="wfZ-AE-Ea7"/>
                         <outlet property="prodSubCateArrowDown" destination="MBr-sB-PHK" id="Elv-m6-aIj"/>
+                        <outlet property="productCollectionBottom" destination="g3C-bB-xmp" id="Ou4-bY-t4y"/>
                         <outlet property="radiusLbl" destination="H3x-Lv-SbK" id="6EV-cz-vSH"/>
                         <outlet property="rangeSlider" destination="5Oe-vo-sbN" id="SO6-JA-bZf"/>
                         <outlet property="searchProductCollection" destination="h3I-An-x7r" id="unz-tJ-OUz"/>
                         <outlet property="searchTxt" destination="TL5-Rx-3tm" id="IvV-yv-Ksc"/>
                         <outlet property="searchView" destination="re5-0K-ATL" id="ZVq-LT-MDS"/>
-                        <outlet property="searchViewHeight" destination="bNJ-Me-Ttv" id="Pbi-Ry-81G"/>
+                        <outlet property="searchViewBottom" destination="INf-4u-gHB" id="HQK-dE-zGc"/>
+                        <outlet property="searchViewHeight" destination="bNJ-Me-Ttv" id="FKq-gv-0CT"/>
                         <outlet property="subCateTxt" destination="QD7-Dw-bvk" id="jJB-0d-LdC"/>
                         <outlet property="viewUnderSearchTxt" destination="XK0-Mo-fIn" id="SAg-VH-Zsq"/>
                     </connections>
@@ -2512,7 +2522,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6sE-B9-qeF" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NW8-Z5-qpo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NW8-Z5-qpo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2531,7 +2541,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ylh-0A-trY" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Post Item" image="tab-post" selectedImage="tab-post" id="w1Z-9I-0ag"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MKh-ej-Nhu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MKh-ej-Nhu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2549,7 +2559,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qyi-ha-7pu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kgd-J0-jAB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kgd-J0-jAB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2567,7 +2577,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3hg-pe-3rr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aCo-B2-8rZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aCo-B2-8rZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2600,7 +2610,7 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zfR-0Z-kWv" id="mmu-2t-zd3">
-                                            <frame key="frameInset" width="600" height="75.5"/>
+                                            <frame key="frameInset" width="600" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfX-hX-F3l">
@@ -2743,7 +2753,7 @@
                                                 <rect key="frame" x="0.0" y="92" width="600" height="71"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0QD-P5-QKs" id="u3j-a6-LOM">
-                                                    <frame key="frameInset" width="600" height="70.5"/>
+                                                    <frame key="frameInset" width="600" height="71"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lT6-Yp-yB1">
@@ -3548,7 +3558,7 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rEH-Q7-iF6" id="WcD-fz-Z1p">
-                                            <frame key="frameInset" width="600" height="75.5"/>
+                                            <frame key="frameInset" width="600" height="76"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Fb-FW-QPx">
@@ -3636,7 +3646,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gvU-QA-DYp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="tab-account" id="Okh-3G-qGd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c7S-qx-4NP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c7S-qx-4NP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
