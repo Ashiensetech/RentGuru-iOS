@@ -29,7 +29,7 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
     var defaults = UserDefaults.standard
     var baseUrl : String = ""
     var imageUrls :[String] = []
-    
+    var allProducts:[RentalProduct] = []
     
     
     override func viewDidLoad() {
@@ -254,6 +254,19 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
             let rentVC = navVC.viewControllers.first as! RentRequestViewController
           
             rentVC.product = self.product
+        }
+        if(segue.identifier == "Back"){
+            let tabVc = segue.destination as! UITabBarController
+            if(self.fromController == "Home"){
+             tabVc.selectedIndex = 0
+            }else{
+                print(tabVc.viewControllers?[1])
+                let vc = tabVc.viewControllers?[1] as! SearchViewController
+                vc.allProducts = self.allProducts
+                
+                 tabVc.selectedIndex = 1
+            }
+            
         }
     }
     

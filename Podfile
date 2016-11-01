@@ -16,4 +16,8 @@ target 'RentGuru' do
     pod 'TwitterCore'
     pod 'Google/SignIn'
     pod 'PayPal-iOS-SDK'
+    pod 'GooglePlaces'
+    pod 'GooglePlacePicker'
+    pod 'GoogleMaps'
+    pod 'ImageSlideshow', :git => 'https://github.com/anik-s/ImageSlideshow.git', :branch => 'swift-3'
 end

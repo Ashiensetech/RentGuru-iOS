@@ -14,6 +14,8 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import Fabric
 import TwitterKit
+import GooglePlaces
+import GoogleMaps
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     
@@ -25,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         DropDown.startListeningToKeyboard()
-        
+        GMSPlacesClient.provideAPIKey("AIzaSyDGKgRdGBqesawLUDnurW1-9Ohn6Z6Iook")
+        GMSServices.provideAPIKey("AIzaSyCAXnML7_z0FC0aQvRCfIXcgWMPFCZgvUk")
         //setup defaults
         //  defaults.setObject("http://163.53.151.2:8888/develop.rentguru24/", forKey: "baseUrl")//Local
         //defaults.setObject("http://67.205.129.3:8080/develop.rentguru24/", forKey: "baseUrl") //Live

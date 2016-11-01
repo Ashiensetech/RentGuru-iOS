@@ -9,23 +9,23 @@
 
 import UIKit
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 
@@ -143,8 +143,8 @@ open class CollectionViewWaterfallLayout: UICollectionViewLayout {
         
         for section in 0..<numberOfSections! {
             /*
-            * 1. Get section-specific metrics (minimumInteritemSpacing, sectionInset)
-            */
+             * 1. Get section-specific metrics (minimumInteritemSpacing, sectionInset)
+             */
             var minimumInteritemSpacing: Float
             if let height = delegate?.collectionView?(collectionView!, layout: self, minimumInteritemSpacingForSection: section) {
                 minimumInteritemSpacing = height
@@ -165,8 +165,8 @@ open class CollectionViewWaterfallLayout: UICollectionViewLayout {
             let itemWidth = floorf((width - Float(columnCount - 1) * Float(minimumColumnSpacing)) / Float(columnCount))
             
             /*
-            * 2. Section header
-            */
+             * 2. Section header
+             */
             var headerHeight: Float
             if let height = delegate?.collectionView?(collectionView!, layout: self, heightForHeaderInSection: section) {
                 headerHeight = height
@@ -202,8 +202,8 @@ open class CollectionViewWaterfallLayout: UICollectionViewLayout {
             
             
             /*
-            * 3. Section items
-            */
+             * 3. Section items
+             */
             let itemCount = collectionView!.numberOfItems(inSection: section)
             var itemAttributes = [UICollectionViewLayoutAttributes]()
             
@@ -230,8 +230,8 @@ open class CollectionViewWaterfallLayout: UICollectionViewLayout {
             sectionItemAttributes.append(itemAttributes)
             
             /*
-            * 4. Section footer
-            */
+             * 4. Section footer
+             */
             var footerHeight: Float
             let columnIndex = longestColumnIndex()
             top = columnHeights[columnIndex] - minimumInteritemSpacing + Float(sectionInset.bottom)

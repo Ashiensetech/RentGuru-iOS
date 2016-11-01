@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		37CFE8CCB4156F0590F96976 /* Pods_RentGuru.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FFC92FC89266107D9489004 /* Pods_RentGuru.framework */; };
+		C97280E74BAB2F2266DCB92B /* Pods_RentGuru.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1F1B1466978A9B0491E2F8 /* Pods_RentGuru.framework */; };
 		FD165B6C1D6D5C2800EF4357 /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6B1D6D5C2800EF4357 /* FileUploader.swift */; };
 		FD165B721D6D5CDE00EF4357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6D1D6D5CDE00EF4357 /* AppDelegate.swift */; };
 		FD165B731D6D5CDE00EF4357 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6E1D6D5CDE00EF4357 /* Extentions.swift */; };
@@ -141,9 +141,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1FFC92FC89266107D9489004 /* Pods_RentGuru.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RentGuru.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		90BE542A94B7451666A8CCEA /* Pods-RentGuru.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.release.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.release.xcconfig"; sourceTree = "<group>"; };
-		953395C642A3FA57DE85FB0C /* Pods-RentGuru.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.debug.xcconfig"; sourceTree = "<group>"; };
+		83AABCD9B08AFBA891EDE30D /* Pods-RentGuru.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.debug.xcconfig"; sourceTree = "<group>"; };
+		E925C8DFFC1789E2658F9CB2 /* Pods-RentGuru.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.release.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.release.xcconfig"; sourceTree = "<group>"; };
 		FD165B6B1D6D5C2800EF4357 /* FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 		FD165B6D1D6D5CDE00EF4357 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SupportingFiles/AppDelegate.swift; sourceTree = "<group>"; };
 		FD165B6E1D6D5CDE00EF4357 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extentions.swift; path = SupportingFiles/Extentions.swift; sourceTree = "<group>"; };
@@ -156,6 +155,7 @@
 		FD165B7F1D6DB4EE00EF4357 /* MyRentalProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRentalProduct.swift; sourceTree = "<group>"; };
 		FD165B811D6DB67E00EF4357 /* MyRentalProductResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyRentalProductResponse.swift; sourceTree = "<group>"; };
 		FD1E21691D744C08004C730B /* RentRequestActionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentRequestActionResponse.swift; sourceTree = "<group>"; };
+		FD1F1B1466978A9B0491E2F8 /* Pods_RentGuru.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RentGuru.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD223E251D7D4116006F43DB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FD25078C1D75A40C005A6039 /* OtherImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD2AD5721D5081D0001248E8 /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 			files = (
 				FDAF747E1D59BAA100500A3C /* CoreLocation.framework in Frameworks */,
 				FDAF747C1D59BA9600500A3C /* MapKit.framework in Frameworks */,
-				37CFE8CCB4156F0590F96976 /* Pods_RentGuru.framework in Frameworks */,
+				C97280E74BAB2F2266DCB92B /* Pods_RentGuru.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,23 +281,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FE04A83FEA26DF37045D8EF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				83AABCD9B08AFBA891EDE30D /* Pods-RentGuru.debug.xcconfig */,
+				E925C8DFFC1789E2658F9CB2 /* Pods-RentGuru.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		67F2C17988328875FA7BDA2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				FDAF747D1D59BAA100500A3C /* CoreLocation.framework */,
 				FDAF747B1D59BA9600500A3C /* MapKit.framework */,
-				1FFC92FC89266107D9489004 /* Pods_RentGuru.framework */,
+				FD1F1B1466978A9B0491E2F8 /* Pods_RentGuru.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9B28DAFB73166CA773DE0110 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				953395C642A3FA57DE85FB0C /* Pods-RentGuru.debug.xcconfig */,
-				90BE542A94B7451666A8CCEA /* Pods-RentGuru.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		FD2F3B4F1D6C7A72004175E2 /* Models */ = {
@@ -477,8 +477,8 @@
 				FD3EE0AA1D4B59FE0009C250 /* RentGuruTests */,
 				FD3EE0B51D4B59FE0009C250 /* RentGuruUITests */,
 				FD3EE0941D4B59FE0009C250 /* Products */,
-				9B28DAFB73166CA773DE0110 /* Pods */,
 				67F2C17988328875FA7BDA2B /* Frameworks */,
+				2FE04A83FEA26DF37045D8EF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -613,14 +613,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FD3EE0BB1D4B59FE0009C250 /* Build configuration list for PBXNativeTarget "RentGuru" */;
 			buildPhases = (
-				145EDE74664522D9FB63260E /* Check Pods Manifest.lock */,
+				A1C6D3289631A96E8E683A09 /* [CP] Check Pods Manifest.lock */,
 				FD3EE08F1D4B59FD0009C250 /* Sources */,
 				FD3EE0901D4B59FD0009C250 /* Frameworks */,
 				FD3EE0911D4B59FD0009C250 /* Resources */,
-				D698658F843D32CD9830668B /* Embed Pods Frameworks */,
-				32675494C95A3FF0ABA1D252 /* Copy Pods Resources */,
 				FD7571BE1D7AD2A100E4B88A /* Embed Frameworks */,
 				FD223E241D7D3461006F43DB /* ShellScript */,
+				2D6E7825CA3DE7B063EAA22C /* [CP] Embed Pods Frameworks */,
+				FB7B2854CCE995AE46470F0A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -761,49 +761,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		145EDE74664522D9FB63260E /* Check Pods Manifest.lock */ = {
+		2D6E7825CA3DE7B063EAA22C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		32675494C95A3FF0ABA1D252 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D698658F843D32CD9830668B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1C6D3289631A96E8E683A09 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FB7B2854CCE995AE46470F0A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD223E241D7D3461006F43DB /* ShellScript */ = {
@@ -1041,7 +1041,7 @@
 		};
 		FD3EE0BC1D4B59FE0009C250 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 953395C642A3FA57DE85FB0C /* Pods-RentGuru.debug.xcconfig */;
+			baseConfigurationReference = 83AABCD9B08AFBA891EDE30D /* Pods-RentGuru.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
@@ -1090,7 +1090,7 @@
 		};
 		FD3EE0BD1D4B59FE0009C250 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 90BE542A94B7451666A8CCEA /* Pods-RentGuru.release.xcconfig */;
+			baseConfigurationReference = E925C8DFFC1789E2658F9CB2 /* Pods-RentGuru.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;

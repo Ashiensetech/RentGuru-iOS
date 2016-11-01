@@ -10,9 +10,10 @@ import UIKit
 import DropDown
 import Alamofire
 import ObjectMapper
-
-
-class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource ,UIScrollViewDelegate{
+import GooglePlaces
+import GooglePlacePicker
+import CoreLocation
+class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource ,UIScrollViewDelegate,CLLocationManagerDelegate{
     @IBOutlet var searchTxt: UITextField!
     @IBOutlet var categoryTxt: UITextField!
     @IBOutlet var subCateTxt: UITextField!
@@ -34,7 +35,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     @IBOutlet var prodSubCateArrowDown: UIImageView!
     let cateDropdown = DropDown()
     let subCateDropDown = DropDown()
-    
+    var selectedProdIndex : Int = 0
     var categoryList : [Category] = []
     var subCategoryList : [Category] = []
     
@@ -54,6 +55,12 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     var selectedCateId : Int = 0
     var selectedSubcateId :Int = 0
     var radius :Float = 0.0
+    var pickedLocValue = CLLocationCoordinate2D()
+    var placePicker: GMSPlacePicker?
+    
+    
+    let locationManager = CLLocationManager()
+    var currentLocValue = CLLocationCoordinate2D()
     override func viewDidLoad(){
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -84,9 +91,24 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         
         self.baseScroll.delegate = self
         
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+        
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+        
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+        
         
     }
-    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        self.currentLocValue = manager.location!.coordinate
+        print("locations = \(currentLocValue.latitude) \(currentLocValue.longitude)")
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cateDropdown.anchorView = self.prodCateHolder
@@ -145,7 +167,30 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     func pickPlaceAction (){
         print("Hello")
         
-     
+        
+        let center = CLLocationCoordinate2DMake(self.currentLocValue.latitude,self.currentLocValue.longitude)
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        placePicker = GMSPlacePicker(config: config)
+        
+        placePicker?.pickPlace(callback: { (place: GMSPlace?, error: Error?) -> Void in
+            
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let place = place {
+                self.pickedLocValue = place.coordinate
+                self.locTxt.text = place.name
+            } else {
+                print("No place selected")
+            }
+        } )
+        
+        
         
     }
     @IBAction func seachButtonAction(_ sender: AnyObject) {
@@ -168,6 +213,11 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         if(self.searchTxt.text != ""){
             paremeters["title"] = self.searchTxt.text as AnyObject?
         }
+        if(self.locTxt.text != "Let Rent Guru Pick your Location"){
+            self.paremeters["lat"] = self.pickedLocValue.latitude as AnyObject?
+            self.paremeters ["lng"] = self.pickedLocValue.longitude as AnyObject?
+            self.paremeters["radius"] = self.radius as AnyObject?
+        }
     }
     
     // MARK: - UITextFieldDelegate Methods
@@ -188,7 +238,24 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         }
         
     }
-    
+    func perfromNext(_ sender :UITapGestureRecognizer)  {
+        self.view.makeToastActivity()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        let tapLocation = sender.location(in: self.searchProductCollection)
+        let indexPath : IndexPath = self.searchProductCollection.indexPathForItem(at: tapLocation)!
+        
+        if let cell = self.searchProductCollection.cellForItem(at: indexPath)
+        {
+            self.selectedProdIndex = cell.tag
+            
+        }
+        DispatchQueue.main.async(execute: {
+            UIApplication.shared.endIgnoringInteractionEvents()
+            self.performSegue(withIdentifier: "showDetails", sender: nil)
+        })
+        
+        
+    }
     // MARK: - collectionview delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -214,9 +281,11 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         
         cell.tag = (indexPath as NSIndexPath).row
         cell.isUserInteractionEnabled = true
-        // let selectGesture = UITapGestureRecognizer(target: self, action:#selector(HomeViewController.perfromNext) )
+        cell.tag = (indexPath as NSIndexPath).row
+        cell.isUserInteractionEnabled = true
+        let selectGesture = UITapGestureRecognizer(target: self, action:#selector(SearchViewController.perfromNext) )
         //selectGesture.numberOfTapsRequired = 2
-        //  cell.addGestureRecognizer(selectGesture)
+        cell.addGestureRecognizer(selectGesture)
         
         return cell
         
@@ -251,7 +320,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                     self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
                     self.view.layoutIfNeeded()
                 })
-               
+                
                 
             }
             else if (self.lastContentOffset < scrollView.contentOffset.y) {
@@ -262,7 +331,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                 
                 UIView.animate(withDuration: 0.5, animations: {
                     
-                   self.collectionviewHeight.constant =  self.collectionviewHeight.constant + 412
+                    self.collectionviewHeight.constant =  self.collectionviewHeight.constant + 412
                     self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
                     self.view.layoutIfNeeded()
                 })
@@ -380,6 +449,20 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         }
         
         
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showDetails"){
+            
+            let navVC = segue.destination as! UINavigationController
+            let detailsVC = navVC.viewControllers.first as! ProductDetailsViewController
+            detailsVC.product = self.allProducts[self.selectedProdIndex]
+            detailsVC.allProducts = self.allProducts
+            detailsVC.fromController = "Search"
+        }
     }
     
 }

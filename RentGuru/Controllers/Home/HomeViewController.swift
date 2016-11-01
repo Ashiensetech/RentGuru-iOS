@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import ObjectMapper
 import Kingfisher
-class HomeViewController: UIViewController,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource ,UIScrollViewDelegate{ //CollectionViewWaterfallLayoutDelegate
+class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScrollViewDelegate,CollectionViewWaterfallLayoutDelegate{
     @IBOutlet var productScrollHeight: NSLayoutConstraint!
     @IBOutlet var featuredProductCollection: UICollectionView!
     @IBOutlet var offerCollection: UICollectionView!
@@ -50,16 +50,16 @@ class HomeViewController: UIViewController,UICollectionViewDelegateFlowLayout, U
         presentWindow = UIApplication.shared.keyWindow
         //staggered View
         
-//        let layout = CollectionViewWaterfallLayout()
-//        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        layout.headerInset = UIEdgeInsetsMake(20, 0, 0, 0)
-//        layout.headerHeight = 50
-//        layout.footerHeight = 20
-//        layout.minimumColumnSpacing = 10
-//        layout.minimumInteritemSpacing = 10
-//        
-//        self.offerCollection.collectionViewLayout = layout
-//        self.offerCollection.allowsSelection = true
+        let layout = CollectionViewWaterfallLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.headerInset = UIEdgeInsetsMake(20, 0, 0, 0)
+        layout.headerHeight = 50
+        layout.footerHeight = 20
+        layout.minimumColumnSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        
+        self.offerCollection.collectionViewLayout = layout
+        self.offerCollection.allowsSelection = true
         
         
     }
@@ -205,15 +205,14 @@ class HomeViewController: UIViewController,UICollectionViewDelegateFlowLayout, U
         }
     }
     // MARK: - WaterfallLayoutDelegate
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
+        if(collectionView == self.offerCollection){
+            return cellSizes[(indexPath as NSIndexPath).item]
+        }else{
+            return CGSize(width: 122, height:135)
+        }
+    }
     
-//    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-//        if(collectionView == self.offerCollection){
-//            return cellSizes[(indexPath as NSIndexPath).item]
-//        }else{
-//            return CGSize(width: 122, height:135)
-//        }
-//        
-//    }
     
     //Mark : - ApiCall
     
