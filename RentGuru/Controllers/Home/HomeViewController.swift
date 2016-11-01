@@ -10,13 +10,14 @@ import UIKit
 import Alamofire
 import ObjectMapper
 import Kingfisher
+import ImageSlideshow
 class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScrollViewDelegate,CollectionViewWaterfallLayoutDelegate{
     @IBOutlet var productScrollHeight: NSLayoutConstraint!
-    @IBOutlet var featuredProductCollection: UICollectionView!
     @IBOutlet var offerCollection: UICollectionView!
     @IBOutlet var productScrollBottom: NSLayoutConstraint!
     @IBOutlet var baseScroll: UIScrollView!
-    @IBOutlet var listName: UILabel!
+  
+    @IBOutlet var slideShow: ImageSlideshow!
     var defaults = UserDefaults.standard
     var baseUrl : String = ""
     var allProducts:[RentalProduct] = []
@@ -36,13 +37,12 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
     }()
     fileprivate  var lastContentOffset: CGFloat = 0
     var presentWindow : UIWindow?
-    
+    var bannerImages : [ImageSource] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.hideKeyboardWhenTappedAround()
-        self.featuredProductCollection.delegate = self
-        self.featuredProductCollection.dataSource = self
+      
         self.offerCollection.delegate = self
         self.offerCollection.dataSource = self
         self.baseScroll.delegate = self
@@ -60,6 +60,14 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         
         self.offerCollection.collectionViewLayout = layout
         self.offerCollection.allowsSelection = true
+       
+        slideShow.backgroundColor = UIColor.white
+        slideShow.slideshowInterval = 5.0
+        slideShow.pageControlPosition = PageControlPosition.insideScrollView
+        slideShow.pageControl.currentPageIndicatorTintColor = UIColor.lightGray
+        slideShow.pageControl.pageIndicatorTintColor = UIColor.red
+        slideShow.contentScaleMode = UIViewContentMode.scaleToFill
+        self.getBannerImages()
         
         
     }
@@ -169,11 +177,11 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
             if (self.lastContentOffset > scrollView.contentOffset.y) {
                 UIView.animate(withDuration: 0.5, animations: {
                     
-                    self.productScrollHeight.constant =  self.productScrollHeight.constant - 412
-                    self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
-                    self.view.layoutIfNeeded()
-                }) 
-                self.listName.text = "FEATURED PRODUCTS"
+//                    self.productScrollHeight.constant =  self.productScrollHeight.constant - 412
+//                    self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
+//                    self.view.layoutIfNeeded()
+                })
+              
                 
             }
             else if (self.lastContentOffset < scrollView.contentOffset.y) {
@@ -181,12 +189,12 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                 
                 UIView.animate(withDuration: 0.5, animations: {
                     
-                    self.productScrollHeight.constant =  self.productScrollHeight.constant + 412
-                    self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
-                    self.view.layoutIfNeeded()
-                }) 
+//                    self.productScrollHeight.constant =  self.productScrollHeight.constant + 412
+//                    self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
+//                    self.view.layoutIfNeeded()
+                })
                 
-                self.listName.text = "ALL PRODUCTS"
+               
             }
             
             // update the new position acquired
@@ -194,16 +202,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
             self.getProducts()
         }
     }
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize{
-        
-        if(collectionView == self.offerCollection){
-            return cellSizes[(indexPath as NSIndexPath).item]
-        }else{
-            return CGSize(width: 122, height:135)
-        }
-    }
+
     // MARK: - WaterfallLayoutDelegate
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         if(collectionView == self.offerCollection){
@@ -252,6 +251,67 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                     self.presentWindow!.hideToastActivity()
             }
         }
+    }
+    func getBannerImages(){
+        // let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+        Alamofire.request( URL(string: "\(baseUrl)api/banner-image/get-all" )!,method :.get ,parameters: [:])
+            .validate(contentType: ["application/json"])
+            .responseJSON { response in
+                switch response.result {
+                case .success(let data):
+                    //  print(data)
+                    let imageRes : BannerImageResponse = Mapper<BannerImageResponse>().map(JSONObject: data)!
+                    print(imageRes.responseStat.status)
+                    
+                    if(imageRes.responseStat.status != false){
+                      
+                        for i in 0 ..< imageRes.responseData!.count {
+                            let banner : BannerImage = imageRes.responseData![i]
+                            
+                            let imageView:UIImageView! = UIImageView()
+                              print("image response : \(self.baseUrl)images-banner/\(banner.imagePath!)")
+                            
+                            imageView.kf.setImage(with: URL(string: "\(self.baseUrl)images-banner/\(banner.imagePath!)")!,
+                                                         placeholder: nil,
+                                                         options: [.transition(.fade(1))],
+                                                         progressBlock: nil,
+                                                         completionHandler:{(
+                                                            image, error, cacheType, imageURL) -> () in
+                                                            if image != nil {
+                                                                print("Imgae received")
+                                                                self.bannerImages.append(ImageSource(image: imageView.image!))
+                                                            }
+                                                            if i == imageRes.responseData!.count - 1 {
+                                                                self.slideShow.setImageInputs(self.bannerImages)
+                                                            }
+
+                                                         
+                                                           
+                            })
+
+                            
+                         
+                        }
+                        
+
+                        
+                        
+                        
+                       
+                    
+
+                    }else{
+                      
+                    }
+                    
+                case .failure(let error):
+                    print(error)
+                    
+                }
+                UIApplication.shared.endIgnoringInteractionEvents()
+                self.presentWindow!.hideToastActivity()
+        }
+    
     }
     
     // MARK: - Navigation

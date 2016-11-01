@@ -98,7 +98,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate,GIDSignInUIDele
                         let loginRes: LoginResponse = Mapper<LoginResponse>().map(JSONObject: data as AnyObject)!
                         if(loginRes.responseStat.status != false){
                             self.defaults.set(loginRes.responseData!.accesstoken, forKey: "accesstoken")
-                            
+                            let delegate = AppDelegate.getDelegate()
+                             delegate.authCredential = loginRes.responseData!
                             
                             
                             self.performSegue(withIdentifier: "logInsuccess", sender: nil)
@@ -128,6 +129,8 @@ class LoginViewController: UIViewController ,UITextFieldDelegate,GIDSignInUIDele
                         let res: LoginResponse = Mapper<LoginResponse>().map(JSONObject: data)!
                         print(res)
                         if((res.responseStat.status) != false){
+                            let delegate = AppDelegate.getDelegate()
+                            delegate.authCredential = res.responseData!
                            self.performSegue(withIdentifier: "logInsuccess", sender: nil)
                         }
                         

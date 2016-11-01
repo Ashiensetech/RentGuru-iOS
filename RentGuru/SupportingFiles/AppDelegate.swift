@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     var baseUrl = ""
     var accessToken = "abc"
     var Auth = false
+    var authCredential : AuthCredential?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         DropDown.startListeningToKeyboard()
@@ -124,6 +125,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    
+    class func getDelegate() -> AppDelegate {
+        return  UIApplication.shared.delegate as! AppDelegate
+    }
 }
 

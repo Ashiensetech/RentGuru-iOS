@@ -34,7 +34,7 @@ class ProfileSettingTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath)
         
         if cell != nil {
-           
+           print("Section :\(indexPath.section) Row :\(indexPath.row)")
             if((indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 0){
                 self.performSegue(withIdentifier: "myProductRequest", sender: nil)
             
@@ -44,8 +44,8 @@ class ProfileSettingTableViewController: UITableViewController {
             }else if(((indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 0)){
                  self.performSegue(withIdentifier: "myProduct", sender: nil)
             
-            }else if(((indexPath as NSIndexPath).section == 2 && (indexPath as NSIndexPath).row == 0)){
-            
+            }else if(((indexPath as NSIndexPath).section == 3 && (indexPath as NSIndexPath).row == 0)){
+             self.performSegue(withIdentifier: "editProfile", sender: nil)
             }
             
         }

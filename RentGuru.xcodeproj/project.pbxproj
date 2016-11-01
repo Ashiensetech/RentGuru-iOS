@@ -89,6 +89,7 @@
 		FD3EE0B71D4B59FE0009C250 /* RentGuruUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3EE0B61D4B59FE0009C250 /* RentGuruUITests.swift */; };
 		FD3FDF8F1DC227DC007D08AA /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3FDF8E1DC227DC007D08AA /* SearchCollectionViewCell.swift */; };
 		FD5CDC651D586ACD00970E64 /* HRToast+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5CDC641D586ACD00970E64 /* HRToast+UIView.swift */; };
+		FD5DB6A31DC8A526004AE8A1 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5DB6A21DC8A526004AE8A1 /* EditProfileViewController.swift */; };
 		FD5E0F5E1D520FE6008AB286 /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD5E0F531D520FE6008AB286 /* CollectionViewWaterfallLayout.swift */; };
 		FD5E0F6E1D5215D1008AB286 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = FD5E0F6D1D5215D0008AB286 /* Podfile */; };
 		FD5E0F701D522080008AB286 /* arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = FD5E0F6F1D522080008AB286 /* arrow_down.png */; };
@@ -97,6 +98,8 @@
 		FD76DBF01D4F313900A6D2D7 /* dis1.png in Resources */ = {isa = PBXBuildFile; fileRef = FD76DBEF1D4F313900A6D2D7 /* dis1.png */; };
 		FD7A580D1D71788600DEE58E /* RequestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A580C1D71788600DEE58E /* RequestDetailsViewController.swift */; };
 		FD7A580F1D71982600DEE58E /* dummy.png in Resources */ = {isa = PBXBuildFile; fileRef = FD7A580E1D71982600DEE58E /* dummy.png */; };
+		FD81AE5A1DC8725300F62837 /* BannerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81AE591DC8725300F62837 /* BannerImage.swift */; };
+		FD81AE5C1DC873E600F62837 /* BannerImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */; };
 		FD899B8F1D990A9F003F5FBD /* RentPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD899B8E1D990A9F003F5FBD /* RentPayment.swift */; };
 		FD899B911D991073003F5FBD /* VerifyPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */; };
 		FD998E531D631B1E009826DA /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD998E4E1D631B1E009826DA /* RatingView.swift */; };
@@ -231,6 +234,7 @@
 		FD3EE0B81D4B59FE0009C250 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD3FDF8E1DC227DC007D08AA /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD5CDC641D586ACD00970E64 /* HRToast+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HRToast+UIView.swift"; sourceTree = "<group>"; };
+		FD5DB6A21DC8A526004AE8A1 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		FD5E0F531D520FE6008AB286 /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
 		FD5E0F6D1D5215D0008AB286 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FD5E0F6F1D522080008AB286 /* arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_down.png; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 		FD76DBEF1D4F313900A6D2D7 /* dis1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dis1.png; sourceTree = "<group>"; };
 		FD7A580C1D71788600DEE58E /* RequestDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestDetailsViewController.swift; sourceTree = "<group>"; };
 		FD7A580E1D71982600DEE58E /* dummy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dummy.png; sourceTree = "<group>"; };
+		FD81AE591DC8725300F62837 /* BannerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerImage.swift; sourceTree = "<group>"; };
+		FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerImageResponse.swift; sourceTree = "<group>"; };
 		FD899B8E1D990A9F003F5FBD /* RentPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentPayment.swift; sourceTree = "<group>"; };
 		FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyPaymentResponse.swift; sourceTree = "<group>"; };
 		FD998E4E1D631B1E009826DA /* RatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
@@ -333,6 +339,7 @@
 				FD165B7D1D6DB3F800EF4357 /* RentInf.swift */,
 				FD165B7F1D6DB4EE00EF4357 /* MyRentalProduct.swift */,
 				FD899B8E1D990A9F003F5FBD /* RentPayment.swift */,
+				FD81AE591DC8725300F62837 /* BannerImage.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -355,6 +362,7 @@
 				FD165B811D6DB67E00EF4357 /* MyRentalProductResponse.swift */,
 				FD1E21691D744C08004C730B /* RentRequestActionResponse.swift */,
 				FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */,
+				FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */,
 			);
 			name = ResponseModels;
 			path = Response;
@@ -398,6 +406,7 @@
 				FD2F3BA11D6C82A4004175E2 /* ProfileViewController.swift */,
 				FD165B7B1D6DA2E600EF4357 /* ProfileSettingTableViewController.swift */,
 				FD7A580C1D71788600DEE58E /* RequestDetailsViewController.swift */,
+				FD5DB6A21DC8A526004AE8A1 /* EditProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -834,6 +843,7 @@
 				FD2F3B9A1D6C8247004175E2 /* ImageCollectionCell.swift in Sources */,
 				FD2F3BB41D6C8319004175E2 /* PostItemFirstViewController.swift in Sources */,
 				FD2F3B591D6C7EE0004175E2 /* AppCredential.swift in Sources */,
+				FD81AE5A1DC8725300F62837 /* BannerImage.swift in Sources */,
 				FD2F3B9C1D6C8247004175E2 /* SelectedImageCollectionViewCell.swift in Sources */,
 				FD2F3B6B1D6C8063004175E2 /* ProductLocation.swift in Sources */,
 				FD2F3BAF1D6C82F5004175E2 /* MyRequestTableViewCell.swift in Sources */,
@@ -880,7 +890,9 @@
 				FD165B6C1D6D5C2800EF4357 /* FileUploader.swift in Sources */,
 				FD2F3B761D6C8063004175E2 /* Product.swift in Sources */,
 				FD899B8F1D990A9F003F5FBD /* RentPayment.swift in Sources */,
+				FD5DB6A31DC8A526004AE8A1 /* EditProfileViewController.swift in Sources */,
 				FD2F3BA31D6C82A4004175E2 /* MyProductsViewController.swift in Sources */,
+				FD81AE5C1DC873E600F62837 /* BannerImageResponse.swift in Sources */,
 				FD2F3BBA1D6C8355004175E2 /* ProductDetailsViewController.swift in Sources */,
 				FD32DFB31D5356FD007FFC48 /* EPCalendarConstants.swift in Sources */,
 				FD2F3BAD1D6C82F5004175E2 /* MyProductRequestTableViewCell.swift in Sources */,
