@@ -28,6 +28,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         baseUrl = defaults.string(forKey: "baseUrl")!
         imagePicker.delegate = self
         self.hideKeyboardWhenTappedAround()
+        self.tabBarController?.tabBar.isHidden = true
         
     }
     
@@ -42,10 +43,11 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         self.lastName.text = credential.userInf.lastName!
         self.email.text = credential.email!
         let path = credential.userInf.profilePicture?.original!.path!
-        if(path != ""){
+        print("pic : \(path)")
+        if(path != nil){
             self.profileImageView.kf.setImage(with: URL(string: "\(baseUrl)profile-image/\(path!)")!,
                                               placeholder: nil,
-                                              options: [.transition(.fade(1))],
+                                              options: nil,
                                               progressBlock: nil,
                                               completionHandler: nil)
         }else{

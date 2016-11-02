@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileSettingTableViewController: UITableViewController {
-    
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.tableFooterView = UIView()
@@ -28,6 +28,13 @@ class ProfileSettingTableViewController: UITableViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(netHex:0xD0842D)]
     }
     
+    func logout(){
+        AppDelegate.resetToFirst()
+//        defaults.set("abc", forKey: "accesstoken")
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//        let secondViewController = storyBoard.instantiateViewController(withIdentifier: "LoginSignupView") as! LoginViewController
+//        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -44,9 +51,15 @@ class ProfileSettingTableViewController: UITableViewController {
             }else if(((indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 0)){
                  self.performSegue(withIdentifier: "myProduct", sender: nil)
             
-            }else if(((indexPath as NSIndexPath).section == 3 && (indexPath as NSIndexPath).row == 0)){
+            }else if(((indexPath as NSIndexPath).section == 2 && (indexPath as NSIndexPath).row == 0)){
              self.performSegue(withIdentifier: "editProfile", sender: nil)
+            }else if(((indexPath as NSIndexPath).section == 2 && (indexPath as NSIndexPath).row == 1)){
+                self.performSegue(withIdentifier: "paypalAccount", sender: nil)
             }
+            else if(((indexPath as NSIndexPath).section == 2 && (indexPath as NSIndexPath).row == 2)){
+                self.logout()
+            }
+
             
         }
     }

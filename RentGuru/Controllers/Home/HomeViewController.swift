@@ -78,6 +78,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         self.isData = true
         self.allProducts.removeAll()
         self.getProducts()
+        //self.tabBarController?.tabBar.items?[1].badgeValue = "10"
     }
     override func viewDidLayoutSubviews() {
         self.baseScroll.contentSize = CGSize(

@@ -842,7 +842,7 @@
                             <tableViewSection headerTitle="Requests" id="eP5-d2-c8x">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" id="lea-XX-Ejh">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lea-XX-Ejh" id="LIi-CU-AXU">
                                             <frame key="frameInset" width="342" height="43"/>
@@ -874,7 +874,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" id="rfj-PI-Ku5">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rfj-PI-Ku5" id="EID-DA-mGG">
                                             <frame key="frameInset" width="342" height="43"/>
@@ -910,7 +910,7 @@
                             <tableViewSection headerTitle="Products" id="FhF-ZR-LUH">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" id="tmI-dH-uUt">
-                                        <rect key="frame" x="0.0" y="144" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="208" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tmI-dH-uUt" id="vJy-yp-cUL">
                                             <frame key="frameInset" width="342" height="43"/>
@@ -943,20 +943,17 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="sNh-Vh-u7r">
-                                <cells/>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Profile" id="GLk-LC-KWQ">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" id="Vfq-r5-YLs">
-                                        <rect key="frame" x="0.0" y="216" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" rowHeight="39" id="Vfq-r5-YLs">
+                                        <rect key="frame" x="0.0" y="280" width="375" height="39"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vfq-r5-YLs" id="n4n-V0-ru6">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="38"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="list-income" translatesAutoresizingMaskIntoConstraints="NO" id="fJm-7M-RSe">
-                                                    <frame key="frameInset" minX="10" width="40" height="40"/>
+                                                    <frame key="frameInset" minX="10" minY="-2" width="40" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -965,7 +962,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Edit Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VS4-Yz-Sz1">
-                                                    <frame key="frameInset" minX="58" minY="11" width="83" height="21"/>
+                                                    <frame key="frameInset" minX="58" minY="9" width="83" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -975,21 +972,47 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" id="uSN-eg-VMc">
-                                        <rect key="frame" x="0.0" y="260" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="319" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uSN-eg-VMc" id="CZ9-HR-JRd">
                                             <frame key="frameInset" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4u5-Hu-tpL">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="paypal" translatesAutoresizingMaskIntoConstraints="NO" id="WKX-5N-dTB">
+                                                    <frame key="frameInset" minX="11" minY="3" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="20"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="PayPal Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgH-uu-Zmc">
+                                                    <frame key="frameInset" minX="59" minY="13" width="119" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" id="zY0-go-Zuc">
+                                        <rect key="frame" x="0.0" y="363" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zY0-go-Zuc" id="w9Q-Li-ovL">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jtj-rJ-zbJ">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4u5-Hu-tpL" firstAttribute="centerX" secondItem="CZ9-HR-JRd" secondAttribute="centerX" id="IDh-s8-sGT"/>
-                                                <constraint firstItem="4u5-Hu-tpL" firstAttribute="centerY" secondItem="CZ9-HR-JRd" secondAttribute="centerY" id="QrK-pi-bPp"/>
+                                                <constraint firstItem="Jtj-rJ-zbJ" firstAttribute="centerX" secondItem="w9Q-Li-ovL" secondAttribute="centerX" id="p3g-dm-vvc"/>
+                                                <constraint firstItem="Jtj-rJ-zbJ" firstAttribute="centerY" secondItem="w9Q-Li-ovL" secondAttribute="centerY" id="vlm-8N-PJh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1007,6 +1030,7 @@
                         <segue destination="2bI-00-dIC" kind="show" identifier="myRequest" id="kOy-KS-QWA"/>
                         <segue destination="SSt-vc-9GD" kind="show" identifier="myProduct" id="OFv-zh-w5R"/>
                         <segue destination="QIq-bR-9os" kind="show" identifier="editProfile" id="Q40-r4-Sx6"/>
+                        <segue destination="MFj-Y7-Y9K" kind="show" identifier="paypalAccount" id="7Tk-j8-NBE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ky-5K-wlq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2312,7 +2336,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6sE-B9-qeF" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NW8-Z5-qpo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NW8-Z5-qpo">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2331,7 +2355,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ylh-0A-trY" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Post Item" image="tab-post" selectedImage="tab-post" id="w1Z-9I-0ag"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MKh-ej-Nhu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MKh-ej-Nhu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2349,7 +2373,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qyi-ha-7pu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kgd-J0-jAB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kgd-J0-jAB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2367,7 +2391,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3hg-pe-3rr" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="aCo-B2-8rZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="aCo-B2-8rZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2397,7 +2421,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="requestCell" rowHeight="76" id="zfR-0Z-kWv" customClass="MyProductRequestTableViewCell" customModule="RentGuru" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="76"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zfR-0Z-kWv" id="mmu-2t-zd3">
                                             <frame key="frameInset" width="600" height="75.5"/>
@@ -2540,7 +2564,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="71" id="0QD-P5-QKs" customClass="MyRequestTableViewCell" customModule="RentGuru" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="600" height="71"/>
+                                                <rect key="frame" x="0.0" y="92" width="600" height="71"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0QD-P5-QKs" id="u3j-a6-LOM">
                                                     <frame key="frameInset" width="600" height="70.5"/>
@@ -3309,6 +3333,39 @@
             </objects>
             <point key="canvasLocation" x="3655" y="1967"/>
         </scene>
+        <!--Paypal Account View Controller-->
+        <scene sceneID="2Jm-BQ-Hul">
+            <objects>
+                <viewController id="MFj-Y7-Y9K" customClass="PaypalAccountViewController" customModule="RentGuru" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZYR-OB-Rh1"/>
+                        <viewControllerLayoutGuide type="bottom" id="YU0-Bq-C3J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZQu-9X-Uc7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Paypal Account" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GSg-he-Dpd">
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GSg-he-Dpd" firstAttribute="top" secondItem="ZYR-OB-Rh1" secondAttribute="bottom" constant="32" id="FW7-LX-OJQ"/>
+                            <constraint firstItem="GSg-he-Dpd" firstAttribute="leading" secondItem="ZQu-9X-Uc7" secondAttribute="leadingMargin" id="JDa-2R-qR8"/>
+                            <constraint firstItem="GSg-he-Dpd" firstAttribute="trailing" secondItem="ZQu-9X-Uc7" secondAttribute="trailingMargin" id="ggC-VO-713"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="accountEmail" destination="GSg-he-Dpd" id="A2l-Kd-28p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vdh-oE-EEh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1960.8" y="3478.1109445277366"/>
+        </scene>
         <!--Edit Profile View Controller-->
         <scene sceneID="GJM-1T-oWU">
             <objects>
@@ -3493,7 +3550,7 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="76" id="rEH-Q7-iF6" customClass="MyProductTableViewCell" customModule="RentGuru" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="76"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="76"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rEH-Q7-iF6" id="WcD-fz-Z1p">
                                             <frame key="frameInset" width="600" height="75.5"/>
@@ -3584,7 +3641,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gvU-QA-DYp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="tab-account" id="Okh-3G-qGd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c7S-qx-4NP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c7S-qx-4NP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -3614,6 +3671,7 @@
         <image name="list-outgoing" width="100" height="100"/>
         <image name="loc" width="57" height="57"/>
         <image name="login_bg" width="375" height="667"/>
+        <image name="paypal" width="24" height="24"/>
         <image name="tab-account" width="24" height="24"/>
         <image name="tab-home" width="32" height="32"/>
         <image name="tab-post" width="25" height="25"/>
@@ -3622,8 +3680,8 @@
         <image name="twitter" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1jV-bB-cbw"/>
-        <segue reference="HQL-Wj-BQT"/>
+        <segue reference="yJe-fW-QQp"/>
+        <segue reference="ZX4-za-Luk"/>
         <segue reference="vEy-u7-o19"/>
     </inferredMetricsTieBreakers>
 </document>

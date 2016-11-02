@@ -76,6 +76,7 @@
 		FD2F3BC11D6C83A6004175E2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2F3BBD1D6C83A6004175E2 /* SearchViewController.swift */; };
 		FD2F3BC21D6C83A6004175E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2F3BBF1D6C83A6004175E2 /* LoginViewController.swift */; };
 		FD2F3BC31D6C83A6004175E2 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD2F3BC01D6C83A6004175E2 /* SignupViewController.swift */; };
+		FD30DB551DC9CC8100A7B748 /* PaypalAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD30DB541DC9CC8100A7B748 /* PaypalAccountViewController.swift */; };
 		FD32DFA21D52FF1A007FFC48 /* post.png in Resources */ = {isa = PBXBuildFile; fileRef = FD32DFA11D52FF1A007FFC48 /* post.png */; };
 		FD32DFB11D5356FD007FFC48 /* EPCalendarCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD32DFAA1D5356FD007FFC48 /* EPCalendarCell1.swift */; };
 		FD32DFB21D5356FD007FFC48 /* EPCalendarCell1.xib in Resources */ = {isa = PBXBuildFile; fileRef = FD32DFAB1D5356FD007FFC48 /* EPCalendarCell1.xib */; };
@@ -109,6 +110,8 @@
 		FDAF5BDA1DC0D2B800349BBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDAF5BD91DC0D2B800349BBD /* Assets.xcassets */; };
 		FDAF747C1D59BA9600500A3C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDAF747B1D59BA9600500A3C /* MapKit.framework */; };
 		FDAF747E1D59BAA100500A3C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDAF747D1D59BAA100500A3C /* CoreLocation.framework */; };
+		FDBED37D1DC9D4CA00121EB4 /* UserPaypalCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBED37C1DC9D4CA00121EB4 /* UserPaypalCredential.swift */; };
+		FDBED37F1DC9E22A00121EB4 /* PaypalAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */; };
 		FDEDF6001D93A54F009C31C5 /* FlipsideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEDF5FF1D93A54F009C31C5 /* FlipsideViewController.swift */; };
 		FDF251FE1D5C8B9100A12B45 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = FDF251FD1D5C8B9100A12B45 /* cross.png */; };
 /* End PBXBuildFile section */
@@ -216,6 +219,7 @@
 		FD2F3BBD1D6C83A6004175E2 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FD2F3BBF1D6C83A6004175E2 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FD2F3BC01D6C83A6004175E2 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		FD30DB541DC9CC8100A7B748 /* PaypalAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaypalAccountViewController.swift; sourceTree = "<group>"; };
 		FD32DFA11D52FF1A007FFC48 /* post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = post.png; sourceTree = "<group>"; };
 		FD32DFAA1D5356FD007FFC48 /* EPCalendarCell1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EPCalendarCell1.swift; sourceTree = "<group>"; };
 		FD32DFAB1D5356FD007FFC48 /* EPCalendarCell1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EPCalendarCell1.xib; sourceTree = "<group>"; };
@@ -255,6 +259,8 @@
 		FDAF5BD91DC0D2B800349BBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FDAF747B1D59BA9600500A3C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FDAF747D1D59BAA100500A3C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FDBED37C1DC9D4CA00121EB4 /* UserPaypalCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPaypalCredential.swift; sourceTree = "<group>"; };
+		FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaypalAccountResponse.swift; sourceTree = "<group>"; };
 		FDEDF5FF1D93A54F009C31C5 /* FlipsideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlipsideViewController.swift; path = SupportingFiles/FlipsideViewController.swift; sourceTree = "<group>"; };
 		FDF251FD1D5C8B9100A12B45 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -340,6 +346,7 @@
 				FD165B7F1D6DB4EE00EF4357 /* MyRentalProduct.swift */,
 				FD899B8E1D990A9F003F5FBD /* RentPayment.swift */,
 				FD81AE591DC8725300F62837 /* BannerImage.swift */,
+				FDBED37C1DC9D4CA00121EB4 /* UserPaypalCredential.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -363,6 +370,7 @@
 				FD1E21691D744C08004C730B /* RentRequestActionResponse.swift */,
 				FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */,
 				FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */,
+				FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */,
 			);
 			name = ResponseModels;
 			path = Response;
@@ -407,6 +415,7 @@
 				FD165B7B1D6DA2E600EF4357 /* ProfileSettingTableViewController.swift */,
 				FD7A580C1D71788600DEE58E /* RequestDetailsViewController.swift */,
 				FD5DB6A21DC8A526004AE8A1 /* EditProfileViewController.swift */,
+				FD30DB541DC9CC8100A7B748 /* PaypalAccountViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -852,6 +861,7 @@
 				FD2F3B701D6C8063004175E2 /* AuthCredential.swift in Sources */,
 				FD32DFB71D5356FD007FFC48 /* EPExtensions.swift in Sources */,
 				FD2F3BA51D6C82A4004175E2 /* ProfileViewController.swift in Sources */,
+				FD30DB551DC9CC8100A7B748 /* PaypalAccountViewController.swift in Sources */,
 				FD2F3B771D6C8063004175E2 /* RentRequest.swift in Sources */,
 				FD2F3B7A1D6C8063004175E2 /* RentType.swift in Sources */,
 				FD2F3B891D6C8181004175E2 /* IdentityDocumentResponse.swift in Sources */,
@@ -859,6 +869,7 @@
 				FD165B801D6DB4EE00EF4357 /* MyRentalProduct.swift in Sources */,
 				FD2F3B6E1D6C8063004175E2 /* Picture.swift in Sources */,
 				FD2F3BA41D6C82A4004175E2 /* MyRequestViewController.swift in Sources */,
+				FDBED37F1DC9E22A00121EB4 /* PaypalAccountResponse.swift in Sources */,
 				FD2F3BBB1D6C8355004175E2 /* RentRequestViewController.swift in Sources */,
 				FD7A580D1D71788600DEE58E /* RequestDetailsViewController.swift in Sources */,
 				FD899B911D991073003F5FBD /* VerifyPaymentResponse.swift in Sources */,
@@ -872,6 +883,7 @@
 				FD2F3BA21D6C82A4004175E2 /* MyProductRequestViewController.swift in Sources */,
 				FD2F3B911D6C8181004175E2 /* RentTypeResponse.swift in Sources */,
 				FD2F3B9B1D6C8247004175E2 /* OfferStaggeredCell.swift in Sources */,
+				FDBED37D1DC9D4CA00121EB4 /* UserPaypalCredential.swift in Sources */,
 				FD2F3B7B1D6C8063004175E2 /* UserAddress.swift in Sources */,
 				FD2F3BC11D6C83A6004175E2 /* SearchViewController.swift in Sources */,
 				FD3FDF8F1DC227DC007D08AA /* SearchCollectionViewCell.swift in Sources */,

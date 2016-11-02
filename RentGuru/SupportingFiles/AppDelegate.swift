@@ -128,5 +128,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
     class func getDelegate() -> AppDelegate {
         return  UIApplication.shared.delegate as! AppDelegate
     }
+    class func resetToFirst()  {
+        UserDefaults.standard.set("abc", forKey: "accesstoken")
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let loginView: LoginViewController = storyBoard.instantiateViewController(withIdentifier: "LoginSignupView") as! LoginViewController
+        UIApplication.shared.keyWindow?.rootViewController = loginView
+    }
 }
 

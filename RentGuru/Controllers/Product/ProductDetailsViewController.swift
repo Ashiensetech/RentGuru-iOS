@@ -30,8 +30,8 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
     var baseUrl : String = ""
     var imageUrls :[String] = []
     var allProducts:[RentalProduct] = []
-    
-    
+    var onIndexPath :IndexPath?
+    var  paremeters :[String:AnyObject] = [:]
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -263,7 +263,8 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
                 print(tabVc.viewControllers?[1])
                 let vc = tabVc.viewControllers?[1] as! SearchViewController
                 vc.allProducts = self.allProducts
-                
+                vc.selectedIndexPath = self.onIndexPath
+                vc.paremeters = self.paremeters
                  tabVc.selectedIndex = 1
             }
             
