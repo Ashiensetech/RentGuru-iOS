@@ -259,7 +259,11 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
             let tabVc = segue.destination as! UITabBarController
             if(self.fromController == "Home"){
              tabVc.selectedIndex = 0
-            }else{
+            }else if(self.fromController == "Category"){
+                tabVc.selectedIndex = 2
+               
+            }
+            else{
                 print(tabVc.viewControllers?[1])
                 let vc = tabVc.viewControllers?[1] as! SearchViewController
                 vc.allProducts = self.allProducts

@@ -42,6 +42,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     let defaults = UserDefaults.standard
     var baseUrl : String = ""
     
+    @IBOutlet var productCollectionContainerHeight: NSLayoutConstraint!
     @IBOutlet var productCollectionBottom: NSLayoutConstraint!
     @IBOutlet var searchViewBottom: NSLayoutConstraint!
     
@@ -151,16 +152,29 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
             self.getSearchProduct(paremeters: self.paremeters)
             self.view.layoutIfNeeded()
          
-            self.searchProductCollection.scrollToItem(at: self.selectedIndexPath!, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
+           // self.searchProductCollection.scrollToItem(at: self.selectedIndexPath!, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
             
         }
         
         
     }
     override func viewDidLayoutSubviews() {
+        //Getting iDevice's screen width
+        let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
+        let  screenWidth : CGFloat = screenRect.size.width
+        let screenHeight :CGFloat = screenRect.size.height
         
+       // self.productCollectionContainerHeight.constant =   screenHeight - (self.searchView.frame.size.height+20)
+        
+        
+        
+        self.baseScroll.contentSize = CGSize(
+            width: self.view.frame.size.width,
+            height: screenHeight + 206
+        );
         
     }
+    
     @IBAction func sliderValueChange(_ sender: UISlider) {
         print (sender.value)
         self.radiusLbl.attributedText  =  NSAttributedString(string:"In Radius Of \(Int(sender.value)) KM", attributes:[NSForegroundColorAttributeName : UIColor.gray])
@@ -268,6 +282,8 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         
         
     }
+ 
+    
     // MARK: - collectionview delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -328,24 +344,22 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                     print("if")
                     UIView.animate(withDuration: 0.5, animations: {
                         
-                        self.collectionviewHeight.constant =  self.collectionviewHeight.constant - 412
-                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
-                        self.view.layoutIfNeeded()
+//                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant - 412
+//                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
+//                        self.view.layoutIfNeeded()
                     })
                     
                     
                 }
                 else if (self.lastContentOffset < scrollView.contentOffset.y) {
                     print("Else")
-                    self.collectionviewHeight.constant = 800
-                    self.view.layoutIfNeeded()
-                    // print("Moved Down \(self.lastContentOffset)")
+                   
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
-                        self.collectionviewHeight.constant =  self.collectionviewHeight.constant + 412
-                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
-                        self.view.layoutIfNeeded()
+//                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant + 412
+//                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
+//                        self.view.layoutIfNeeded()
                     })
                     
                     

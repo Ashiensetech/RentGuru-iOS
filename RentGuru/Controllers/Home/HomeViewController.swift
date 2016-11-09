@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
     @IBOutlet var productScrollBottom: NSLayoutConstraint!
     @IBOutlet var baseScroll: UIScrollView!
   
+    @IBOutlet var productScrollView: UIView!
     @IBOutlet var slideShow: ImageSlideshow!
     var defaults = UserDefaults.standard
     var baseUrl : String = ""
@@ -81,9 +82,18 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         //self.tabBarController?.tabBar.items?[1].badgeValue = "10"
     }
     override func viewDidLayoutSubviews() {
+        //Getting iDevice's screen width
+        let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
+        let  screenWidth : CGFloat = screenRect.size.width
+        let screenHeight :CGFloat = screenRect.size.height
+        
+           self.productScrollHeight.constant =   screenHeight - (self.slideShow.frame.size.height+20)
+        
+        
+        
         self.baseScroll.contentSize = CGSize(
             width: self.view.frame.size.width,
-            height: self.view.frame.size.height + 206
+            height: screenHeight + 206
         );
         
     }
@@ -178,9 +188,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
             if (self.lastContentOffset > scrollView.contentOffset.y) {
                 UIView.animate(withDuration: 0.5, animations: {
                     
-//                    self.productScrollHeight.constant =  self.productScrollHeight.constant - 412
-//                    self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
-//                    self.view.layoutIfNeeded()
+                    self.productScrollHeight.constant =  self.productScrollHeight.constant - 412
+                    self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
+                    self.view.layoutIfNeeded()
                 })
               
                 
@@ -190,9 +200,9 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                 
                 UIView.animate(withDuration: 0.5, animations: {
                     
-//                    self.productScrollHeight.constant =  self.productScrollHeight.constant + 412
-//                    self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
-//                    self.view.layoutIfNeeded()
+                    self.productScrollHeight.constant =  self.productScrollHeight.constant + 412
+                    self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
+                    self.view.layoutIfNeeded()
                 })
                 
                

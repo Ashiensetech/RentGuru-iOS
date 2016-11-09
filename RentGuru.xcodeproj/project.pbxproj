@@ -112,6 +112,11 @@
 		FDAF747E1D59BAA100500A3C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDAF747D1D59BAA100500A3C /* CoreLocation.framework */; };
 		FDBED37D1DC9D4CA00121EB4 /* UserPaypalCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBED37C1DC9D4CA00121EB4 /* UserPaypalCredential.swift */; };
 		FDBED37F1DC9E22A00121EB4 /* PaypalAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */; };
+		FDC1536B1DD1D5C900408E28 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC1536A1DD1D5C900408E28 /* CategoriesViewController.swift */; };
+		FDC1536D1DD1D67B00408E28 /* ExpandableCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC1536C1DD1D67B00408E28 /* ExpandableCategory.swift */; };
+		FDC153701DD1D88D00408E28 /* ExpandableCategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC1536F1DD1D88D00408E28 /* ExpandableCategoriesTableViewCell.swift */; };
+		FDC153721DD1ECA500408E28 /* CategoryProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC153711DD1ECA500408E28 /* CategoryProductViewController.swift */; };
+		FDC153741DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC153731DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift */; };
 		FDEDF6001D93A54F009C31C5 /* FlipsideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDEDF5FF1D93A54F009C31C5 /* FlipsideViewController.swift */; };
 		FDF251FE1D5C8B9100A12B45 /* cross.png in Resources */ = {isa = PBXBuildFile; fileRef = FDF251FD1D5C8B9100A12B45 /* cross.png */; };
 /* End PBXBuildFile section */
@@ -261,6 +266,11 @@
 		FDAF747D1D59BAA100500A3C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FDBED37C1DC9D4CA00121EB4 /* UserPaypalCredential.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPaypalCredential.swift; sourceTree = "<group>"; };
 		FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaypalAccountResponse.swift; sourceTree = "<group>"; };
+		FDC1536A1DD1D5C900408E28 /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoriesViewController.swift; path = Categories/CategoriesViewController.swift; sourceTree = "<group>"; };
+		FDC1536C1DD1D67B00408E28 /* ExpandableCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExpandableCategory.swift; path = SupportingFiles/ExpandableCategory.swift; sourceTree = "<group>"; };
+		FDC1536F1DD1D88D00408E28 /* ExpandableCategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpandableCategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		FDC153711DD1ECA500408E28 /* CategoryProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryProductViewController.swift; path = Categories/CategoryProductViewController.swift; sourceTree = "<group>"; };
+		FDC153731DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		FDEDF5FF1D93A54F009C31C5 /* FlipsideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FlipsideViewController.swift; path = SupportingFiles/FlipsideViewController.swift; sourceTree = "<group>"; };
 		FDF251FD1D5C8B9100A12B45 /* cross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cross.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -379,6 +389,7 @@
 		FD2F3B521D6C7B0A004175E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FDC1536E1DD1D70500408E28 /* Categories */,
 				FD2F3BBC1D6C83A6004175E2 /* Search */,
 				FD2F3BBE1D6C83A6004175E2 /* SignupIn */,
 				FD2F3BB71D6C8355004175E2 /* Product */,
@@ -401,6 +412,7 @@
 				FD2F3B981D6C8247004175E2 /* SelectedImageCollectionViewCell.swift */,
 				FD25078C1D75A40C005A6039 /* OtherImageCollectionViewCell.swift */,
 				FD3FDF8E1DC227DC007D08AA /* SearchCollectionViewCell.swift */,
+				FDC153731DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -434,6 +446,7 @@
 				FD2F3BAA1D6C82F5004175E2 /* MyProductRequestTableViewCell.swift */,
 				FD2F3BAB1D6C82F5004175E2 /* MyProductTableViewCell.swift */,
 				FD2F3BAC1D6C82F5004175E2 /* MyRequestTableViewCell.swift */,
+				FDC1536F1DD1D88D00408E28 /* ExpandableCategoriesTableViewCell.swift */,
 			);
 			path = CustomTableViewCell;
 			sourceTree = "<group>";
@@ -562,6 +575,7 @@
 				FD165B711D6D5CDE00EF4357 /* NetData.swift */,
 				FD5E0F6D1D5215D0008AB286 /* Podfile */,
 				FD76DBEA1D4F261D00A6D2D7 /* images */,
+				FDC1536C1DD1D67B00408E28 /* ExpandableCategory.swift */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -622,6 +636,15 @@
 				FD998E521D631B1E009826DA /* starryStars_on@2x.png */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		FDC1536E1DD1D70500408E28 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				FDC1536A1DD1D5C900408E28 /* CategoriesViewController.swift */,
+				FDC153711DD1ECA500408E28 /* CategoryProductViewController.swift */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -848,6 +871,7 @@
 				FD32DFB41D5356FD007FFC48 /* EPCalendarHeaderView.swift in Sources */,
 				FD2F3B8C1D6C8181004175E2 /* MyProductRentRequestResponse.swift in Sources */,
 				FDEDF6001D93A54F009C31C5 /* FlipsideViewController.swift in Sources */,
+				FDC153721DD1ECA500408E28 /* CategoryProductViewController.swift in Sources */,
 				FD165B731D6D5CDE00EF4357 /* Extentions.swift in Sources */,
 				FD2F3B9A1D6C8247004175E2 /* ImageCollectionCell.swift in Sources */,
 				FD2F3BB41D6C8319004175E2 /* PostItemFirstViewController.swift in Sources */,
@@ -901,6 +925,8 @@
 				FD2F3B6D1D6C8063004175E2 /*  ResponseStat .swift in Sources */,
 				FD165B6C1D6D5C2800EF4357 /* FileUploader.swift in Sources */,
 				FD2F3B761D6C8063004175E2 /* Product.swift in Sources */,
+				FDC153741DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift in Sources */,
+				FDC1536D1DD1D67B00408E28 /* ExpandableCategory.swift in Sources */,
 				FD899B8F1D990A9F003F5FBD /* RentPayment.swift in Sources */,
 				FD5DB6A31DC8A526004AE8A1 /* EditProfileViewController.swift in Sources */,
 				FD2F3BA31D6C82A4004175E2 /* MyProductsViewController.swift in Sources */,
@@ -909,6 +935,7 @@
 				FD32DFB31D5356FD007FFC48 /* EPCalendarConstants.swift in Sources */,
 				FD2F3BAD1D6C82F5004175E2 /* MyProductRequestTableViewCell.swift in Sources */,
 				FD165B721D6D5CDE00EF4357 /* AppDelegate.swift in Sources */,
+				FDC1536B1DD1D5C900408E28 /* CategoriesViewController.swift in Sources */,
 				FD2F3B931D6C8181004175E2 /* SignUpResponse.swift in Sources */,
 				FD1E216A1D744C08004C730B /* RentRequestActionResponse.swift in Sources */,
 				FD998E531D631B1E009826DA /* RatingView.swift in Sources */,
@@ -924,6 +951,7 @@
 				FD2F3B731D6C8063004175E2 /* ProductCategory.swift in Sources */,
 				FD2F3B791D6C8063004175E2 /* RequestError.swift in Sources */,
 				FD2F3B751D6C8063004175E2 /* RentalProduct.swift in Sources */,
+				FDC153701DD1D88D00408E28 /* ExpandableCategoriesTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
