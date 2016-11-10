@@ -15,7 +15,7 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
     
     @IBOutlet var ratingView: RatingView!
     @IBOutlet var baseScroll: UIScrollView!
-    @IBOutlet var likeImage: UIImageView!
+   
     @IBOutlet var productName: UILabel!
     @IBOutlet var productProfileImageView: UIImageView!
     @IBOutlet var otherImageCollection: UICollectionView!
@@ -24,6 +24,7 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
     @IBOutlet var otherImageHeight: NSLayoutConstraint!
     @IBOutlet var categories: UILabel!
     @IBOutlet var descriptionText: UITextView!
+    @IBOutlet var pickupLoc: UILabel!
     var fromController :String = ""
     var product :RentalProduct!
     var defaults = UserDefaults.standard
@@ -44,13 +45,11 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         scalingTransform = CGAffineTransform(scaleX: 1, y: -1);
         otherImageCollection.transform = scalingTransform
         
-        //self.ratingView.editable = true;
+        self.ratingView.editable = false;
         self.ratingView.delegate = self;
         
        
-        self.likeImage.isUserInteractionEnabled = true
-        let likeGesture =  UITapGestureRecognizer(target: self, action:#selector(ProductDetailsViewController.likeProductAction) )
-        self.likeImage.addGestureRecognizer(likeGesture)
+        
       
        
     }
@@ -119,9 +118,7 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         
         self.available.text = "\(dateString1) to \(dateString2)"
         self.ratingView.rating = self.product.averageRating
-        //        if(product.isLiked == true){
-        //          self.likeImage.image = UIImage(named: "fev-full")
-        //        }
+        self.pickupLoc.text = self.product.productLocation?.formattedAddress
     }
     
     override func didReceiveMemoryWarning() {
