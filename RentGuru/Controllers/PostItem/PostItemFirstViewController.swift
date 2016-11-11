@@ -255,7 +255,7 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
     func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : Date) {
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyy"
+        formatter.dateFormat = "dd-MM-yyyy"
         let str = formatter.string(from: date)
         
         if(self.didTouchedFromDate){
@@ -296,7 +296,7 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
                     
                     let cateRes: CategoryResponse = Mapper<CategoryResponse>().map(JSON: data as! [String : Any])!
                     if((cateRes.responseStat.status) != false){
-                        print("data", cateRes.responseData)
+                       
                         self.categoryList = cateRes.responseData!
                         var cateSource = Array<String>() ;
                         for i in 0  ..< self.categoryList.count {

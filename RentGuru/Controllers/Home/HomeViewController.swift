@@ -189,7 +189,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                 UIView.animate(withDuration: 0.5, animations: {
                     
                     self.productScrollHeight.constant =  self.productScrollHeight.constant - 412
-                    self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
+                    //self.productScrollBottom.constant =  self.productScrollBottom.constant + 206
                     self.view.layoutIfNeeded()
                 })
               
@@ -201,7 +201,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                 UIView.animate(withDuration: 0.5, animations: {
                     
                     self.productScrollHeight.constant =  self.productScrollHeight.constant + 412
-                    self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
+                   // self.productScrollBottom.constant =  self.productScrollBottom.constant - 206
                     self.view.layoutIfNeeded()
                 })
                 

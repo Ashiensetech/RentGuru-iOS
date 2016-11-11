@@ -18,14 +18,14 @@ class MyProductsViewController: UIViewController , UITableViewDelegate, UITableV
     var offset : Int = 0
     var productList : [MyRentalProduct]! = []
     var isData : Bool = true
- 
+    var editableProduct : MyRentalProduct?
     override func viewDidLoad() {
         super.viewDidLoad()
         presentWindow = UIApplication.shared.keyWindow
         baseUrl = defaults.string(forKey: "baseUrl")!
         self.myProductTable.delegate = self
         self.myProductTable.dataSource = self
-         self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
         
     }
     
@@ -50,16 +50,16 @@ class MyProductsViewController: UIViewController , UITableViewDelegate, UITableV
         let  data : MyRentalProduct = self.productList[(indexPath as NSIndexPath).row]
         let path = data.profileImage.original.path!
         cell.productImageView.kf.setImage(with: URL(string: "\(baseUrl)/images/\(path)")!,
-                              placeholder: nil,
-                              options: [.transition(.fade(1))],
-                              progressBlock: nil,
-                              completionHandler: nil)
-//        cell.productImageView.kf_setImageWithURL(URL(string: "\(baseUrl)/images/\(data.profileImage.original.path)")!,
-//                                                 placeholderImage: nil,
-//                                                 optionsInfo: nil,
-//                                                 progressBlock: { (receivedSize, totalSize) -> () in },
-//                                                 completionHandler: { (image, error, cacheType, imageURL) -> () in  }
-//        )
+                                          placeholder: nil,
+                                          options: [.transition(.fade(1))],
+                                          progressBlock: nil,
+                                          completionHandler: nil)
+        //        cell.productImageView.kf_setImageWithURL(URL(string: "\(baseUrl)/images/\(data.profileImage.original.path)")!,
+        //                                                 placeholderImage: nil,
+        //                                                 optionsInfo: nil,
+        //                                                 progressBlock: { (receivedSize, totalSize) -> () in },
+        //                                                 completionHandler: { (image, error, cacheType, imageURL) -> () in  }
+        //        )
         cell.productName.text = data.name
         var cateString : String = ""
         for i in 0 ..< data.productCategories.count{
@@ -96,50 +96,52 @@ class MyProductsViewController: UIViewController , UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-         //let  data : MyRentalProduct = self.productList[indexPath.row]
-//        print(data.id)
-//        self.performSegueWithIdentifier("productRentRequest", sender: nil)
+        
+        //let  data : MyRentalProduct = self.productList[indexPath.row]
+        //        print(data.id)
+        //        self.performSegueWithIdentifier("productRentRequest", sender: nil)
         
     }
     
-    func acceptAction(_ sender :AnyObject){
-        //  let  req : RentalProduct = self.productList[sender.tag]
-        
-        
-        
-    }
-    func declineAction(_ sender: AnyObject)  {
-        //let  req : RentalProduct = self.productList[sender.tag]
-        
-        
-    }
     
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-     
-        let favorite = UITableViewRowAction(style: .normal, title: "\u{1F4DD}") { action, index in
-            print("favorite button tapped")
-        }
-       //favorite.backgroundColor = UIColor(netHex:0xD0842D)
-     
-        let share = UITableViewRowAction(style: .normal, title: "\u{1F5D1}") { action, index in
-            print("share button tapped")
-        }
-        share.backgroundColor = UIColor.white
         
-        return [share, favorite]
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { action, index in
+            
+          self.editableProduct = self.productList[indexPath.row]
+            
+            self.performSegue(withIdentifier: "editProduct", sender: self)
+        }
+        edit.backgroundColor = UIColor(netHex:0xD0842D)
+        
+        
+        
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
+            
+            let data : MyRentalProduct = self.productList[indexPath.row]
+            self.deleteProduct(data)
+            
+            
+            
+            
+            
+        }
+        delete.backgroundColor = UIColor.red
+        
+        return [edit , delete]
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // the cells you would like the actions to appear needs to be editable
         return true
     }
-
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-         self.getMyProductRentalProduct()
-
+        self.getMyProductRentalProduct()
+        
     }
+    
     //MARK:- API Access
     func getMyProductRentalProduct() {
         if(self.isData == true){
@@ -150,7 +152,7 @@ class MyProductsViewController: UIViewController , UITableViewDelegate, UITableV
                 .responseJSON { response in
                     switch response.result {
                     case .success(let data):
-                       // print(data)
+                        // print(data)
                         let reqRes : MyRentalProductResponse = Mapper<MyRentalProductResponse>().map(JSONObject: data )!
                         
                         if(reqRes.responseStat.status != false){
@@ -181,15 +183,67 @@ class MyProductsViewController: UIViewController , UITableViewDelegate, UITableV
         
     }
     
+    func deleteProduct(_ product: RentalProduct) {
+        
+        
+        let alertController = UIAlertController(title: "Delete", message: "All information related to \(product.name!) will be lost, are you sure to proceed ? ", preferredStyle: UIAlertControllerStyle.alert)
+        //alertController.view.tintColor = UIColor(netHex:0xD0842D)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alert :UIAlertAction!) in
+        })
+        alertController.addAction(cancelAction)
+        let loginAction = UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alert :UIAlertAction!) in
+           // print("post \(self.baseUrl)api/auth/product/delete-Product/\(product.id!)")
+            
+            Alamofire.request( URL(string: "\(self.baseUrl)api/auth/product/delete-Product/\(product.id!)" )!,method :.post ,parameters: [:])
+                .validate(contentType: ["application/json"])
+                .responseJSON { response in
+                    switch response.result {
+                    case .success(let data):
+                        debugPrint(data)
+                        let response : Response = Mapper<Response>().map(JSONObject: data)!
+                        print(response.responseStat.status)
+                        
+                        if(response.responseStat.status != false){
+                            self.view.makeToast(message: (response.responseStat.msg)!, duration: 2, position: HRToastPositionCenter as AnyObject)
+                            self.getMyProductRentalProduct()
+                        }
+                        else{
+                            if(response.responseStat.msg != ""){
+                                self.view.makeToast(message: (response.responseStat.msg)!, duration: 2, position: HRToastPositionCenter as AnyObject)
+                            }else{
+                                self.view.makeToast(message: (response.responseStat.requestErrors?[0].msg)!, duration: 2, position: HRToastPositionCenter as AnyObject)
+                            }
+                            
+                        }
+                        
+                        
+                    case .failure(let error):
+                        print(error)
+                        
+                    }
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    self.presentWindow!.hideToastActivity()
+            }
+        })
+        alertController.addAction(loginAction)
+        present(alertController, animated: true, completion: nil)
+        // print(productid)
+    }
     
-    /*
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "editProduct"){
+            
+            
+            let controller : EditProductViewController = segue.destination as! EditProductViewController
+            controller.editableProduct = self.editableProduct
+//            controller.isRequestedToMe = true
+//            controller.rentRequest = self.selectedRentRequest
+            
+        }
+    }
+    
     
 }

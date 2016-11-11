@@ -40,7 +40,11 @@ class CategoriesViewController: UIViewController, UITableViewDataSource, UITable
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        self.navigationItem.title = "Categories"
-        self.getCategory()
+        self.tabBarController?.tabBar.isHidden = false
+        if(self.allCategories.count == 0 ){
+            self.getCategory()
+        }
+        
     }
   
     func numberOfSections(in tableView: UITableView) -> Int {

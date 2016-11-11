@@ -119,6 +119,7 @@ class LoginViewController: UIViewController ,UITextFieldDelegate,GIDSignInUIDele
     func loginWithAccessToken()  {
         //cos "abc" is our default accesstoken , go check on appdelegate
         if(accessToken != "abc"){
+            print("access token : \(accessToken)")
             Alamofire.request( URL(string: "\(baseUrl)api/signin/by-accesstoken" )!, method:.post,parameters: ["accessToken": accessToken])
                 .validate(contentType: ["application/json"])
                 .responseJSON { response in
