@@ -103,6 +103,8 @@
 	<string>This app will access your photo library </string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>Show your location on the map</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>To pick your current location</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>REVERSED_CLIENT_ID</key>

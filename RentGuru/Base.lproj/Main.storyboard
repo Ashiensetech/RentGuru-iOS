@@ -2607,7 +2607,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ylh-0A-trY" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Post Item" image="tab-post" selectedImage="tab-post" id="w1Z-9I-0ag"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="MKh-ej-Nhu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MKh-ej-Nhu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2625,7 +2625,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qyi-ha-7pu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kgd-J0-jAB">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="kgd-J0-jAB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4034,7 +4034,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gvU-QA-DYp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="tab-account" id="Okh-3G-qGd"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c7S-qx-4NP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c7S-qx-4NP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4054,7 +4054,7 @@
                     <tabBarItem key="tabBarItem" title="Categories" image="tab-cate" id="CAi-8f-JM6"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Go0-T3-Whc">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Go0-T3-Whc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4072,7 +4072,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RZB-sW-NKl" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qdg-aV-p0A">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qdg-aV-p0A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -4415,7 +4415,7 @@
                                                     <constraint firstItem="hFK-LT-Pgw" firstAttribute="leading" secondItem="Keg-k8-rkS" secondAttribute="leading" id="usB-R4-6ST"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onv-bW-alX">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location(Optional)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onv-bW-alX">
                                                 <rect key="frame" x="8" y="396" width="359" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="b49-JQ-dQ1"/>

@@ -108,6 +108,7 @@
 		FD81AE5C1DC873E600F62837 /* BannerImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */; };
 		FD899B8F1D990A9F003F5FBD /* RentPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD899B8E1D990A9F003F5FBD /* RentPayment.swift */; };
 		FD899B911D991073003F5FBD /* VerifyPaymentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */; };
+		FD8EFD3C1DD9CCF800510C42 /* EditProductResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8EFD3B1DD9CCF800510C42 /* EditProductResponse.swift */; };
 		FD998E531D631B1E009826DA /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD998E4E1D631B1E009826DA /* RatingView.swift */; };
 		FD998E541D631B1E009826DA /* starryStars_half@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD998E501D631B1E009826DA /* starryStars_half@2x.png */; };
 		FD998E551D631B1E009826DA /* starryStars_off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD998E511D631B1E009826DA /* starryStars_off@2x.png */; };
@@ -266,6 +267,7 @@
 		FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerImageResponse.swift; sourceTree = "<group>"; };
 		FD899B8E1D990A9F003F5FBD /* RentPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentPayment.swift; sourceTree = "<group>"; };
 		FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyPaymentResponse.swift; sourceTree = "<group>"; };
+		FD8EFD3B1DD9CCF800510C42 /* EditProductResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProductResponse.swift; sourceTree = "<group>"; };
 		FD998E4E1D631B1E009826DA /* RatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		FD998E501D631B1E009826DA /* starryStars_half@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starryStars_half@2x.png"; sourceTree = "<group>"; };
 		FD998E511D631B1E009826DA /* starryStars_off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "starryStars_off@2x.png"; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */,
 				FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */,
 				FD72905C1DD5A55500096173 /* ParentCategoryResponse.swift */,
+				FD8EFD3B1DD9CCF800510C42 /* EditProductResponse.swift */,
 			);
 			name = ResponseModels;
 			path = Response;
@@ -948,6 +951,7 @@
 				FD899B8F1D990A9F003F5FBD /* RentPayment.swift in Sources */,
 				FD5DB6A31DC8A526004AE8A1 /* EditProfileViewController.swift in Sources */,
 				FD2F3BA31D6C82A4004175E2 /* MyProductsViewController.swift in Sources */,
+				FD8EFD3C1DD9CCF800510C42 /* EditProductResponse.swift in Sources */,
 				FD81AE5C1DC873E600F62837 /* BannerImageResponse.swift in Sources */,
 				FD74B1081DD44DE1007335D6 /* EditProductViewController.swift in Sources */,
 				FD2F3BBA1D6C8355004175E2 /* ProductDetailsViewController.swift in Sources */,

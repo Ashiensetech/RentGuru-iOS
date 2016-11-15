@@ -60,7 +60,7 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
     
     let locationManager = CLLocationManager()
     var currentLocValue = CLLocationCoordinate2D()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -108,11 +108,6 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         }
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationItem.title = "Edit Product"
         
         self.titleTxt.text = self.editableProduct?.name!
         self.areaTxt.text = self.editableProduct?.productLocation?.formattedAddress!
@@ -170,7 +165,7 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         }
         
         subCateDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-           
+            
             self.subCateTxt.text = item
             self.selectedCategory.append(self.subCategoryList[index].id)
         }
@@ -183,8 +178,15 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             self.getCategory()
         }
         if(self.rentTypeList.isEmpty){
-         self.getRentType()
+            self.getRentType()
         }
+        locationTxt.text = self.editableProduct?.productLocation?.formattedAddress
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationItem.title = "Edit Product"
+        
         
     }
     
@@ -267,11 +269,15 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             view.makeToast(message:"Product category required is required", duration: 2, position: HRToastPositionCenter as AnyObject)
         }else{
             if(self.categoryDidChange != false && !self.selectedCategory.isEmpty){
-             paremeters["categoryIds"]  = "\(self.selectedCategory)" as AnyObject
+                paremeters["categoryIds"]  = "\(self.selectedCategory)" as AnyObject
             }
         }
+        if(self.locationTxt.text != ""){
+            paremeters["lat"] = self.currentLocValue.latitude as AnyObject?
+            paremeters["lng"] = self.currentLocValue.longitude as AnyObject?
+        }
         if(checkAll != false){
-           
+            
             print(paremeters)
             self.postEdit(paremeter: paremeters)
         }
@@ -298,6 +304,8 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             if let place = place {
                 self.pickedLocValue = place.coordinate
                 self.locationTxt.text = place.name
+                self.areaTxt.text = place.formattedAddress!
+                
             } else {
                 print("No place selected")
             }
@@ -348,14 +356,13 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
     func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {
     }
     func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : Date) {
-        self.avaiableFromTxt.text =  ""
-        self.availableTillTxt.text = ""
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd-MM-yyyy"
         let str = formatter.string(from: date)
         
         if(self.didTouchedFromDate != false){
-           
+            
             toCalendarPicker.startDate = date
             self.didTouchedFromDate = false
             self.avaiableFromTxt.text = str//"User selected date: \n\(date)"
@@ -478,6 +485,8 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         
     }
     func postEdit(paremeter : [String : AnyObject]) {
+        
+        self.view.makeToastActivity()
         print("post :\(baseUrl)api/auth/product/update-Product/\((self.editableProduct?.id!)!)")
         Alamofire.request(URL(string: "\(baseUrl)api/auth/product/update-product/\((self.editableProduct?.id!)!)" )!,method:.post ,parameters: paremeter)
             .validate(contentType: ["application/json"])
@@ -494,22 +503,24 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
                         //                        if let tabBarController = self.presentWindow!.rootViewController as? UITabBarController {
                         //                            tabBarController.selectedIndex = 1
                         //                        }
-                        
+                        self.view.hideToastActivity()
                     }else{
                         if(productRes.responseStat.msg == ""){
                             self.view.makeToast(message:productRes.responseStat.requestErrors![0].msg, duration: 2, position: HRToastPositionCenter as AnyObject)
                         }else{
                             self.view.makeToast(message:productRes.responseStat.msg, duration: 2, position: HRToastPositionCenter as AnyObject)
                         }
-                        
+                        self.view.hideToastActivity()
                     }
+                    
                 case .failure(let error):
+                    self.view.hideToastActivity()
                     print(error)
                 }
         }
     }
     func getParentCate(categoryid :Int)  {
-      Alamofire.request(URL(string: "\(baseUrl)api/utility/get-parent-by-subcategory-id/\(categoryid)" )!,method:.get ,parameters: [:])
+        Alamofire.request(URL(string: "\(baseUrl)api/utility/get-parent-by-subcategory-id/\(categoryid)" )!,method:.get ,parameters: [:])
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 //print(response)
