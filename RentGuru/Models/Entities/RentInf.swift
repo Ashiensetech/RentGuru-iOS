@@ -10,22 +10,37 @@ import ObjectMapper
 
 class RentInf: Mappable {
     var id              : Int!
+    var rentee: AppCredential!
     var startDate       : String!
     var endsDate        : String!
-    var  expired        : Bool!
-    var  createdDate    : Double!
-    var  rentRequest    : RentRequest!
     var isRentComplete  :Bool!
+    var expired        : Bool!
+    var productReturned: Bool!
+    var productReceived: Bool!
+    var hasReturnRequest: Bool!
+    var hasReceiveConfirmation: Bool!
+    var rentalProductReturnRequest: RentalProductReturnRequest!
+    var rentalProductReturned: RentalProductReturned!
+    var createdDate    : Double!
+    
     required init?(map: Map) {
         
     }
+    
     func mapping(map: Map) {
-        id              <- map["id"]
-        startDate       <- map["startDate"]
-        endsDate        <- map["endsDate"]
-        expired         <- map["expired"]
-        createdDate     <- map["createdDate"]
-        isRentComplete  <- map["isRentComplete"]
-        rentRequest     <- map["rentRequest"]
+        id                          <- map["id"]
+        rentee                      <- map["rentee"]
+        startDate                   <- map["startDate"]
+        endsDate                    <- map["endsDate"]
+        isRentComplete              <- map["isRentComplete"]
+        expired                     <- map["expired"]
+        productReturned             <- map["productReturned"]
+        productReceived             <- map["productReceived"]
+        hasReturnRequest            <- map["hasReturnRequest"]
+        hasReceiveConfirmation      <- map["hasReceiveConfirmation"]
+        rentalProductReturnRequest  <- map["rentalProductReturnRequest"]
+        rentalProductReturned       <- map["rentalProductReturned"]
+        createdDate                 <- map["createdDate"]
     }
+    
 }

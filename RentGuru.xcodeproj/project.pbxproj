@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		844002631DDC44BD00A1F5C8 /* RentalProductReturnRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844002621DDC44BD00A1F5C8 /* RentalProductReturnRequest.swift */; };
+		844002651DDC45E900A1F5C8 /* RentalProductReturned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844002641DDC45E900A1F5C8 /* RentalProductReturned.swift */; };
+		844002671DDC47EB00A1F5C8 /* RentalProductReturnedHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844002661DDC47EB00A1F5C8 /* RentalProductReturnedHistory.swift */; };
+		844002691DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844002681DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift */; };
+		8440026B1DDC726900A1F5C8 /* RentInfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440026A1DDC726900A1F5C8 /* RentInfResponse.swift */; };
+		845532531DDB2D240062F2DE /* RequestedProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */; };
 		C97280E74BAB2F2266DCB92B /* Pods_RentGuru.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1F1B1466978A9B0491E2F8 /* Pods_RentGuru.framework */; };
 		FD165B6C1D6D5C2800EF4357 /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6B1D6D5C2800EF4357 /* FileUploader.swift */; };
 		FD165B721D6D5CDE00EF4357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6D1D6D5CDE00EF4357 /* AppDelegate.swift */; };
@@ -159,6 +165,12 @@
 
 /* Begin PBXFileReference section */
 		83AABCD9B08AFBA891EDE30D /* Pods-RentGuru.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.debug.xcconfig"; sourceTree = "<group>"; };
+		844002621DDC44BD00A1F5C8 /* RentalProductReturnRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalProductReturnRequest.swift; sourceTree = "<group>"; };
+		844002641DDC45E900A1F5C8 /* RentalProductReturned.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalProductReturned.swift; sourceTree = "<group>"; };
+		844002661DDC47EB00A1F5C8 /* RentalProductReturnedHistory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentalProductReturnedHistory.swift; sourceTree = "<group>"; };
+		844002681DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		8440026A1DDC726900A1F5C8 /* RentInfResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentInfResponse.swift; sourceTree = "<group>"; };
+		845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestedProductDetailsViewController.swift; sourceTree = "<group>"; };
 		E925C8DFFC1789E2658F9CB2 /* Pods-RentGuru.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.release.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.release.xcconfig"; sourceTree = "<group>"; };
 		FD165B6B1D6D5C2800EF4357 /* FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 		FD165B6D1D6D5CDE00EF4357 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SupportingFiles/AppDelegate.swift; sourceTree = "<group>"; };
@@ -369,6 +381,9 @@
 				FD899B8E1D990A9F003F5FBD /* RentPayment.swift */,
 				FD81AE591DC8725300F62837 /* BannerImage.swift */,
 				FDBED37C1DC9D4CA00121EB4 /* UserPaypalCredential.swift */,
+				844002621DDC44BD00A1F5C8 /* RentalProductReturnRequest.swift */,
+				844002641DDC45E900A1F5C8 /* RentalProductReturned.swift */,
+				844002661DDC47EB00A1F5C8 /* RentalProductReturnedHistory.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -376,25 +391,26 @@
 		FD2F3B511D6C7A72004175E2 /* ResponseModels */ = {
 			isa = PBXGroup;
 			children = (
+				FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */,
 				FD2F3B7C1D6C8181004175E2 /* CategoryResponse.swift */,
+				FD8EFD3B1DD9CCF800510C42 /* EditProductResponse.swift */,
 				FD2F3B7D1D6C8181004175E2 /* IdentityDocumentResponse.swift */,
 				FD2F3B7E1D6C8181004175E2 /* IdentityTypeResponse.swift */,
 				FD2F3B7F1D6C8181004175E2 /* LoginResponse.swift */,
 				FD2F3B801D6C8181004175E2 /* MyProductRentRequestResponse.swift */,
+				FD165B811D6DB67E00EF4357 /* MyRentalProductResponse.swift */,
+				FD72905C1DD5A55500096173 /* ParentCategoryResponse.swift */,
+				FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */,
 				FD2F3B811D6C8181004175E2 /* PostProductResponse.swift */,
 				FD2F3B821D6C8181004175E2 /* ProductResponse.swift */,
 				FD2F3B831D6C8181004175E2 /* RatingResponse.swift */,
+				FD1E21691D744C08004C730B /* RentRequestActionResponse.swift */,
 				FD2F3B841D6C8181004175E2 /* RentRequestResponse.swift */,
 				FD2F3B851D6C8181004175E2 /* RentTypeResponse.swift */,
 				FD2F3B861D6C8181004175E2 /* Response.swift */,
 				FD2F3B871D6C8181004175E2 /* SignUpResponse.swift */,
-				FD165B811D6DB67E00EF4357 /* MyRentalProductResponse.swift */,
-				FD1E21691D744C08004C730B /* RentRequestActionResponse.swift */,
 				FD899B901D991073003F5FBD /* VerifyPaymentResponse.swift */,
-				FD81AE5B1DC873E600F62837 /* BannerImageResponse.swift */,
-				FDBED37E1DC9E22A00121EB4 /* PaypalAccountResponse.swift */,
-				FD72905C1DD5A55500096173 /* ParentCategoryResponse.swift */,
-				FD8EFD3B1DD9CCF800510C42 /* EditProductResponse.swift */,
+				8440026A1DDC726900A1F5C8 /* RentInfResponse.swift */,
 			);
 			name = ResponseModels;
 			path = Response;
@@ -428,6 +444,7 @@
 				FD3FDF8E1DC227DC007D08AA /* SearchCollectionViewCell.swift */,
 				FDC153731DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift */,
 				FD72905E1DD5C80F00096173 /* EditOtherImageCollectionViewCell.swift */,
+				844002681DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -443,6 +460,7 @@
 				FD165B7B1D6DA2E600EF4357 /* ProfileSettingTableViewController.swift */,
 				FD2F3BA11D6C82A4004175E2 /* ProfileViewController.swift */,
 				FD7A580C1D71788600DEE58E /* RequestDetailsViewController.swift */,
+				845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -893,7 +911,9 @@
 				FD165B731D6D5CDE00EF4357 /* Extentions.swift in Sources */,
 				FD2F3B9A1D6C8247004175E2 /* ImageCollectionCell.swift in Sources */,
 				FD2F3BB41D6C8319004175E2 /* PostItemFirstViewController.swift in Sources */,
+				844002651DDC45E900A1F5C8 /* RentalProductReturned.swift in Sources */,
 				FD2F3B591D6C7EE0004175E2 /* AppCredential.swift in Sources */,
+				844002691DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift in Sources */,
 				FD81AE5A1DC8725300F62837 /* BannerImage.swift in Sources */,
 				FD2F3B9C1D6C8247004175E2 /* SelectedImageCollectionViewCell.swift in Sources */,
 				FD2F3B6B1D6C8063004175E2 /* ProductLocation.swift in Sources */,
@@ -903,6 +923,7 @@
 				FD2F3B701D6C8063004175E2 /* AuthCredential.swift in Sources */,
 				FD32DFB71D5356FD007FFC48 /* EPExtensions.swift in Sources */,
 				FD2F3BA51D6C82A4004175E2 /* ProfileViewController.swift in Sources */,
+				845532531DDB2D240062F2DE /* RequestedProductDetailsViewController.swift in Sources */,
 				FD30DB551DC9CC8100A7B748 /* PaypalAccountViewController.swift in Sources */,
 				FD2F3B771D6C8063004175E2 /* RentRequest.swift in Sources */,
 				FD2F3B7A1D6C8063004175E2 /* RentType.swift in Sources */,
@@ -911,6 +932,7 @@
 				FD165B761D6D5CDE00EF4357 /* NetData.swift in Sources */,
 				FD165B801D6DB4EE00EF4357 /* MyRentalProduct.swift in Sources */,
 				FD2F3B6E1D6C8063004175E2 /* Picture.swift in Sources */,
+				844002631DDC44BD00A1F5C8 /* RentalProductReturnRequest.swift in Sources */,
 				FD2F3BA41D6C82A4004175E2 /* MyRequestViewController.swift in Sources */,
 				FDBED37F1DC9E22A00121EB4 /* PaypalAccountResponse.swift in Sources */,
 				FD2F3BBB1D6C8355004175E2 /* RentRequestViewController.swift in Sources */,
@@ -942,6 +964,7 @@
 				FD2F3B921D6C8181004175E2 /* Response.swift in Sources */,
 				FD2F3B881D6C8181004175E2 /* CategoryResponse.swift in Sources */,
 				FD2F3B8E1D6C8181004175E2 /* ProductResponse.swift in Sources */,
+				8440026B1DDC726900A1F5C8 /* RentInfResponse.swift in Sources */,
 				FD2F3BC31D6C83A6004175E2 /* SignupViewController.swift in Sources */,
 				FD2F3B6D1D6C8063004175E2 /*  ResponseStat .swift in Sources */,
 				FD165B6C1D6D5C2800EF4357 /* FileUploader.swift in Sources */,
@@ -963,6 +986,7 @@
 				FD2F3B931D6C8181004175E2 /* SignUpResponse.swift in Sources */,
 				FD1E216A1D744C08004C730B /* RentRequestActionResponse.swift in Sources */,
 				FD998E531D631B1E009826DA /* RatingView.swift in Sources */,
+				844002671DDC47EB00A1F5C8 /* RentalProductReturnedHistory.swift in Sources */,
 				FD2F3B8B1D6C8181004175E2 /* LoginResponse.swift in Sources */,
 				FD5CDC651D586ACD00970E64 /* HRToast+UIView.swift in Sources */,
 				FD32DFB11D5356FD007FFC48 /* EPCalendarCell1.swift in Sources */,

@@ -79,20 +79,15 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
                               options: [.transition(.fade(1))],
                               progressBlock: nil,
                               completionHandler: nil)
-
-        cell.productName.text = data.rentalProduct.name
-        cell.userName.text = "\(data.requestedBy.userInf.firstName) \(data.requestedBy.userInf.lastName)"
-        cell.dateRenge.text = "\( data.startDate) to \(data.endDate)"
-        
-        
-        
-        
+        cell.productName.text = data.rentalProduct.name!
+        cell.userName.text = "\(data.requestedBy.userInf.firstName!) \(data.requestedBy.userInf.lastName!)"
+        cell.dateRenge.text = "\( data.startDate!) to \(data.endDate!)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedRentRequest = requestList[(indexPath as NSIndexPath).row]
-        self.performSegue(withIdentifier: "requestDetails", sender: nil)
+        self.performSegue(withIdentifier: "MyProductRequestDetails", sender: indexPath)
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -353,19 +348,17 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
     
     
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "requestDetails"){
+        if(segue.identifier == "MyProductRequestDetails"){
+            let row = (sender as! NSIndexPath).row
+            let rentRequest = requestList[row]
             self.navigationController!.navigationBar.barTintColor = UIColor(netHex:0x2D2D2D)
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(netHex:0xD0842D)]
-            
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
             self.navigationItem.backBarButtonItem!.tintColor = UIColor.white
             
-            let controller : RequestDetailsViewController = segue.destination as! RequestDetailsViewController
-            controller.isRequestedToMe = true
-            controller.rentRequest = self.selectedRentRequest
+            let controller : RequestedProductDetailsViewController = segue.destination as! RequestedProductDetailsViewController
+            controller.rentRequest = rentRequest
             
         }
      }
