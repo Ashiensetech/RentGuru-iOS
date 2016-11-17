@@ -13,6 +13,8 @@
 		844002691DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844002681DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift */; };
 		8440026B1DDC726900A1F5C8 /* RentInfResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440026A1DDC726900A1F5C8 /* RentInfResponse.swift */; };
 		845532531DDB2D240062F2DE /* RequestedProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */; };
+		84A9EC041DDDA7B200DA508D /* RentFeesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9EC031DDDA7B200DA508D /* RentFeesHelper.swift */; };
+		84A9EC061DDDB32800DA508D /* BookingProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9EC051DDDB32800DA508D /* BookingProductDetailsViewController.swift */; };
 		C97280E74BAB2F2266DCB92B /* Pods_RentGuru.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1F1B1466978A9B0491E2F8 /* Pods_RentGuru.framework */; };
 		FD165B6C1D6D5C2800EF4357 /* FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6B1D6D5C2800EF4357 /* FileUploader.swift */; };
 		FD165B721D6D5CDE00EF4357 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD165B6D1D6D5CDE00EF4357 /* AppDelegate.swift */; };
@@ -171,6 +173,8 @@
 		844002681DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		8440026A1DDC726900A1F5C8 /* RentInfResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RentInfResponse.swift; sourceTree = "<group>"; };
 		845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestedProductDetailsViewController.swift; sourceTree = "<group>"; };
+		84A9EC031DDDA7B200DA508D /* RentFeesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RentFeesHelper.swift; path = SupportingFiles/RentFeesHelper.swift; sourceTree = "<group>"; };
+		84A9EC051DDDB32800DA508D /* BookingProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingProductDetailsViewController.swift; sourceTree = "<group>"; };
 		E925C8DFFC1789E2658F9CB2 /* Pods-RentGuru.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.release.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.release.xcconfig"; sourceTree = "<group>"; };
 		FD165B6B1D6D5C2800EF4357 /* FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUploader.swift; sourceTree = "<group>"; };
 		FD165B6D1D6D5CDE00EF4357 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SupportingFiles/AppDelegate.swift; sourceTree = "<group>"; };
@@ -461,6 +465,7 @@
 				FD2F3BA11D6C82A4004175E2 /* ProfileViewController.swift */,
 				FD7A580C1D71788600DEE58E /* RequestDetailsViewController.swift */,
 				845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */,
+				84A9EC051DDDB32800DA508D /* BookingProductDetailsViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -612,6 +617,7 @@
 				FD5E0F6D1D5215D0008AB286 /* Podfile */,
 				FD76DBEA1D4F261D00A6D2D7 /* images */,
 				FDC1536C1DD1D67B00408E28 /* ExpandableCategory.swift */,
+				84A9EC031DDDA7B200DA508D /* RentFeesHelper.swift */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -751,7 +757,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Workspace Infotech";
 				TargetAttributes = {
 					FD3EE0921D4B59FD0009C250 = {
@@ -935,6 +941,7 @@
 				844002631DDC44BD00A1F5C8 /* RentalProductReturnRequest.swift in Sources */,
 				FD2F3BA41D6C82A4004175E2 /* MyRequestViewController.swift in Sources */,
 				FDBED37F1DC9E22A00121EB4 /* PaypalAccountResponse.swift in Sources */,
+				84A9EC061DDDB32800DA508D /* BookingProductDetailsViewController.swift in Sources */,
 				FD2F3BBB1D6C8355004175E2 /* RentRequestViewController.swift in Sources */,
 				FD7A580D1D71788600DEE58E /* RequestDetailsViewController.swift in Sources */,
 				FD74B10A1DD48941007335D6 /* EditProductInformationViewController.swift in Sources */,
@@ -974,6 +981,7 @@
 				FD899B8F1D990A9F003F5FBD /* RentPayment.swift in Sources */,
 				FD5DB6A31DC8A526004AE8A1 /* EditProfileViewController.swift in Sources */,
 				FD2F3BA31D6C82A4004175E2 /* MyProductsViewController.swift in Sources */,
+				84A9EC041DDDA7B200DA508D /* RentFeesHelper.swift in Sources */,
 				FD8EFD3C1DD9CCF800510C42 /* EditProductResponse.swift in Sources */,
 				FD81AE5C1DC873E600F62837 /* BannerImageResponse.swift in Sources */,
 				FD74B1081DD44DE1007335D6 /* EditProductViewController.swift in Sources */,
@@ -1068,8 +1076,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1114,8 +1124,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1134,6 +1146,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

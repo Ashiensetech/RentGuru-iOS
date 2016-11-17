@@ -11,7 +11,7 @@ import ObjectMapper
 class MyProductRentRequestResponse: Mappable {
     
     var responseStat    : ResponseStat!
-    var responseData    : [RentRequest]?
+    var responseData    : [RentRequest] = []
     
     required init?(map: Map) {
         

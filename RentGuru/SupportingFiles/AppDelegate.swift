@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
             defaults.set("abc", forKey: "accesstoken")
         }
         
-        UITabBar.appearance().selectedImageTintColor =  UIColor.white
+        UITabBar.appearance().tintColor =  UIColor.white
         UITabBar.appearance().barTintColor = UIColor(netHex:0x2D2D2D)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.gray], for:UIControlState())
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.white], for:.selected)

@@ -224,7 +224,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
     }
     
     
-    //Mark : - ApiCall
+    //MARK: - ApiCall
     
     func getProducts() {
         if(self.isData != false){

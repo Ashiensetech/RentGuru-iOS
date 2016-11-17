@@ -19,7 +19,7 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
     var baseUrl : String = ""
     var presentWindow : UIWindow?
     var offset : Int = 0
-    var requestList : [RentRequest]! = []
+    var requestList : [RentRequest] = []
     var isData : Bool = true
     var currentIndex :Int = 0
     var selectedRentRequest : RentRequest!
@@ -235,8 +235,8 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
                         let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSONObject: data)!
                         //  print(reqRes)
                         if(reqRes.responseStat.status != false){
-                            for i in 0 ..< reqRes.responseData!.count{
-                                self.requestList.append(reqRes.responseData![i])
+                            for i in 0 ..< reqRes.responseData.count{
+                                self.requestList.append(reqRes.responseData[i])
                                 
                             }
                             self.offset += 1
@@ -276,8 +276,8 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
                         let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSONObject: data)!
                         //  print(reqRes)
                         if(reqRes.responseStat.status != false){
-                            for i in 0 ..< reqRes.responseData!.count{
-                                self.requestList.append(reqRes.responseData![i])
+                            for i in 0 ..< reqRes.responseData.count{
+                                self.requestList.append(reqRes.responseData[i])
                                 
                             }
                             self.offset += 1
@@ -317,8 +317,8 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
                         let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSONObject: data)!
                         //  print(reqRes)
                         if(reqRes.responseStat.status != false){
-                            for i in 0 ..< reqRes.responseData!.count{
-                                self.requestList.append(reqRes.responseData![i])
+                            for i in 0 ..< reqRes.responseData.count{
+                                self.requestList.append(reqRes.responseData[i])
                                 
                             }
                             self.offset += 1

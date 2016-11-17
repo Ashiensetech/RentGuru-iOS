@@ -18,7 +18,7 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
     var baseUrl : String = ""
     var presentWindow : UIWindow?
     var offset : Int = 0
-    var requestList : [RentRequest]! = []
+    var requestList : [RentRequest] = []
     var currentIndex :Int = 0
     var isData : Bool = true
     var selectedRentRequest :RentRequest!
@@ -30,35 +30,36 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
         self.myRequestTableView.delegate = self
         self.myRequestTableView.dataSource = self
         self.tabBarController?.tabBar.isHidden = true
+        self.getMyPendingRentRequest()
        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Requested"
-        self.getMyPendingRentRequest()
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.navigationItem.title = "Bookings"
+//        self.getMyPendingRentRequest()
     }
     
     @IBAction func segmentedViewChangedAction(_ sender: AnyObject) {
+        self.requestList = []
+        self.myRequestTableView.reloadData()
+        print("size \(self.requestList.count)")
         self.currentIndex = segmentedView.selectedSegmentIndex
         self.offset = 0
         self.isData = true
-        self.requestList.removeAll()
         
-        switch segmentedView.selectedSegmentIndex
-        {
-        case 0:
-            self.getMyPendingRentRequest()
-        case 1:
-            self.getMyApprovedRentRequest()
-        case 2:
-            self.getMyDisapprovedRentRequest()
-        default:
-            break;
+        switch segmentedView.selectedSegmentIndex {
+            case 0:
+                self.getMyPendingRentRequest()
+                break
+            case 1:
+                self.getMyApprovedRentRequest()
+                break
+            case 2:
+                self.getMyDisapprovedRentRequest()
+                break
+            default:
+                break
         }
     }
     
@@ -76,103 +77,23 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
                                                  options: [.transition(.fade(1))],
                                                  progressBlock: nil,
                                                  completionHandler: nil)
-        
-        
-     
         cell.productName.text = data.rentalProduct.name!
         cell.ownerName.text = "\(data.rentalProduct.owner.userInf.firstName!) \(data.rentalProduct.owner.userInf.lastName!)"
         cell.dateRange.text = "\( data.startDate!) to \(data.endDate!)"
         return cell
     }
     
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let  data : RentRequest = self.requestList[(indexPath as NSIndexPath).row]
-        
-        if(data.requestCancel == false && data.approve == false &&  data.disapprove == false)  {
-            let cancel = UITableViewRowAction(style: .normal, title: "Cancel") { action, index in
-                self.cancelAction(data.id)
-            }
-            cancel.backgroundColor = UIColor(netHex:0xD0842D)
-            return [ cancel]
-        }else if( data.approve == true && data.disapprove == false ){
-            let accept = UITableViewRowAction(style: .normal, title: "Accepted") { action, index in
-                print("favorite button tapped")
-            }
-            accept.backgroundColor = UIColor(netHex:0xD0842D)
-            
-            return [accept]
-        }else if(data.disapprove == true && data.approve == false ){
-            let decline = UITableViewRowAction(style: .normal, title: "Declined") { action, index in
-                print("share button tapped")
-            }
-            decline.backgroundColor = UIColor.red
-            
-            return [decline]
-        }else{
-         return nil
-        }
-    }
-    
-    
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // the cells you would like the actions to appear needs to be editable
-        return true
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedRentRequest = requestList[(indexPath as NSIndexPath).row]
-        self.performSegue(withIdentifier: "requestDetails", sender: nil)
+        self.performSegue(withIdentifier: "BookingDetails", sender: indexPath)
     }
     
     func cancelAction(_ requestId: Int){
         
-        
-        
-        Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/cancel-request/\(requestId)" )!, method: .get, parameters: [:], encoding: JSONEncoding.default)
-          
-            .validate { request, response, data in
-                // Custom evaluation closure now includes data (allows you to parse data to dig out error messages if necessary)
-                return .success
-            }
-            .responseJSON { response in
-                debugPrint(response)
-                switch response.result {
-                case .success(let data):
-                    let result : Response = Mapper<Response>().map(JSON: data as! [String : Any] )!
-                    if(result.responseStat.status != false){
-                        self.view.makeToast(message:"Request Cenceled", duration: 2, position: HRToastPositionCenter as AnyObject)
-                        self.offset = 0
-                        self.isData = true
-                        self.requestList.removeAll()
-                        switch  self.currentIndex
-                        {
-                        case 0:
-                            self.getMyPendingRentRequest()
-                        case 1:
-                            self.getMyApprovedRentRequest()
-                        case 2:
-                            self.getMyDisapprovedRentRequest()
-                        default:
-                            break;
-                        }
-                        
-                    }else{
-                        self.view.makeToast(message:result.responseStat.msg, duration: 2, position: HRToastPositionCenter as AnyObject)
-                    }
-                case .failure(let error):
-                    print(error)
-                }
-
-        }
-        
-        
-        
-      
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        switch  self.currentIndex
-        {
+        switch  self.currentIndex {
         case 0:
             self.getMyPendingRentRequest()
         case 1:
@@ -186,25 +107,21 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //MARK :- API Access
     func getMyPendingRentRequest() {
+        print("getting pending produts")
         if(self.isData == true){
             presentWindow!.makeToastActivity()
             let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
             
             Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/get-my-pending-rent-request" )!, method: .post, parameters: paremeters)
                 .validate(contentType: ["application/json"])
-                
                 .responseJSON { response in
-                    debugPrint(response)
+//                    debugPrint(response)
                     switch response.result {
                     case .success(let data):
                         //   print(data)
-                        let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSON: data as! [String : Any])!
-                        //  print(reqRes)
+                        let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSONObject: data)!
                         if(reqRes.responseStat.status != false){
-                            for i in 0 ..< reqRes.responseData!.count{
-                                self.requestList.append(reqRes.responseData![i])
-                                
-                            }
+                            self.requestList += reqRes.responseData
                             self.offset += 1
                             self.myRequestTableView.reloadData()
                             
@@ -214,50 +131,35 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
                                 self.myRequestTableView.reloadData()
                             }
                             self.view.makeToast(message:"No more data", duration: 2, position: HRToastPositionCenter as AnyObject)
-                            
                         }
-                        
-                        
-                        
                     case .failure(let error):
                         print(error)
                         
                     }
                     self.presentWindow!.hideToastActivity()
             }
-            
-            
-            
-            
-            
-          
-            
         }
         
     }
+    
     func getMyApprovedRentRequest() {
+        print("getting approved produts")
         if(self.isData == true){
             presentWindow!.makeToastActivity()
             let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
             
-            Alamofire.request( URL(string: "\(baseUrl)api/auth/rent/get-my-approved-rent-request" )!, method: .post, parameters: paremeters, encoding: JSONEncoding.default)
-              
-                .validate { request, response, data in
-                    // Custom evaluation closure now includes data (allows you to parse data to dig out error messages if necessary)
-                    return .success
-                }
+            Alamofire.request( URL(string: "\(baseUrl)api/auth/rent/get-my-approved-rent-request" )!, method: .post, parameters: paremeters)
+
                 .responseJSON { response in
+                    print("i have no idea")
                     debugPrint(response)
                     switch response.result {
                     case .success(let data):
-                        print(data)
-                        let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSON: data as! [String : Any])!
+                        
+                        let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSONObject: data)!
                         //  print(reqRes)
                         if(reqRes.responseStat.status != false){
-                            for i in 0 ..< reqRes.responseData!.count{
-                                self.requestList.append(reqRes.responseData![i])
-                                
-                            }
+                            self.requestList += reqRes.responseData
                             self.offset += 1
                             self.myRequestTableView.reloadData()
                             
@@ -269,31 +171,21 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
                             self.view.makeToast(message:"No more data", duration: 2, position: HRToastPositionCenter as AnyObject)
                             
                         }
-                        
-                        
-                        
                     case .failure(let error):
                         print(error)
-                        
                     }
                     self.presentWindow!.hideToastActivity()
-
             }
-            
-            
-            
-            
-      
-            
         }
         
     }
+    
     func getMyDisapprovedRentRequest() {
         if(self.isData == true){
             presentWindow!.makeToastActivity()
             let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
             
-            Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/get-my-disapproved-rent-request" )!, method: .post, parameters: paremeters, encoding: JSONEncoding.default)
+            Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/get-my-disapproved-rent-request/" )!, method: .post, parameters: paremeters)
                 
                 .validate { request, response, data in
                     // Custom evaluation closure now includes data (allows you to parse data to dig out error messages if necessary)
@@ -304,13 +196,10 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
                     switch response.result {
                     case .success(let data):
                         //   print(data)
-                        let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSON: data as! [String : Any] )!
+                        let reqRes : MyProductRentRequestResponse = Mapper<MyProductRentRequestResponse>().map(JSONObject: data)!
                         //  print(reqRes)
                         if(reqRes.responseStat.status != false){
-                            for i in 0 ..< reqRes.responseData!.count{
-                                self.requestList.append(reqRes.responseData![i])
-                                
-                            }
+                            self.requestList += reqRes.responseData
                             self.offset += 1
                             self.myRequestTableView.reloadData()
                             
@@ -321,39 +210,28 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
                             }
                             self.view.makeToast(message:"No more data", duration: 2, position: HRToastPositionCenter as AnyObject)
                         }
-                        
-                        
-                        
                     case .failure(let error):
                         print(error)
                         
                     }
                     self.presentWindow!.hideToastActivity()
             }
-            
-            
-            
-         
-            
         }
-        
     }
   
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "requestDetails"){
+        if(segue.identifier == "BookingDetails"){
+            let row = (sender as! NSIndexPath).row
+            let rentRequest = requestList[row]
             self.navigationController!.navigationBar.barTintColor = UIColor(netHex:0x2D2D2D)
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(netHex:0xD0842D)]
-            
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
             self.navigationItem.backBarButtonItem!.tintColor = UIColor.white
-            
-            let controller : RequestDetailsViewController = segue.destination as! RequestDetailsViewController
-            controller.isRequestedToMe = false
-            controller.rentRequest = self.selectedRentRequest
-            
+            let controller : BookingProductDetailsViewController = segue.destination as! BookingProductDetailsViewController
+            controller.rentRequest = rentRequest
         }
     
      }
