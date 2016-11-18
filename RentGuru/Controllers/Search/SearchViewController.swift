@@ -161,7 +161,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     override func viewDidLayoutSubviews() {
         //Getting iDevice's screen width
         let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
-        let  screenWidth : CGFloat = screenRect.size.width
+//        let  screenWidth : CGFloat = screenRect.size.width
         let screenHeight :CGFloat = screenRect.size.height
         
        // self.productCollectionContainerHeight.constant =   screenHeight - (self.searchView.frame.size.height+20)
@@ -226,7 +226,13 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     
     func setParams(offset : Int){
         let limit = 6 as AnyObject!
-        self.paremeters = ["limit" : limit! , "offset" : offset as AnyObject ]
+        
+        self.paremeters["limit"] = limit!
+        self.paremeters["offset"] = offset as AnyObject
+        
+        var  paremeters :[String:AnyObject] = [:]
+        paremeters["limit"] = 6 as AnyObject
+        paremeters["offset"] = self.offset as AnyObject
         
         if(self.selectedCateId != 0 && self.selectedSubcateId == 0  )
         {
@@ -415,7 +421,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                     
                     let cateRes: CategoryResponse = Mapper<CategoryResponse>().map(JSON: data as! [String : Any])!
                     if((cateRes.responseStat.status) != false){
-                        print("data", cateRes.responseData)
+                        print("data", cateRes.responseData!)
                         self.categoryList = cateRes.responseData!
                         var cateSource = Array<String>() ;
                         for i in 0  ..< self.categoryList.count {

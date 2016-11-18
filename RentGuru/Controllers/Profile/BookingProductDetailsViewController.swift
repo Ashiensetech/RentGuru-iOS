@@ -17,7 +17,10 @@ class BookingProductDetailsViewController: UITableViewController {
     @IBOutlet weak var endDate: UILabel!
     @IBOutlet weak var noOfDays: UILabel!
     @IBOutlet weak var rentPerDay: UILabel!
+    @IBOutlet weak var currentPrice: UILabel!
     @IBOutlet weak var totalRent: UILabel!
+    @IBOutlet weak var depositAmount: UILabel!
+    @IBOutlet weak var total: UILabel!
     @IBOutlet weak var remarks: UITextView!
     
     @IBOutlet weak var productImage: UIImageView!
@@ -44,9 +47,12 @@ class BookingProductDetailsViewController: UITableViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let difference  = (Calendar.current as NSCalendar).components(.day, from: dateFormatter.date(from: rentRequest.startDate)!, to: dateFormatter.date( from: rentRequest.endDate )!, options: []).day
-        noOfDays.text = "\(difference! + 1) Days"
+        noOfDays.text = "\(difference!) Days"
         rentPerDay.text = String(RentFeesHelper.getPerDayRentFee(rentTypeId: rentRequest.rentalProduct.rentType.id!, rentFee: rentRequest.rentalProduct.rentFee!))
-        //        totalRent.text = rentRequest.rentFee
+        totalRent.text = String(RentFeesHelper.getRentFee(rentTypeId: rentRequest.rentalProduct.rentType.id!, rentFee: rentRequest.rentalProduct.rentFee!, startDate: rentRequest.startDate!, endsDate: rentRequest.endDate!))
+        depositAmount.text = String(rentRequest.rentalProduct.currentValue!)
+        currentPrice.text = String(rentRequest.rentalProduct.currentValue!)
+        total.text = String(rentRequest.rentalProduct.currentValue!)
         remarks.text = rentRequest.remark
         productName.text = rentRequest.rentalProduct.name!
         productOverview.text = rentRequest.rentalProduct.description!
@@ -127,10 +133,14 @@ class BookingProductDetailsViewController: UITableViewController {
                         self.tableView.reloadData()
                         self.presentWindow!.makeToast(message:"Request Canceled", duration: 2, position: HRToastPositionCenter as AnyObject)
                     }else{
+                        
                         self.presentWindow!.makeToast(message:rentRequestResponse.responseStat.msg, duration: 2, position: HRToastPositionCenter as AnyObject)
                     }
+                    break
                 case .failure(let error):
                     print(error)
+                    break
+                    
                 }
         }
     }

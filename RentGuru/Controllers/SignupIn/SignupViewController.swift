@@ -198,8 +198,12 @@ class SignupViewController: UIViewController ,UITextFieldDelegate {
             let passWord = self.passwordTxt.text
        
             
-            let dict : [String : AnyObject] =
-                ["firstName":firstname! as AnyObject,"lastName":lastName! as AnyObject ,"email" :email! as AnyObject ,"password" :passWord! as AnyObject]
+            var dict : [String : AnyObject] = [:]
+            dict["firstName"] = firstname as AnyObject
+            dict["lastName"] = lastName! as AnyObject
+            dict["email"] = email! as AnyObject
+            dict["password"] = passWord! as AnyObject
+
             print(dict)
             // //URL(string: "\(self!.baseUrl)api/signup/user" )!
             Alamofire.request(URL(string: "\(self.baseUrl)api/signup/user" )!, method: .post, parameters: dict)

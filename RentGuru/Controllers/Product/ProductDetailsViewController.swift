@@ -261,7 +261,7 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
                
             }
             else{
-                print(tabVc.viewControllers?[1])
+//                print(tabVc.viewControllers?[1])
                 let vc = tabVc.viewControllers?[1] as! SearchViewController
                 vc.allProducts = self.allProducts
                 vc.selectedIndexPath = self.onIndexPath

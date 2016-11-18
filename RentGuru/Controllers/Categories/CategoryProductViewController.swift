@@ -139,7 +139,8 @@ class CategoryProductViewController: UIViewController ,UICollectionViewDelegateF
             self.view.makeToastActivity()
             UIApplication.shared.beginIgnoringInteractionEvents()
             
-            var  paremeters :[String:AnyObject] = ["categoryId": self.category!.id as AnyObject]
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["categoryId"] = self.category!.id as AnyObject
             paremeters["limit"] = 10 as AnyObject
             paremeters["offset"] = self.offset as AnyObject
             

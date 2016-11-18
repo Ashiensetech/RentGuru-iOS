@@ -110,7 +110,10 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
         print("getting pending produts")
         if(self.isData == true){
             presentWindow!.makeToastActivity()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
             
             Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/get-my-pending-rent-request" )!, method: .post, parameters: paremeters)
                 .validate(contentType: ["application/json"])
@@ -146,7 +149,10 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
         print("getting approved produts")
         if(self.isData == true){
             presentWindow!.makeToastActivity()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
             
             Alamofire.request( URL(string: "\(baseUrl)api/auth/rent/get-my-approved-rent-request" )!, method: .post, parameters: paremeters)
 
@@ -183,7 +189,10 @@ class MyRequestViewController: UIViewController, UITableViewDelegate, UITableVie
     func getMyDisapprovedRentRequest() {
         if(self.isData == true){
             presentWindow!.makeToastActivity()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
             
             Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/get-my-disapproved-rent-request/" )!, method: .post, parameters: paremeters)
                 

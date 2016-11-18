@@ -146,7 +146,11 @@ class MyProductsViewController: UIViewController , UITableViewDelegate, UITableV
     func getMyProductRentalProduct() {
         if(self.isData == true){
             presentWindow!.makeToastActivity()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
+            
             Alamofire.request(URL(string: "\(baseUrl)api/auth/product/get-my-rental-product" )!,method:.post ,parameters: paremeters)
                 //  .validate(contentType: ["application/json"])
                 .responseJSON { response in

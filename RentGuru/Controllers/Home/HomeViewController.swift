@@ -84,7 +84,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
     override func viewDidLayoutSubviews() {
         //Getting iDevice's screen width
         let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
-        let  screenWidth : CGFloat = screenRect.size.width
+//        let  screenWidth : CGFloat = screenRect.size.width
         let screenHeight :CGFloat = screenRect.size.height
         
            self.productScrollHeight.constant =   screenHeight - (self.slideShow.frame.size.height+20)
@@ -230,7 +230,11 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         if(self.isData != false){
             presentWindow!.makeToastActivity()
             UIApplication.shared.beginIgnoringInteractionEvents()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
+            
             Alamofire.request( URL(string: "\(baseUrl)api/product/get-product" )!,method :.get ,parameters: paremeters)
                 .validate(contentType: ["application/json"])
                 .responseJSON { response in
@@ -264,7 +268,6 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         }
     }
     func getBannerImages(){
-        // let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
         Alamofire.request( URL(string: "\(baseUrl)api/banner-image/get-all" )!,method :.get ,parameters: [:])
             .validate(contentType: ["application/json"])
             .responseJSON { response in

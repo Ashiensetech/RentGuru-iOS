@@ -266,7 +266,11 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
     func getMyApprovedProductRentRequest() {
         if(self.isData == true){
             presentWindow!.makeToastActivity()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
+            
             Alamofire.request(URL(string: "\(baseUrl)api/auth/rent/get-my-approved-product-rent-request" )!,method :.post ,parameters: paremeters)
                 //  .validate(contentType: ["application/json"])
                 .responseJSON { response in
@@ -307,7 +311,11 @@ class MyProductRequestViewController: UIViewController , UITableViewDelegate, UI
     func getMyDisapprovedProductRentRequest() {
         if(self.isData == true){
             presentWindow!.makeToastActivity()
-            let  paremeters :[String:AnyObject] = ["limit" : 6 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = [:]
+            paremeters["limit"] = 6 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
+            
             Alamofire.request( URL(string: "\(baseUrl)api/auth/rent/get-my-disapproved-product-rent-request" )!,method:.post ,parameters: paremeters)
                 //  .validate(contentType: ["application/json"])
                 .responseJSON { response in

@@ -10,7 +10,7 @@ class RentFeesHelper: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let difference  = (Calendar.current as NSCalendar).components(.day, from: dateFormatter.date(from: d1)!, to: dateFormatter.date( from: d2)!, options: []).day
-        let noOfDays = difference! + 1
+        let noOfDays = difference!
         return noOfDays
     }
     

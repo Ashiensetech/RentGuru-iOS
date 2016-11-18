@@ -118,8 +118,21 @@ class PostItemThirdViewController: UIViewController {
             let city = self.city! as AnyObject
             let rentTypeId = self.rentTypeId! as AnyObject
             
-            let paremeters : [String :AnyObject] =
-                ["name": name,"description":description ,"profileImageToken" :profileImageToken ,"otherImagesToken" :otherImageToken,"currentValue" : currentValue ,"rentFee" :rentFee,"availableFrom" : avaiableFrom ,"availableTill" :availableTill , "categoryIds" : categoryIds, "formattedAddress" : formattedAdd,"zip" :zipCode,"city" :city ,"rentTypeId" : rentTypeId]
+            var paremeters : [String :AnyObject] = [:]
+            paremeters["name"] = name
+            paremeters["description"] = description
+            paremeters["profileImageToken"] = profileImageToken
+            paremeters["otherImagesToken"] = otherImageToken
+            paremeters["currentValue"] = currentValue
+            paremeters["rentFee"] = rentFee
+            paremeters["availableFrom"] = avaiableFrom
+            paremeters["availableTill"] = availableTill
+            paremeters["categoryIds"] = categoryIds
+            paremeters["formattedAddress"] = formattedAdd
+            paremeters["zip"] = zipCode
+            paremeters["city"] = city
+            paremeters["rentTypeId"] = rentTypeId
+            
             print(paremeters)
             Alamofire.request( URL(string: "\(baseUrl)api/auth/product/upload" )!,method:.post ,parameters: paremeters)
                 .validate(contentType: ["application/json"])

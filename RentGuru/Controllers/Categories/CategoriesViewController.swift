@@ -28,7 +28,7 @@ class CategoriesViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        expandableTable.tableFooterView = UIView()
         baseUrl = defaults.string(forKey: "baseUrl")!
         expandableTable.dataSource = self
         expandableTable.delegate = self

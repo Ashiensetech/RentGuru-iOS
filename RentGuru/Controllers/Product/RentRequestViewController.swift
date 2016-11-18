@@ -248,9 +248,15 @@ class RentRequestViewController: UIViewController ,EPCalendarPickerDelegate ,Pay
         
         
         self.presentWindow!.makeToastActivity()
-        let paremeters : [String :AnyObject] =
-            ["startDate" : self.startDate.text! as AnyObject,"endsDate" : self.endDate.text! as AnyObject,"remark":self.remark.text! as AnyObject]
+        
+        var  paremeters :[String:AnyObject] = [:]
+        paremeters["startDate"] = self.startDate.text! as AnyObject
+        paremeters["endsDate"] = self.endDate.text! as AnyObject
+        paremeters["remark"] = self.remark.text! as AnyObject
+        
         print(paremeters)
+        
+        
         //urlString, method: .get, parameters: parameters, encoding: JSONEncoding.default
         print(URL(string: "\(baseUrl)api/auth/rent/make-request/\(self.product.id!)" )!)
         Alamofire.request( URL(string: "\(baseUrl)api/auth/rent/make-request/\(self.product.id!)" )!, method: .post, parameters: paremeters)
