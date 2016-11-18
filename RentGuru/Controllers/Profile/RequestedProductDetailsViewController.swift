@@ -31,6 +31,7 @@ class RequestedProductDetailsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Order Information"
         presentWindow = UIApplication.shared.keyWindow
         let defaults = UserDefaults.standard
         baseUrl = defaults.string(forKey: "baseUrl")!
@@ -119,14 +120,19 @@ class RequestedProductDetailsViewController: UITableViewController {
         }
     }
     
-//    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-//        let header = view as! UITableViewHeaderFooterView
-//        header.textLabel?.textColor = UIColor(red: 243/255, green: 153/255, blue: 193/255, alpha: 1.0)
-//        header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18)
-//        header.textLabel?.text = "About Us"
-//        header.textLabel?.frame = header.frame
-//        header.textLabel?.textAlignment = NSTextAlignment.left
-//    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 {
+            if indexPath.row % 2 == 0 {
+                cell.backgroundColor = UIColor(netHex: 0xf2f2f2)
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor(netHex: 0xCA7D27)
+        header.textLabel?.frame = header.frame
+    }
     
     static func showLoader(view: UIView) {
         view.makeToastActivity()
@@ -138,6 +144,7 @@ class RequestedProductDetailsViewController: UITableViewController {
         UIApplication.shared.endIgnoringInteractionEvents()
     }
     
+    // MARK: - Button Actions
     
     @IBAction func approveAction(_ sender: UIButton) {
         print("approve")
@@ -257,6 +264,8 @@ class RequestedProductDetailsViewController: UITableViewController {
         }
     }
     
+    // MARK: - Height for table rows
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 0
         if indexPath.section == 0 {
@@ -267,7 +276,7 @@ class RequestedProductDetailsViewController: UITableViewController {
         }
         else if indexPath.section == 2 {
             if indexPath.row == 9 {
-                height = 106
+                height = 120
             }
             else {
                 height = 44.0
@@ -299,6 +308,8 @@ class RequestedProductDetailsViewController: UITableViewController {
     }
 
 }
+
+// MARK: - Product Image CollectionView DataSource
 
 extension RequestedProductDetailsViewController: UICollectionViewDataSource {
     

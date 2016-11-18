@@ -106,10 +106,12 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         
         
     }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.currentLocValue = manager.location!.coordinate
-        print("locations = \(currentLocValue.latitude) \(currentLocValue.longitude)")
+        //        print("locations = \(currentLocValue.latitude) \(currentLocValue.longitude)")
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cateDropdown.anchorView = self.prodCateHolder
@@ -149,10 +151,10 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                 width: self.view.frame.size.width,
                 height: self.view.frame.size.height + 407
             );
-            self.getSearchProduct(paremeters: self.paremeters)
+            self.getSearchProduct()
             self.view.layoutIfNeeded()
-         
-           // self.searchProductCollection.scrollToItem(at: self.selectedIndexPath!, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
+            
+            // self.searchProductCollection.scrollToItem(at: self.selectedIndexPath!, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
             
         }
         
@@ -161,10 +163,10 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     override func viewDidLayoutSubviews() {
         //Getting iDevice's screen width
         let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
-//        let  screenWidth : CGFloat = screenRect.size.width
+        //        let  screenWidth : CGFloat = screenRect.size.width
         let screenHeight :CGFloat = screenRect.size.height
         
-       // self.productCollectionContainerHeight.constant =   screenHeight - (self.searchView.frame.size.height+20)
+        // self.productCollectionContainerHeight.constant =   screenHeight - (self.searchView.frame.size.height+20)
         
         
         
@@ -218,10 +220,10 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         
     }
     @IBAction func seachButtonAction(_ sender: AnyObject) {
-        self.allProducts.removeAll()
+        self.allProducts = []
         self.searchProductCollection.reloadData()
         self.setParams(offset: 0)
-        self.getSearchProduct(paremeters: self.paremeters)
+        self.getSearchProduct()
     }
     
     func setParams(offset : Int){
@@ -230,24 +232,22 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         self.paremeters["limit"] = limit!
         self.paremeters["offset"] = offset as AnyObject
         
-        var  paremeters :[String:AnyObject] = [:]
-        paremeters["limit"] = 6 as AnyObject
-        paremeters["offset"] = self.offset as AnyObject
-        
-        if(self.selectedCateId != 0 && self.selectedSubcateId == 0  )
-        {
+        if(self.selectedCateId != 0 && self.selectedSubcateId == 0  ){
             paremeters["categoryId"] = self.selectedCateId as AnyObject?
-        }else{
+        }
+        else{
             paremeters["categoryId"] = self.selectedSubcateId as AnyObject?
         }
-        if(self.searchTxt.text != ""){
-            paremeters["title"] = self.searchTxt.text as AnyObject?
+        if(self.searchTxt.text! != ""){
+            print(self.searchTxt.text!)
+            paremeters["title"] = (self.searchTxt.text!) as AnyObject?
         }
         if(self.locTxt.text != "Let Rent Guru Pick your Location"){
             self.paremeters["lat"] = self.pickedLocValue.latitude as AnyObject?
             self.paremeters ["lng"] = self.pickedLocValue.longitude as AnyObject?
             self.paremeters["radius"] = self.radius as AnyObject?
         }
+        print(paremeters)
     }
     
     // MARK: - UITextFieldDelegate Methods
@@ -275,20 +275,16 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         let tapLocation = sender.location(in: self.searchProductCollection)
         let indexPath : IndexPath = self.searchProductCollection.indexPathForItem(at: tapLocation)!
         
-        if let cell = self.searchProductCollection.cellForItem(at: indexPath)
-        {
+        if let cell = self.searchProductCollection.cellForItem(at: indexPath){
             self.selectedIndexPath  = indexPath
             self.selectedProdIndex = cell.tag
-            
         }
         DispatchQueue.main.async(execute: {
             UIApplication.shared.endIgnoringInteractionEvents()
             self.performSegue(withIdentifier: "showDetails", sender: nil)
         })
-        
-        
     }
- 
+    
     
     // MARK: - collectionview delegate
     
@@ -339,7 +335,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
             let contentHeight = self.searchProductCollection.contentSize.height
             if offsetY > contentHeight - self.searchProductCollection.frame.size.height {
                 self.setParams(offset: self.offset)
-                self.getSearchProduct(paremeters: self.paremeters)
+                self.getSearchProduct()
                 
             }
         }else if(scrollView == self.baseScroll){
@@ -350,22 +346,22 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                     print("if")
                     UIView.animate(withDuration: 0.5, animations: {
                         
-//                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant - 412
-//                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
-//                        self.view.layoutIfNeeded()
+                        //                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant - 412
+                        //                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
+                        //                        self.view.layoutIfNeeded()
                     })
                     
                     
                 }
                 else if (self.lastContentOffset < scrollView.contentOffset.y) {
                     print("Else")
-                   
+                    
                     
                     UIView.animate(withDuration: 0.5, animations: {
                         
-//                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant + 412
-//                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
-//                        self.view.layoutIfNeeded()
+                        //                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant + 412
+                        //                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
+                        //                        self.view.layoutIfNeeded()
                     })
                     
                     
@@ -374,7 +370,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
                 // update the new position acquired
                 self.lastContentOffset = self.baseScroll.contentOffset.y
                 self.setParams(offset: self.offset)
-                self.getSearchProduct(paremeters: self.paremeters)
+                self.getSearchProduct()
             }
             
         }
@@ -403,9 +399,8 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         searchProductCollection?.reloadData()
         self.view.layoutIfNeeded()
     }
-    //
-    //MARK : - ApiAccess
     
+    //MARK : - ApiAccess
     
     func  getCategory()  {
         Alamofire.request(URL(string: "\(baseUrl)api/utility/get-category" )!, method: .get, encoding: JSONEncoding.default)
@@ -435,50 +430,47 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         }
     }
     
-    func getSearchProduct(paremeters :[ String :AnyObject]) {
+    func getSearchProduct() {
+        print("searching............")
         self.view.makeToastActivity()
         UIApplication.shared.beginIgnoringInteractionEvents()
-        Alamofire.request( URL(string: "\(baseUrl)api/search/rental-product" )!,method :.get ,parameters: paremeters)
+        print("\(baseUrl)api/search/rental-product")
+        print(self.paremeters)
+        Alamofire.request( URL(string: "\(baseUrl)api/search/rental-product")!,method :.get ,parameters: self.paremeters)
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 switch response.result {
                 case .success(let data):
-                    //  print(data)
+                    print(data)
                     let proRes: ProductResponse = Mapper<ProductResponse>().map(JSONObject: data)!
-                    print(proRes.responseStat.status)
                     
                     if(proRes.responseStat.status != false){
-                        //  print(proRes.responseData!)
+                        
                         for i in 0 ..< proRes.responseData!.count {
                             let product : RentalProduct = proRes.responseData![i]
                             self.allProducts.append(product)
                         }
-                        
                         self.isData = true
                         self.offset += 1
                         self.searchProductCollection.reloadData()
-                        
                         if(self.offset == 1){
                             self.baseScroll.contentSize = CGSize(
                                 width: self.view.frame.size.width,
                                 height: self.view.frame.size.height + 407
                             );
                         }
-                        
                     }else{
                         self.isData = false
-                        self.view.makeToast(message:"No Product Found", duration: 2, position: HRToastPositionCenter as AnyObject)
+                        self.view.makeToast(message:"No Product Found", duration: 1, position: HRToastPositionCenter as AnyObject)
                     }
-                    
+                    break
                 case .failure(let error):
                     print(error)
-                    
+                    break
                 }
                 UIApplication.shared.endIgnoringInteractionEvents()
                 self.view.hideToastActivity()
         }
-        
-        
     }
     
     // MARK: - Navigation
@@ -486,7 +478,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "showDetails"){
-             self.setParams(offset: self.offset)
+            self.setParams(offset: self.offset)
             let navVC = segue.destination as! UINavigationController
             let detailsVC = navVC.viewControllers.first as! ProductDetailsViewController
             detailsVC.product = self.allProducts[self.selectedProdIndex]

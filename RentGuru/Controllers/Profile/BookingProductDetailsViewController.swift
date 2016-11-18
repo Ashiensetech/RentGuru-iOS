@@ -31,6 +31,7 @@ class BookingProductDetailsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Order Information"
         presentWindow = UIApplication.shared.keyWindow
         let defaults = UserDefaults.standard
         baseUrl = defaults.string(forKey: "baseUrl")!
@@ -115,6 +116,14 @@ class BookingProductDetailsViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor(netHex: 0xCA7D27)
+        header.textLabel?.frame = header.frame
+    }
+    
+    // MARK: - Button Actions
+    
     @IBAction func cancelRequestAction(_ sender: UIButton) {
         print("cancel")
         RequestedProductDetailsViewController.showLoader(view: self.view)
@@ -146,7 +155,6 @@ class BookingProductDetailsViewController: UITableViewController {
     }
     
     
-    
     @IBAction func returnProductAction(_ sender: UIButton) {
         Alamofire.request( URL(string: "\(baseUrl)api/auth/return-product/confirm-return/\(self.rentInf.id!)" )!,method : .post ,parameters: [:])
             .validate(contentType: ["application/json"])
@@ -173,6 +181,7 @@ class BookingProductDetailsViewController: UITableViewController {
     
     
     
+    // MARK: - Height for table rows
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 0
@@ -184,7 +193,7 @@ class BookingProductDetailsViewController: UITableViewController {
         }
         else if indexPath.section == 2 {
             if indexPath.row == 9 {
-                height = 106
+                height = 120
             }
             else {
                 height = 44.0
