@@ -8,6 +8,7 @@ class RequestedProductDetailsViewController: UITableViewController {
     var baseUrl : String = ""
     var buttonSectionToShow = -1
     var rentInf: RentInf!
+    var presentWindow: UIWindow?
     
     @IBOutlet weak var requesterName: UILabel!
     @IBOutlet weak var requesterImage: UIImageView!
@@ -27,6 +28,7 @@ class RequestedProductDetailsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presentWindow = UIApplication.shared.keyWindow
         let defaults = UserDefaults.standard
         baseUrl = defaults.string(forKey: "baseUrl")!
         productImageCollectionView.dataSource = self
@@ -144,11 +146,11 @@ class RequestedProductDetailsViewController: UITableViewController {
                         let rentRequestResponse : RentRequestResponse = Mapper<RentRequestResponse>().map(JSONObject: data)!
                         if(rentRequestResponse.responseStat.status != false){
                             self.rentRequest = rentRequestResponse.responseData
-                            self.view.makeToast(message:"Request Approved", duration: 2, position: HRToastPositionCenter as AnyObject)
+                            self.presentWindow!.makeToast(message:"Request Approved", duration: 2, position: HRToastPositionCenter as AnyObject)
                             self.fillData()
                             self.tableView.reloadData()
                         }else{
-                            self.view.makeToast(message:rentRequestResponse.responseStat.msg, duration: 2, position: HRToastPositionCenter as AnyObject)
+                            self.presentWindow!.makeToast(message:rentRequestResponse.responseStat.msg, duration: 2, position: HRToastPositionCenter as AnyObject)
                         }
                     case .failure(let error):
                         print(error)
@@ -167,12 +169,12 @@ class RequestedProductDetailsViewController: UITableViewController {
                     let rentRequestResponse : RentRequestResponse = Mapper<RentRequestResponse>().map(JSONObject: data)!
                     if(rentRequestResponse.responseStat.status != false){
                         self.rentRequest = rentRequestResponse.responseData
-                        self.view.makeToast(message:"Request Declined", duration: 1, position: HRToastPositionCenter as AnyObject)
+                        self.presentWindow!.makeToast(message:"Request Declined", duration: 1, position: HRToastPositionCenter as AnyObject)
                         self.fillData()
                         self.tableView.reloadData()
                     }
                     else{
-                        self.view.makeToast(message: rentRequestResponse.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
+                        self.presentWindow!.makeToast(message: rentRequestResponse.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
                     }
                 case .failure(let error):
                     print(error)
@@ -196,7 +198,7 @@ class RequestedProductDetailsViewController: UITableViewController {
                         self.tableView.reloadData()
                     }
                     else{
-                        self.view.makeToast(message: rentInfResponse.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
+                        self.presentWindow!.makeToast(message: rentInfResponse.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
                     }
                 case .failure(let error):
                     print(error)
@@ -218,7 +220,7 @@ class RequestedProductDetailsViewController: UITableViewController {
                         self.view.makeToast(message:"Dispute", duration: 1, position: HRToastPositionCenter as AnyObject)
                     }
                     else{
-                        self.view.makeToast(message: response.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
+                        self.presentWindow!.makeToast(message: response.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
                     }
                 case .failure(let error):
                     print(error)
@@ -238,10 +240,10 @@ class RequestedProductDetailsViewController: UITableViewController {
                     if(response.responseStat.status != false){
                         self.buttonSectionToShow = -1
                         self.tableView.reloadSections([3], with: UITableViewRowAnimation.fade)
-                        self.view.makeToast(message:"Product received confirmed", duration: 2, position: HRToastPositionCenter as AnyObject)
+                        self.presentWindow!.makeToast(message:"Product received confirmed", duration: 2, position: HRToastPositionCenter as AnyObject)
                     }
                     else{
-                        self.view.makeToast(message: response.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
+                        self.presentWindow!.makeToast(message: response.responseStat.msg, duration: 1, position: HRToastPositionCenter as AnyObject)
                     }
                 case .failure(let error):
                     print(error)

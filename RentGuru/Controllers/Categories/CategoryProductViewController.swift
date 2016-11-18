@@ -138,7 +138,11 @@ class CategoryProductViewController: UIViewController ,UICollectionViewDelegateF
         if(self.isData != false){
             self.view.makeToastActivity()
             UIApplication.shared.beginIgnoringInteractionEvents()
-            let  paremeters :[String:AnyObject] = ["categoryId": self.category!.id as AnyObject,"limit" : 10 as AnyObject , "offset" : self.offset as AnyObject ]
+            
+            var  paremeters :[String:AnyObject] = ["categoryId": self.category!.id as AnyObject]
+            paremeters["limit"] = 10 as AnyObject
+            paremeters["offset"] = self.offset as AnyObject
+            
             Alamofire.request( URL(string: "\(baseUrl)api/product/get-product-by-category" )!,method :.get ,parameters: paremeters)
                 .validate(contentType: ["application/json"])
                 .responseJSON { response in
