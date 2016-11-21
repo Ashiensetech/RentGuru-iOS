@@ -327,54 +327,54 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         
         
     }
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-        if(scrollView == self.searchProductCollection){
-            print("searchProductCollection")
-            let offsetY = self.searchProductCollection.contentOffset.y
-            let contentHeight = self.searchProductCollection.contentSize.height
-            if offsetY > contentHeight - self.searchProductCollection.frame.size.height {
-                self.setParams(offset: self.offset)
-                self.getSearchProduct()
-                
-            }
-        }else if(scrollView == self.baseScroll){
-            
-            print("baseScrolled ")
-            if(self.isData != false){
-                if (self.lastContentOffset > scrollView.contentOffset.y) {
-                    print("if")
-                    UIView.animate(withDuration: 0.5, animations: {
-                        
-                        //                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant - 412
-                        //                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
-                        //                        self.view.layoutIfNeeded()
-                    })
-                    
-                    
-                }
-                else if (self.lastContentOffset < scrollView.contentOffset.y) {
-                    print("Else")
-                    
-                    
-                    UIView.animate(withDuration: 0.5, animations: {
-                        
-                        //                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant + 412
-                        //                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
-                        //                        self.view.layoutIfNeeded()
-                    })
-                    
-                    
-                }
-                
-                // update the new position acquired
-                self.lastContentOffset = self.baseScroll.contentOffset.y
-                self.setParams(offset: self.offset)
-                self.getSearchProduct()
-            }
-            
-        }
-    }
+//    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        
+//        if(scrollView == self.searchProductCollection){
+//            print("searchProductCollection")
+//            let offsetY = self.searchProductCollection.contentOffset.y
+//            let contentHeight = self.searchProductCollection.contentSize.height
+//            if offsetY > contentHeight - self.searchProductCollection.frame.size.height {
+//                self.setParams(offset: self.offset)
+//                self.getSearchProduct()
+//                
+//            }
+//        }else if(scrollView == self.baseScroll){
+//            
+//            print("baseScrolled ")
+//            if(self.isData != false){
+//                if (self.lastContentOffset > scrollView.contentOffset.y) {
+//                    print("if")
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        
+//                        //                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant - 412
+//                        //                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant + 206
+//                        //                        self.view.layoutIfNeeded()
+//                    })
+//                    
+//                    
+//                }
+//                else if (self.lastContentOffset < scrollView.contentOffset.y) {
+//                    print("Else")
+//                    
+//                    
+//                    UIView.animate(withDuration: 0.5, animations: {
+//                        
+//                        //                        self.productCollectionContainerHeight.constant =  self.productCollectionContainerHeight.constant + 412
+//                        //                        self.productCollectionBottom.constant =  self.productCollectionBottom.constant - 206
+//                        //                        self.view.layoutIfNeeded()
+//                    })
+//                    
+//                    
+//                }
+//                
+//                // update the new position acquired
+//                self.lastContentOffset = self.baseScroll.contentOffset.y
+//                self.setParams(offset: self.offset)
+//                self.getSearchProduct()
+//            }
+//            
+//        }
+//    }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -23,6 +23,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
     let imagePicker = UIImagePickerController()
     var image :UIImage? = UIImage()
     var filename : String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         baseUrl = defaults.string(forKey: "baseUrl")!
@@ -74,29 +75,35 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
     @IBAction func saveChangeAction(_ sender: AnyObject) {
         var checkAll :Bool = true
         if(self.firstName.text == ""){
-            self.view.makeToast(message:"First Name Required", duration: 2, position: HRToastPositionDefault as AnyObject)
+            self.view.makeToast(message:"First Name Required", duration: 1, position: HRToastPositionDefault as AnyObject)
             checkAll = false
         }
         if(self.lastName.text == ""){
-            self.view.makeToast(message:"Last Name Required", duration: 2, position: HRToastPositionDefault as AnyObject)
+            self.view.makeToast(message:"Last Name Required", duration: 1, position: HRToastPositionDefault as AnyObject)
             checkAll = false
         }
         if(self.email.text == ""){
-            self.view.makeToast(message:"Email Required", duration: 2, position: HRToastPositionDefault as AnyObject)
+            self.view.makeToast(message:"Email Required", duration: 1, position: HRToastPositionDefault as AnyObject)
             checkAll = false
 
         }
-        if(self.newPassword.text != "" && self.oldPassword.text == ""){
-            self.view.makeToast(message:"Enter your current password", duration: 2, position: HRToastPositionDefault as AnyObject)
-            checkAll = false
-
+        
+        var hasPassword = false
+        if(self.oldPassword.text?.characters.count != 0 || self.newPassword.text?.characters.count != 0 ) {
+            hasPassword = true
+            if((self.newPassword.text?.characters.count)! < 6 ){
+                self.view.makeToast(message:"Password must be atleast 6 characters ", duration: 1, position: HRToastPositionDefault as AnyObject)
+                checkAll = false
+                
+            }
+            if((self.newPassword.text?.characters.count)! < 6 ){
+                self.view.makeToast(message:"Password must be atleast 6 characters ", duration: 1, position: HRToastPositionDefault as AnyObject)
+                checkAll = false
+            }
         }
-        if((self.newPassword.text?.characters.count)! > 6 ){
-            self.view.makeToast(message:"Password must be atleast 6 characters ", duration: 2, position: HRToastPositionDefault as AnyObject)
-            checkAll = false
-
-        }
-        if( checkAll != false){
+        
+        print(checkAll)
+        if( checkAll){
              var  paremeters :[String:AnyObject] = [:]
             let delegate = AppDelegate.getDelegate()
             let credential : AuthCredential = delegate.authCredential!
@@ -107,21 +114,28 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
                 paremeters["lastName"] = self.lastName.text as AnyObject?
             }
             if(credential.email != self.email.text){
-                paremeters["email"] = self.lastName.text as AnyObject?
+                paremeters["email"] = self.email.text as AnyObject?
             }
-            if(self.newPassword.text != ""){
-                paremeters["email"] = self.lastName.text as AnyObject?
+            if hasPassword {
+                if(self.newPassword.text != ""){
+                    paremeters["oldPassword"] = self.oldPassword.text as AnyObject?
+                }
+                if(self.newPassword.text != ""){
+                    paremeters["newPassword"] = self.newPassword.text as AnyObject?
+                }
             }
             if(paremeters.isEmpty != true){
                  self.view!.makeToastActivity()
+                print(paremeters)
                 Alamofire.request( URL(string: "\(baseUrl)api/auth/profile/edit" )!, method:.post,parameters: paremeters)
                     .validate(contentType: ["application/json"])
                     .responseJSON { response in
                         // print(response)
                         switch response.result {
                         case .success(let data):
+                            print(data)
                             let res: LoginResponse = Mapper<LoginResponse>().map(JSONObject: data)!
-                            print(res)
+                            
                             if((res.responseStat.status) != false){
                                 let delegate = AppDelegate.getDelegate()
                                 delegate.authCredential = res.responseData!
@@ -129,7 +143,7 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
                                 self.firstName.text = delegate.authCredential?.userInf.firstName!
                                 self.lastName.text = delegate.authCredential?.userInf.lastName!
                                 self.email.text = delegate.authCredential?.email!
-                                self.view.makeToast(message:"Profile info saved", duration: 2, position: HRToastPositionDefault as AnyObject)
+                                self.view.makeToast(message:"Profile Updated", duration: 1, position: HRToastPositionDefault as AnyObject)
                                 self.view.hideToastActivity()
                             }
                             
@@ -142,6 +156,9 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
                         
                 }
                 
+            }
+            else {
+                self.view.makeToast(message:"No chnages to be saved", duration: 1, position: HRToastPositionDefault as AnyObject)
             }
             
         }
