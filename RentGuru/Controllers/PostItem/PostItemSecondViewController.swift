@@ -45,13 +45,14 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
     var filenames :[String] = []
     //From Previous Controller
     
-    var selectedCategory :[Int]!
+    var selectedCategory: [Int] = []
     var productTitle: String!
     var availableFrom : String!
     var availableTill :String!
     var address :String!
     var city: String!
-    var zipCode : String!
+    var zipCode: String!
+    var stateId: Int!
     
     
     
@@ -190,56 +191,12 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
                 }
             }
         )
-        
-        
-        
-        
-        
-        //        let fileUploader = FileUploader()
-        //        fileUploader.addFileData( UIImageJPEGRepresentation(self.imageArray[self.UploadCounter],0.8)!, withName: "productImage", withMimeType: "image/jpeg" ,withFileName: filenames[self.UploadCounter] )
-        //        let request = NSMutableURLRequest( url: URL(string: "\(baseUrl)fileupload/upload/product-image" )! )
-        //        request.httpMethod = "POST"
-        //
-        
-        
-        
-        //        fileUploader.uploadFile(request: request as URLRequest)!
-        //            .progress { [weak self] bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-        //                //  To update your ui, dispatch to the main queue.
-        //                DispatchQueue.main.async {
-        //                    print("Total bytes written on main queue: \(totalBytesWritten)....\(totalBytesExpectedToWrite)")
-        //                }
-        //            }
-        //            .responseJSON { [weak self] response in
-        //                switch response.result {
-        //                case .success(let data):
-        //                    print(data)
-        //                    let idenDocRes: IdentityDocumentResponse = Mapper<IdentityDocumentResponse>().map(data)!
-        //
-        //                    if(idenDocRes.responseStat.status != false){
-        //                        self!.imageToken.append(idenDocRes.responseData)
-        //                        self!.UploadCounter += 1
-        //                        if(self?.imageArray.count >  self?.UploadCounter){
-        //                            self?.uploadFiles()
-        //                        }
-        //                        else{
-        //                            self!.presentWindow!.hideToastActivity()
-        //                            self!.performSegue(withIdentifier: "third", sender:nil)
-        //                        }
-        //                    }
-        //
-        //                case .failure(let error):
-        //                    print("Request failed with error: \(error)")
-        //                }
-        //        }
-        
     }
     
     // MARK: - UIImagePickerControllerDelegate Methods
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
-    {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         let imageUrl          = info[UIImagePickerControllerReferenceURL] as! NSURL
         let imageName         = imageUrl.lastPathComponent
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
@@ -293,20 +250,11 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as!SelectedImageCollectionViewCell
-        
-        // Configure the cell
         cell.frame.size.width = screenWidth / 3
         cell.frame.size.height = screenWidth / 3
-        
         cell.imageView.image = imageArray[(indexPath as NSIndexPath).row]
-        
         return cell
-        
-        
-        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -325,14 +273,8 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
     
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
         if(segue.identifier == "third"){
-            
-            
-            
             let contrller : PostItemThirdViewController = segue.destination as! PostItemThirdViewController
             contrller.productTitle = self.productTitle
             contrller.selectedCategory = self.selectedCategory
@@ -341,6 +283,7 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
             contrller.zipCode = self.zipCode
             contrller.availableFrom = self.availableFrom
             contrller.availableTill = self.availableTill
+            contrller.stateId = self.stateId
             contrller.Productdescription = self.productDescription.text!
             contrller.imageTokenArray  = self.imageToken
             
@@ -350,7 +293,4 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         }
     }
-    
-    
-    
 }

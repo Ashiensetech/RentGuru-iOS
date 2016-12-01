@@ -23,13 +23,14 @@ class PostItemThirdViewController: UIViewController {
     var baseUrl : String = ""
     var rentTypeList : [RentType]!
     var rentTypeId : Int!
-    var selectedCategory : [Int]!
+    var selectedCategory: [Int] = []
     var productTitle: String!
     var availableFrom: String!
     var availableTill :String!
     var address :String!
     var city: String!
     var zipCode : String!
+    var stateId: Int!
     var Productdescription: String!
     var imageTokenArray : [Int]!
     var rentType : Int!
@@ -46,8 +47,9 @@ class PostItemThirdViewController: UIViewController {
         self.dropDownContainer.addGestureRecognizer(subCateGesture)
         self.dropDownImage.addGestureRecognizer(subCateGesture)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationItem.title = "Priceing"
+        self.navigationItem.title = "Pricing"
         let button = UIButton(type: UIButtonType.system) as UIButton
         //button.setImage(UIImage(named: "back.png"), forState: UIControlState.Normal)
         button.setTitle("Done", for:UIControlState())
@@ -117,6 +119,7 @@ class PostItemThirdViewController: UIViewController {
             let zipCode =  self.zipCode! as AnyObject
             let city = self.city! as AnyObject
             let rentTypeId = self.rentTypeId! as AnyObject
+            let stateId = self.stateId as AnyObject
             
             var paremeters : [String :AnyObject] = [:]
             paremeters["name"] = name
@@ -131,6 +134,7 @@ class PostItemThirdViewController: UIViewController {
             paremeters["formattedAddress"] = formattedAdd
             paremeters["zip"] = zipCode
             paremeters["city"] = city
+            paremeters["stateId"] = stateId
             paremeters["rentTypeId"] = rentTypeId
             
             print(paremeters)
