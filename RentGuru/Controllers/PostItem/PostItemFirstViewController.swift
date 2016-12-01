@@ -2,8 +2,11 @@ import UIKit
 import DropDown
 import Alamofire
 import ObjectMapper
+import GooglePlaces
+import GooglePlacePicker
+import CoreLocation
 
-class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
+class PostItemFirstViewController: UIViewController, EPCalendarPickerDelegate{
     
     @IBOutlet var baseScroll: UIScrollView!
     @IBOutlet var prodCateHolder: UIView!
@@ -24,6 +27,8 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
     @IBOutlet var toDateView: UIView!
     @IBOutlet weak var stateView: UIView!
     @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var locationView: UIView!
     
     let defaults = UserDefaults.standard
     var baseUrl : String = ""
@@ -41,6 +46,12 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
     var selectedCategory: [Int] = []
     var selectedState = -1
     
+    var pickedLocValue = CLLocationCoordinate2D()
+    var placePicker: GMSPlacePicker?
+    let locationManager = CLLocationManager()
+    var currentLocValue = CLLocationCoordinate2D()
+    
+    //MARK: - Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +93,10 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
         self.toDateSelector.addGestureRecognizer(toDateGesture)
         self.toDateView.addGestureRecognizer(toDateGesture)
         doThings()
+        
+        self.locationView.isUserInteractionEnabled = true
+        let pickplace = UITapGestureRecognizer(target: self, action:#selector(self.pickPlaceAction))
+        self.locationView.addGestureRecognizer(pickplace)
     }
     
     func doThings() {
@@ -107,7 +122,7 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
                 self.subCateDropDown.dataSource = subCates
             }
         }
- 
+        
         subCateDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.prodSubCateLabel.attributedText  =  NSAttributedString(string: (item), attributes:[NSForegroundColorAttributeName : UIColor.gray])
             self.selectedCategory.append(self.subCategoryList[index].id)
@@ -118,6 +133,34 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
             self.selectedState = self.stateList[index].id!
         }
     }
+    
+    //MARK: - PickPlace
+    
+    func pickPlaceAction (){
+        let center = CLLocationCoordinate2DMake(self.currentLocValue.latitude,self.currentLocValue.longitude)
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        placePicker = GMSPlacePicker(config: config)
+        
+        placePicker?.pickPlace(callback: { (place: GMSPlace?, error: Error?) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            if let place = place {
+                self.pickedLocValue = place.coordinate
+                self.locationLabel.text = place.name
+                self.areaTextField.text = place.formattedAddress!
+                
+            } else {
+                print("No place selected")
+            }
+        })
+    }
+    
+    
     
     // MARK: - Show DropDowns
     
@@ -161,6 +204,7 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
             check = false
             showMessage(message: "Area Required")
         }
+        
         if(check != false){
             self.performSegue(withIdentifier: "second", sender: nil)
         }
@@ -169,73 +213,6 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
     func showMessage(message: String) {
         view.makeToast(message: message, duration: 1, position: HRToastPositionCenter as AnyObject)
     }
-    
-    // MARK: - CalendarPicker Stuffs
-    
-    func selectFromDateAction(){
-        self.didTouchedFromDate = true;
-        fromCalendarPicker.calendarDelegate = self
-        fromCalendarPicker.startDate = Date()
-        fromCalendarPicker.hightlightsToday = true
-        fromCalendarPicker.showsTodaysButton = true
-        fromCalendarPicker.hideDaysFromOtherMonth = true
-        fromCalendarPicker.tintColor = UIColor.orange
-        fromCalendarPicker.multiSelectEnabled = false
-        //        calendarPicker.barTintColor = UIColor.greenColor()
-        fromCalendarPicker.dayDisabledTintColor = UIColor.gray
-        fromCalendarPicker.title = "Available From "
-        
-        //        calendarPicker.backgroundImage = UIImage(named: "background_image")
-        //        calendarPicker.backgroundColor = UIColor.blueColor()
-        
-        let navigationController = UINavigationController(rootViewController: fromCalendarPicker)
-        self.present(navigationController, animated: true, completion: nil)
-    }
-    
-    func selectToDateAction()  {
-        self.didTouchedToDate = true
-        toCalendarPicker.calendarDelegate = self
-        toCalendarPicker.startDate = Date()
-        toCalendarPicker.hightlightsToday = true
-        toCalendarPicker.showsTodaysButton = true
-        toCalendarPicker.hideDaysFromOtherMonth = true
-        toCalendarPicker.tintColor = UIColor.orange
-        toCalendarPicker.multiSelectEnabled = false
-        //        calendarPicker.barTintColor = UIColor.greenColor()
-        toCalendarPicker.dayDisabledTintColor = UIColor.gray
-        toCalendarPicker.title = "Will Available To"
-        
-        //        calendarPicker.backgroundImage = UIImage(named: "background_image")
-        //        calendarPicker.backgroundColor = UIColor.blueColor()
-        
-        let navigationController = UINavigationController(rootViewController: toCalendarPicker)
-        self.present(navigationController, animated: true, completion: nil)
-    }
-    
-    
-    
-    func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {
-        //if(self == self.fromCalendarPicker)
-        //  fromDateTxt.text = "User cancelled selection"
-        
-    }
-    
-    func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : Date) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd-MM-yyyy"
-        let str = formatter.string(from: date)
-        
-        if(self.didTouchedFromDate){
-            toCalendarPicker.startDate = date
-            self.didTouchedFromDate = false
-            fromDateTxt.text = str//"User selected date: \n\(date)"
-        }
-        if(self.didTouchedToDate){
-            self.didTouchedToDate = false
-            toDateTxt.text = str
-        }
-    }
-    
     
     //MARK: - ApiAccess
     
@@ -307,6 +284,74 @@ class PostItemFirstViewController: UIViewController ,EPCalendarPickerDelegate{
             contrller.availableFrom = self.fromDateTxt.text!
             contrller.availableTill = self.toDateTxt.text!
             contrller.stateId = self.selectedState
+            if(self.locationLabel.text != ""){
+                contrller.lat = self.pickedLocValue.latitude
+                contrller.lng = self.pickedLocValue.longitude
+            }
+        }
+    }
+    
+    // MARK: - CalendarPicker Stuffs
+    
+    func selectFromDateAction(){
+        self.didTouchedFromDate = true;
+        fromCalendarPicker.calendarDelegate = self
+        fromCalendarPicker.startDate = Date()
+        fromCalendarPicker.hightlightsToday = true
+        fromCalendarPicker.showsTodaysButton = true
+        fromCalendarPicker.hideDaysFromOtherMonth = true
+        fromCalendarPicker.tintColor = UIColor.orange
+        fromCalendarPicker.multiSelectEnabled = false
+        //        calendarPicker.barTintColor = UIColor.greenColor()
+        fromCalendarPicker.dayDisabledTintColor = UIColor.gray
+        fromCalendarPicker.title = "Available From "
+        
+        //        calendarPicker.backgroundImage = UIImage(named: "background_image")
+        //        calendarPicker.backgroundColor = UIColor.blueColor()
+        
+        let navigationController = UINavigationController(rootViewController: fromCalendarPicker)
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func selectToDateAction()  {
+        self.didTouchedToDate = true
+        toCalendarPicker.calendarDelegate = self
+        toCalendarPicker.startDate = Date()
+        toCalendarPicker.hightlightsToday = true
+        toCalendarPicker.showsTodaysButton = true
+        toCalendarPicker.hideDaysFromOtherMonth = true
+        toCalendarPicker.tintColor = UIColor.orange
+        toCalendarPicker.multiSelectEnabled = false
+        //        calendarPicker.barTintColor = UIColor.greenColor()
+        toCalendarPicker.dayDisabledTintColor = UIColor.gray
+        toCalendarPicker.title = "Will Available To"
+        
+        //        calendarPicker.backgroundImage = UIImage(named: "background_image")
+        //        calendarPicker.backgroundColor = UIColor.blueColor()
+        
+        let navigationController = UINavigationController(rootViewController: toCalendarPicker)
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
+    func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {
+        //if(self == self.fromCalendarPicker)
+        //  fromDateTxt.text = "User cancelled selection"
+        
+    }
+    
+    func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : Date) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd-MM-yyyy"
+        let str = formatter.string(from: date)
+        
+        if(self.didTouchedFromDate){
+            toCalendarPicker.startDate = date
+            self.didTouchedFromDate = false
+            fromDateTxt.text = str//"User selected date: \n\(date)"
+        }
+        if(self.didTouchedToDate){
+            self.didTouchedToDate = false
+            toDateTxt.text = str
         }
     }
     

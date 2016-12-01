@@ -53,8 +53,8 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
     var city: String!
     var zipCode: String!
     var stateId: Int!
-    
-    
+    var lat: Double? = nil
+    var lng: Double? = nil
     
     var screenSize: CGRect!
     var screenWidth: CGFloat!
@@ -72,15 +72,8 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
         screenWidth = screenSize.width
         screenHeight = screenSize.height
         baseUrl = defaults.string(forKey: "baseUrl")!
-        
-        
-        
         self.imageCollection.delegate = self
         self.imageCollection.dataSource = self
-        
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -287,6 +280,10 @@ class PostItemSecondViewController: UIViewController , UIImagePickerControllerDe
             contrller.Productdescription = self.productDescription.text!
             contrller.imageTokenArray  = self.imageToken
             
+            if self.lat != nil && self.lng != nil {
+                contrller.lat = self.lat
+                contrller.lng = self.lng
+            }
             
             self.navigationController!.navigationBar.barTintColor = UIColor(netHex:0x2D2D2D)
             self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(netHex:0xD0842D)]

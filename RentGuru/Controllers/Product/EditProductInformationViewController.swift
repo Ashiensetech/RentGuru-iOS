@@ -13,7 +13,9 @@ import DropDown
 import GooglePlaces
 import GooglePlacePicker
 import CoreLocation
+
 class EditProductInformationViewController: UIViewController ,EPCalendarPickerDelegate,CLLocationManagerDelegate{
+    
     @IBOutlet var titleTxt: UITextField!
     @IBOutlet var cateHolder: UIView!
     @IBOutlet var cateTxt: UITextField!
@@ -35,6 +37,8 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
     @IBOutlet var rentFeeTxt: UITextField!
     @IBOutlet var currentValueTxt: UITextField!
     var editableProduct : MyRentalProduct?
+    @IBOutlet weak var stateView: UIView!
+    @IBOutlet weak var stateLabel: UILabel!
     
     let defaults = UserDefaults.standard
     var baseUrl : String = ""
@@ -42,6 +46,7 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
     let cateDropdown = DropDown()
     let subCateDropDown = DropDown()
     let typeDropDown = DropDown()
+    let stateDropDown = DropDown()
     
     let fromCalendarPicker = EPCalendarPicker(startYear: 2016, endYear: 2017, multiSelection: true, selectedDates: [])
     let toCalendarPicker = EPCalendarPicker(startYear: 2016, endYear: 2017, multiSelection: true, selectedDates: [])
@@ -51,6 +56,8 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
     var didTouchedToDate = false
     var selectedCategory = Array<Int>()
     var rentTypeList : [RentType] = []
+    var stateList: [State] = []
+    var selectedState = -1
     var rentTypeId : Int = 0
     var categoryDidChange : Bool! = false
     
@@ -68,16 +75,17 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
-        
         self.cateHolder.isUserInteractionEnabled = true
         let cateGesture = UITapGestureRecognizer(target: self, action:#selector(self.showHideCateDropDown) )
         self.cateHolder.addGestureRecognizer(cateGesture)
-        
         
         self.subCateHoder.isUserInteractionEnabled = true
         let subCateGesture = UITapGestureRecognizer(target: self, action:#selector(self.showHideSubCateDropDown) )
         self.subCateHoder.addGestureRecognizer(subCateGesture)
         
+        self.stateView.isUserInteractionEnabled = true
+        let stateGesture = UITapGestureRecognizer(target: self, action:#selector(self.showStateDropDown))
+        self.stateView.addGestureRecognizer(stateGesture)
         
         self.availableFromHolder.isUserInteractionEnabled = true
         let fromDateGexture = UITapGestureRecognizer(target: self, action:#selector(self.selectFromDateAction) )
@@ -143,6 +151,7 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         
         cateDropdown.anchorView = self.cateHolder
         subCateDropDown.anchorView = self.subCateHoder
+        stateDropDown.anchorView = self.stateView
         
         cateDropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.categoryDidChange = true
@@ -160,15 +169,18 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
                 }
                 self.subCateDropDown.dataSource = subCates
             }
-            
-            
         }
         
         subCateDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            
             self.subCateTxt.text = item
             self.selectedCategory.append(self.subCategoryList[index].id)
         }
+        
+        stateDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.stateLabel.attributedText  =  NSAttributedString(string: (item), attributes:[NSForegroundColorAttributeName : UIColor.gray])
+            self.selectedState = self.stateList[index].id!
+        }
+        
         typeDropDown.anchorView = self.rentTypeHolder
         typeDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.rentTypeTxt.text = item
@@ -180,20 +192,14 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         if(self.rentTypeList.isEmpty){
             self.getRentType()
         }
+        self.getStates()
         locationTxt.text = self.editableProduct?.productLocation?.formattedAddress
-        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Edit Product"
-        
-        
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     
     @IBAction func saveChangesAction(_ sender: UIButton) {
         var checkAll = true
@@ -232,13 +238,19 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             if(self.rentFeeTxt.text != "\(self.editableProduct?.rentFee)"){
                 paremeters["rentFee"] = self.rentFeeTxt.text as AnyObject?
             }
-            
         }
         if(self.avaiableFromTxt.text != "" && checkAll != false){
             paremeters["availableFrom"] = self.avaiableFromTxt.text as AnyObject?
         }
         if(self.availableTillTxt.text != "" && checkAll != false){
             paremeters["availableTill"] = self.availableTillTxt.text as AnyObject?
+        }
+        if (self.selectedState == -1  && checkAll != false) {
+            checkAll = false
+            view.makeToast(message:"State Required", duration: 2, position: HRToastPositionCenter as AnyObject)
+        }
+        else {
+            paremeters["stateId"] = self.selectedState as AnyObject?
         }
         if (self.areaTxt.text == "" && checkAll != false) {
             checkAll = false
@@ -273,20 +285,19 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             }
         }
         if(self.locationTxt.text != ""){
-            paremeters["lat"] = self.currentLocValue.latitude as AnyObject?
-            paremeters["lng"] = self.currentLocValue.longitude as AnyObject?
+            print("lat \(self.pickedLocValue.latitude)")
+            paremeters["lat"] = self.pickedLocValue.latitude as AnyObject?
+            paremeters["lng"] = self.pickedLocValue.longitude as AnyObject?
         }
-        if(checkAll != false){
-            
+        if(checkAll){
             print(paremeters)
             self.postEdit(paremeter: paremeters)
         }
     }
+    
     //MARK: - PickPlace
+    
     func pickPlaceAction (){
-        print("Hello")
-        
-        
         let center = CLLocationCoordinate2DMake(self.currentLocValue.latitude,self.currentLocValue.longitude)
         let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
         let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
@@ -295,31 +306,27 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         placePicker = GMSPlacePicker(config: config)
         
         placePicker?.pickPlace(callback: { (place: GMSPlace?, error: Error?) -> Void in
-            
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
                 return
             }
-            
             if let place = place {
                 self.pickedLocValue = place.coordinate
+                print(place.coordinate.latitude)
+                print(place.coordinate.longitude)
                 self.locationTxt.text = place.name
                 self.areaTxt.text = place.formattedAddress!
                 
             } else {
                 print("No place selected")
             }
-        } )
-        
-        
-        
+        })
     }
     
     //MARK : - Calender
-    func selectFromDateAction()
-    {
-        
-        self.didTouchedFromDate = true;
+    
+    func selectFromDateAction(){
+        self.didTouchedFromDate = true
         fromCalendarPicker.calendarDelegate = self
         fromCalendarPicker.startDate = Date()
         fromCalendarPicker.hightlightsToday = true
@@ -330,10 +337,10 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         fromCalendarPicker.dayDisabledTintColor = UIColor.gray
         fromCalendarPicker.title = "Available From "
         
-        
         let navigationController = UINavigationController(rootViewController: fromCalendarPicker)
         self.present(navigationController, animated: true, completion: nil)
     }
+    
     func selectToDateAction()  {
         self.didTouchedToDate = true
         toCalendarPicker.calendarDelegate = self
@@ -350,11 +357,12 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         let navigationController = UINavigationController(rootViewController: toCalendarPicker)
         self.present(navigationController, animated: true, completion: nil)
     }
-    // MARK: - EPCalendarPicker
     
+    // MARK: - EPCalendarPicker
     
     func epCalendarPicker(_: EPCalendarPicker, didCancel error : NSError) {
     }
+    
     func epCalendarPicker(_: EPCalendarPicker, didSelectDate date : Date) {
         
         let formatter = DateFormatter()
@@ -371,64 +379,61 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
             self.didTouchedToDate = false
             self.availableTillTxt.text = str
         }
-        
-        
-        
     }
     
     
     //MARK:- Dropdown
+    
     func showHideCateDropDown() {
         cateDropdown.show();
     }
+    
     func showHideSubCateDropDown(){
         subCateDropDown.show()
     }
+    
     func showHideSubTypeDropDown()  {
         typeDropDown.show()
     }
-    //MARK: - KeyBoard
     
-    func keyboardWillShow(_ sender: Notification) {
-        let userInfo: [AnyHashable: Any] = (sender as NSNotification).userInfo!
-        
-        let keyboardSize: CGSize = (userInfo[UIKeyboardFrameBeginUserInfoKey]! as AnyObject).cgRectValue.size
-        let offset: CGSize = (userInfo[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size
-        
-        if keyboardSize.height == offset.height {
-            if self.view.frame.origin.y == 0 {
-                print("if in")
-                UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                    self.view.frame.origin.y -= 100//keyboardSize.height
-                })
-            }
-        } else {
-            print("else in")
-            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                self.view.frame.origin.y += keyboardSize.height - offset.height
-            })
-        }
-        print(self.view.frame.origin.y)
+    func showStateDropDown() {
+        stateDropDown.show();
     }
     
-    func keyboardWillHide(_ notification: Notification) {
-        
-        if (((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
-            if view.frame.origin.y != 0 {
-                self.view.frame.origin.y += 100//keyboardSize.height
+    //MARK: - ApiAccess
+    
+    func  getStates()  {
+        Alamofire.request(URL(string: "\(baseUrl)api/state/get-all-state" )!, method: .get, encoding: JSONEncoding.default)
+            .validate { request, response, data in
+                return .success
             }
-            else {
-                
-            }
+            .responseJSON { response in
+                debugPrint(response)
+                switch response.result {
+                case .success(let data):
+                    let stateResponse :StateResponse = Mapper<StateResponse>().map(JSON: data as! [String : Any])!
+                    if((stateResponse.responseStat.status) != false){
+                        self.stateList = stateResponse.responseData!
+                        var stateSource = Array<String>()
+                        var matchedStateIndex = 0
+                        for i in 0  ..< self.stateList.count {
+                            if(self.editableProduct?.productLocation?.state?.id! == self.stateList[i].id!) {
+                                matchedStateIndex = i
+                            }
+                            stateSource.append(self.stateList[i].name)
+                        }
+                        self.stateDropDown.dataSource = stateSource
+                        self.stateDropDown.selectRow(at: matchedStateIndex)
+                        self.selectedState = self.stateList[matchedStateIndex].id!
+                        self.stateLabel.text = self.stateList[matchedStateIndex].name
+                    }
+                case .failure(let error):
+                    print(error)
+                }
         }
     }
-    
-    //MARK : - ApiAccess
-    
     
     func  getCategory()  {
-        
-        
         Alamofire.request(URL(string: "\(baseUrl)api/utility/get-category" )!, method: .get, encoding: JSONEncoding.default)
             
             .validate { request, response, data in
@@ -455,11 +460,8 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
                 }
         }
         
-        
-        
-        
-        
     }
+    
     func  getRentType()  {
         Alamofire.request(URL(string: "\(baseUrl)api/utility/get-rent-type" )!,method:.get ,parameters: [:])
             .validate(contentType: ["application/json"])
@@ -484,6 +486,7 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         }
         
     }
+    
     func postEdit(paremeter : [String : AnyObject]) {
         
         self.view.makeToastActivity()
@@ -497,7 +500,7 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
                     let productRes: PostProductResponse = Mapper<PostProductResponse>().map(JSONObject: data)!
                     if((productRes.responseStat.status) != false){
                         
-                        self.view.makeToast(message:"Product Updated successfully", duration: 2, position: HRToastPositionCenter as AnyObject)
+                        self.view.makeToast(message:"Product Updated", duration: 2, position: HRToastPositionCenter as AnyObject)
                         //                        self.currentPrice.text = ""
                         //                        self.rentFee.text = ""
                         //                        if let tabBarController = self.presentWindow!.rootViewController as? UITabBarController {
@@ -537,14 +540,41 @@ class EditProductInformationViewController: UIViewController ,EPCalendarPickerDe
         }
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    //MARK: - KeyBoard
+    
+    func keyboardWillShow(_ sender: Notification) {
+        let userInfo: [AnyHashable: Any] = (sender as NSNotification).userInfo!
+        
+        let keyboardSize: CGSize = (userInfo[UIKeyboardFrameBeginUserInfoKey]! as AnyObject).cgRectValue.size
+        let offset: CGSize = (userInfo[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size
+        
+        if keyboardSize.height == offset.height {
+            if self.view.frame.origin.y == 0 {
+                print("if in")
+                UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                    self.view.frame.origin.y -= 100//keyboardSize.height
+                })
+            }
+        } else {
+            print("else in")
+            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                self.view.frame.origin.y += keyboardSize.height - offset.height
+            })
+        }
+        print(self.view.frame.origin.y)
+    }
+    
+    func keyboardWillHide(_ notification: Notification) {
+        
+        if (((notification as NSNotification).userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            if view.frame.origin.y != 0 {
+                self.view.frame.origin.y += 100//keyboardSize.height
+            }
+            else {
+                
+            }
+        }
+    }
+
     
 }

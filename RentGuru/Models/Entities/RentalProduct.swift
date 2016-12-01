@@ -26,4 +26,5 @@ class RentalProduct: Product {
         availableTill      <- map["availableTill"]
         rentType           <- map["rentType"]
     }
+    
 }

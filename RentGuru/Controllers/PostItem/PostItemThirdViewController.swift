@@ -31,6 +31,8 @@ class PostItemThirdViewController: UIViewController {
     var city: String!
     var zipCode : String!
     var stateId: Int!
+    var lat: Double? = nil
+    var lng: Double? = nil
     var Productdescription: String!
     var imageTokenArray : [Int]!
     var rentType : Int!
@@ -65,20 +67,16 @@ class PostItemThirdViewController: UIViewController {
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             // print("Selected item: \(item) at index: \(index)")
             self.dropDownLabel.attributedText  =  NSAttributedString(string: (item), attributes:[NSForegroundColorAttributeName : UIColor.gray])
-            self.rentTypeId = self.rentTypeList[index].id
+            self.rentTypeId = self.rentTypeList[index].id!
+            print(self.rentTypeList[index].id)
         }
         dropDown.backgroundColor = UIColor.white
         dropDown.textColor = UIColor.gray
         dropDown.selectionBackgroundColor = UIColor(netHex:0xD0842D)
         self.getRentType()
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     
     func showHideDropDown() {
-        print( "Hello")
         dropDown.show();
     }
     
@@ -87,19 +85,19 @@ class PostItemThirdViewController: UIViewController {
         
         if(self.currentPrice.text == ""){
             checkAll = false
-            view.makeToast(message:"current market value is required", duration: 2, position: HRToastPositionCenter as AnyObject)
+            view.makeToast(message:"current market value is required", duration: 1, position: HRToastPositionCenter as AnyObject)
         }
         if(self.rentFee.text == "" && checkAll != false){
             checkAll = false
-            view.makeToast(message:"rent fee is required", duration: 2, position: HRToastPositionCenter as AnyObject)
+            view.makeToast(message:"rent fee is required", duration: 1, position: HRToastPositionCenter as AnyObject)
         }
         if(self.rentTypeId == nil && checkAll != false){
             checkAll = false
-            view.makeToast(message:"rent fee for is  required", duration: 2, position: HRToastPositionCenter as AnyObject)
+            view.makeToast(message:"rent fee for is  required", duration: 1, position: HRToastPositionCenter as AnyObject)
         }
-        if(checkAll != false){
+        
+        if(checkAll) {
             presentWindow!.makeToastActivity()
-            
             var tokenArray:[Int] = []
             for i in 0  ..< self.imageTokenArray.count {
                 if(i != 0 ){
@@ -137,7 +135,13 @@ class PostItemThirdViewController: UIViewController {
             paremeters["stateId"] = stateId
             paremeters["rentTypeId"] = rentTypeId
             
+            if self.lat != nil && self.lng != nil {
+                paremeters["lat"] = self.lat as AnyObject
+                paremeters["lng"] = self.lng as AnyObject
+            }
+            
             print(paremeters)
+            
             Alamofire.request( URL(string: "\(baseUrl)api/auth/product/upload" )!,method:.post ,parameters: paremeters)
                 .validate(contentType: ["application/json"])
                 .responseJSON { response in

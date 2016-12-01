@@ -1,11 +1,3 @@
-//
-//  EditProductViewController.swift
-//  RentGuru
-//
-//  Created by Workspace Infotech on 11/10/16.
-//  Copyright © 2016 Workspace Infotech. All rights reserved.
-//
-
 import UIKit
 
 class EditProductViewController: UIViewController {
@@ -18,13 +10,8 @@ class EditProductViewController: UIViewController {
         super.viewDidLoad()
         self.infoContainer.isHidden = true
         self.imageContainer.isHidden = false
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -38,14 +25,10 @@ class EditProductViewController: UIViewController {
         default:
             break;
         }
-
     }
     
-
-    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //infoView
         if(segue.identifier == "infoView"){
