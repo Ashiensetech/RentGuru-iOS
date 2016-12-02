@@ -15,6 +15,7 @@
 		84498FCB1DEFEC3E0004F61F /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84498FCA1DEFEC3E0004F61F /* State.swift */; };
 		84498FCD1DEFED790004F61F /* StateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84498FCC1DEFED790004F61F /* StateResponse.swift */; };
 		845532531DDB2D240062F2DE /* RequestedProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */; };
+		8458916F1DF150E4006C5FDD /* SearchHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8458916E1DF150E4006C5FDD /* SearchHeader.swift */; };
 		84A9EC041DDDA7B200DA508D /* RentFeesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9EC031DDDA7B200DA508D /* RentFeesHelper.swift */; };
 		84A9EC061DDDB32800DA508D /* BookingProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A9EC051DDDB32800DA508D /* BookingProductDetailsViewController.swift */; };
 		C97280E74BAB2F2266DCB92B /* Pods_RentGuru.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD1F1B1466978A9B0491E2F8 /* Pods_RentGuru.framework */; };
@@ -177,6 +178,7 @@
 		84498FCA1DEFEC3E0004F61F /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		84498FCC1DEFED790004F61F /* StateResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateResponse.swift; sourceTree = "<group>"; };
 		845532521DDB2D240062F2DE /* RequestedProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestedProductDetailsViewController.swift; sourceTree = "<group>"; };
+		8458916E1DF150E4006C5FDD /* SearchHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHeader.swift; sourceTree = "<group>"; };
 		84A9EC031DDDA7B200DA508D /* RentFeesHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RentFeesHelper.swift; path = SupportingFiles/RentFeesHelper.swift; sourceTree = "<group>"; };
 		84A9EC051DDDB32800DA508D /* BookingProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookingProductDetailsViewController.swift; sourceTree = "<group>"; };
 		E925C8DFFC1789E2658F9CB2 /* Pods-RentGuru.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RentGuru.release.xcconfig"; path = "Pods/Target Support Files/Pods-RentGuru/Pods-RentGuru.release.xcconfig"; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				FDC153731DD1EFDC00408E28 /* CategoryProductCollectionViewCell.swift */,
 				FD72905E1DD5C80F00096173 /* EditOtherImageCollectionViewCell.swift */,
 				844002681DDC695600A1F5C8 /* ProductImageCollectionViewCell.swift */,
+				8458916E1DF150E4006C5FDD /* SearchHeader.swift */,
 			);
 			path = CustomCell;
 			sourceTree = "<group>";
@@ -929,6 +932,7 @@
 				FD81AE5A1DC8725300F62837 /* BannerImage.swift in Sources */,
 				FD2F3B9C1D6C8247004175E2 /* SelectedImageCollectionViewCell.swift in Sources */,
 				FD2F3B6B1D6C8063004175E2 /* ProductLocation.swift in Sources */,
+				8458916F1DF150E4006C5FDD /* SearchHeader.swift in Sources */,
 				FD2F3BAF1D6C82F5004175E2 /* MyRequestTableViewCell.swift in Sources */,
 				FD2F3B711D6C8063004175E2 /* PictureDetails.swift in Sources */,
 				FD2F3B8F1D6C8181004175E2 /* RatingResponse.swift in Sources */,
