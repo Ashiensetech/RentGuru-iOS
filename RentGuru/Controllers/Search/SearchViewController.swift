@@ -11,6 +11,9 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     @IBOutlet var searchProductCollection: UICollectionView!
     @IBOutlet var baseScroll: UIScrollView!
   
+    
+    
+    
     let cateDropdown = DropDown()
     let subCateDropDown = DropDown()
     var selectedProdIndex : Int = 0
@@ -44,7 +47,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         self.hideKeyboardWhenTappedAround()
         baseUrl = defaults.string(forKey: "baseUrl")!
         presentWindow = UIApplication.shared.keyWindow
-  
+  self.automaticallyAdjustsScrollViewInsets = false
         self.searchProductCollection.delegate = self
         self.searchProductCollection.dataSource = self
     }
@@ -75,23 +78,6 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
 //        
 //    }
     
-    func perfromNext(_ sender :UITapGestureRecognizer)  {
-        self.view.makeToastActivity()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        let tapLocation = sender.location(in: self.searchProductCollection)
-        let indexPath : IndexPath = self.searchProductCollection.indexPathForItem(at: tapLocation)!
-        
-        if let cell = self.searchProductCollection.cellForItem(at: indexPath){
-            self.selectedIndexPath  = indexPath
-            self.selectedProdIndex = cell.tag
-        }
-        DispatchQueue.main.async(execute: {
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.performSegue(withIdentifier: "showDetails", sender: nil)
-        })
-    }
-    
     
     // MARK: - collectionview delegate
     
@@ -115,9 +101,6 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         cell.tag = (indexPath as NSIndexPath).row
         cell.isUserInteractionEnabled = true
         cell.tag = (indexPath as NSIndexPath).row
-        cell.isUserInteractionEnabled = true
-        let selectGesture = UITapGestureRecognizer(target: self, action:#selector(SearchViewController.perfromNext) )
-        cell.addGestureRecognizer(selectGesture)
         return cell
     }
 
@@ -125,18 +108,22 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
         let width = (searchProductCollection.frame.width)
         if width < 500 {
             let numberOfItemsPerRow:CGFloat = 2.0
-            let widthAdjustment = CGFloat(10.0)
+            let widthAdjustment = CGFloat(2.0)
             let cellWidth = (width - widthAdjustment) / numberOfItemsPerRow
             let cellHeight =  cellWidth + 3.0
             return CGSize(width: cellWidth , height: cellHeight)
         }
         else {
             let numberOfItemsPerRow:CGFloat = 3.0
-            let widthAdjustment =  CGFloat(15.0)
+            let widthAdjustment =  CGFloat(4.0)
             let cellWidth = (width - widthAdjustment) / numberOfItemsPerRow
             let cellHeight =  cellWidth + 3.0
             return CGSize(width: cellWidth , height: cellHeight)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ProductDetailsFromSearch", sender: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -235,15 +222,10 @@ class SearchViewController: UIViewController ,UITextFieldDelegate ,UICollectionV
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "showDetails"){
-//            self.setParams(offset: self.offset)
-            let navVC = segue.destination as! UINavigationController
-            let detailsVC = navVC.viewControllers.first as! ProductDetailsViewController
-            detailsVC.product = self.allProducts[self.selectedProdIndex]
-            detailsVC.allProducts = self.allProducts
-            detailsVC.onIndexPath = self.selectedIndexPath
-            detailsVC.paremeters = self.paremeters
-            detailsVC.fromController = "Search"
+        if (segue.identifier == "ProductDetailsFromSearch") {
+            let indexPath = sender as! NSIndexPath
+            let destinationVc = segue.destination as! ProductDetailsViewController
+            destinationVc.product = self.allProducts[indexPath.row]
         }
     }
     

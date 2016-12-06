@@ -9,7 +9,9 @@
 import UIKit
 import Alamofire
 import ObjectMapper
-class CategoryProductViewController: UIViewController ,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource,UIScrollViewDelegate{
+
+class CategoryProductViewController: UIViewController ,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource,UIScrollViewDelegate {
+    
     @IBOutlet var productCollection: UICollectionView!
     var allProduct : [RentalProduct] = []
     let defaults = UserDefaults.standard
@@ -30,11 +32,6 @@ class CategoryProductViewController: UIViewController ,UICollectionViewDelegateF
         self.navigationItem.title = self.category?.name!
         self.tabBarController!.tabBar.isHidden = true;
         self.getProducts()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - collectionview delegate
@@ -64,17 +61,12 @@ class CategoryProductViewController: UIViewController ,UICollectionViewDelegateF
         cell.isUserInteractionEnabled = true
         cell.tag = (indexPath as NSIndexPath).row
         cell.isUserInteractionEnabled = true
-        let selectGesture = UITapGestureRecognizer(target: self, action:#selector(SearchViewController.perfromNext) )
-        //selectGesture.numberOfTapsRequired = 2
-        cell.addGestureRecognizer(selectGesture)
-        
         return cell
-        
-        
-        
     }
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ProductDetailsFromCategory", sender: indexPath)
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (self.productCollection.frame.width)
@@ -112,26 +104,6 @@ class CategoryProductViewController: UIViewController ,UICollectionViewDelegateF
         }
     }
     
-    func perfromNext(_ sender :UITapGestureRecognizer)  {
-        self.view.makeToastActivity()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        
-        let tapLocation = sender.location(in: self.productCollection)
-        let indexPath : IndexPath = self.productCollection.indexPathForItem(at: tapLocation)!
-        
-        if let cell = self.productCollection.cellForItem(at: indexPath)
-        {
-           // self.selectedIndexPath  = indexPath
-            self.selectedProdIndex = cell.tag
-            
-        }
-        DispatchQueue.main.async(execute: {
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.performSegue(withIdentifier: "showDetails", sender: nil)
-        })
-        
-        
-    }
     //Mark : - ApiCall
     
     func getProducts() {
@@ -178,16 +150,12 @@ class CategoryProductViewController: UIViewController ,UICollectionViewDelegateF
     }
     
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "showDetails"){
-            
-           // let navVC = segue.destination as! UINavigationController
-            let detailsVC = segue.destination as! ProductDetailsViewController
-            detailsVC.product = self.allProduct[self.selectedProdIndex]
-          
-            detailsVC.fromController = "Category"
+        if (segue.identifier == "ProductDetailsFromCategory") {
+            let indexPath = sender as! NSIndexPath
+            let destinationVc = segue.destination as! ProductDetailsViewController
+            destinationVc.product = self.allProduct[indexPath.row]
         }
      }
     

@@ -1,17 +1,10 @@
-//
-//  HomeViewController.swift
-//  RentGuru
-//
-//  Created by Workspace Infotech on 8/1/16.
-//  Copyright © 2016 Workspace Infotech. All rights reserved.
-//
-
 import UIKit
 import Alamofire
 import ObjectMapper
 import Kingfisher
 import ImageSlideshow
-class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScrollViewDelegate,CollectionViewWaterfallLayoutDelegate{
+
+class HomeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate,UIScrollViewDelegate,CollectionViewWaterfallLayoutDelegate{
     @IBOutlet var productScrollHeight: NSLayoutConstraint!
     @IBOutlet var offerCollection: UICollectionView!
     @IBOutlet var productScrollBottom: NSLayoutConstraint!
@@ -70,65 +63,41 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         slideShow.contentScaleMode = UIViewContentMode.scaleToFill
         self.getBannerImages()
         
-        
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("Home")
-        self.offset = 0
-        self.isData = true
-        self.allProducts.removeAll()
         self.getProducts()
-        //self.tabBarController?.tabBar.items?[1].badgeValue = "10"
     }
-    override func viewDidLayoutSubviews() {
-        //Getting iDevice's screen width
-        let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
-//        let  screenWidth : CGFloat = screenRect.size.width
-        let screenHeight :CGFloat = screenRect.size.height
-        
-           self.productScrollHeight.constant =   screenHeight - (self.slideShow.frame.size.height+20)
-        
-        
-        
-        self.baseScroll.contentSize = CGSize(
-            width: self.view.frame.size.width,
-            height: screenHeight + 206
-        );
-        
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        print("Home")
+//        self.offset = 0
+//        self.isData = true
+//        self.allProducts.removeAll()
+//        self.getProducts()
+//        //self.tabBarController?.tabBar.items?[1].badgeValue = "10"
+//    }
+//    override func viewDidLayoutSubviews() {
+//        //Getting iDevice's screen width
+//        let screenRect  : CGRect  = UIScreen.main.bounds // [[UIScreen mainScreen] bounds];
+////        let  screenWidth : CGFloat = screenRect.size.width
+//        let screenHeight :CGFloat = screenRect.size.height
+//        
+//           self.productScrollHeight.constant =   screenHeight - (self.slideShow.frame.size.height+20)
+//        
+//        
+//        
+//        self.baseScroll.contentSize = CGSize(
+//            width: self.view.frame.size.width,
+//            height: screenHeight + 206
+//        );
+//        
+//    }
     
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func perfromNext(_ sender :UITapGestureRecognizer)  {
-        self.view.makeToastActivity()
-        UIApplication.shared.beginIgnoringInteractionEvents()
-        let tapLocation = sender.location(in: self.offerCollection)
-        let indexPath : IndexPath = self.offerCollection.indexPathForItem(at: tapLocation)!
-        
-        if let cell = self.offerCollection.cellForItem(at: indexPath)
-        {
-            self.selectedProdIndex = cell.tag
-            
-        }
-        DispatchQueue.main.async(execute: {
-            UIApplication.shared.endIgnoringInteractionEvents()
-            self.performSegue(withIdentifier: "showDetails", sender: nil)
-        })
-        
-        
-    }
     // MARK: - collectionview delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(collectionView == self.offerCollection){
             return self.allProducts.count
         }
-        return 10;
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -145,13 +114,7 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                                   completionHandler: nil)
             cell.productName.text = data.name
             cell.offerLabel.text = "$\(data.rentFee!)/\(data.rentType.name!)"
-            
             cell.tag = (indexPath as NSIndexPath).row
-            cell.isUserInteractionEnabled = true
-            let selectGesture = UITapGestureRecognizer(target: self, action:#selector(HomeViewController.perfromNext) )
-            //selectGesture.numberOfTapsRequired = 2
-            cell.addGestureRecognizer(selectGesture)
-            
             return cell
             
             
@@ -168,10 +131,13 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
         }
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if(collectionView == self.offerCollection ){
+            self.performSegue(withIdentifier: "ProductDetailsFromHome", sender: indexPath)
+        }
     }
+    
+
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         if(scrollView == self.offerCollection){
@@ -298,22 +264,8 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
                                                             if i == imageRes.responseData!.count - 1 {
                                                                 self.slideShow.setImageInputs(self.bannerImages)
                                                             }
-
-                                                         
-                                                           
                             })
-
-                            
-                         
                         }
-                        
-
-                        
-                        
-                        
-                       
-                    
-
                     }else{
                       
                     }
@@ -332,12 +284,10 @@ class HomeViewController: UIViewController, UICollectionViewDataSource ,UIScroll
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "showDetails"){
-            
-            let navVC = segue.destination as! UINavigationController
-            let detailsVC = navVC.viewControllers.first as! ProductDetailsViewController
-            detailsVC.product = self.allProducts[self.selectedProdIndex]
-            detailsVC.fromController = "Home"
+        if (segue.identifier == "ProductDetailsFromHome") {
+            let indexPath = sender as! NSIndexPath
+            let destinationVc = segue.destination as! ProductDetailsViewController
+            destinationVc.product = self.allProducts[indexPath.row]
         }
     }
     

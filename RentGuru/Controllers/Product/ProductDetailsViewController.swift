@@ -1,17 +1,9 @@
-//
-//  ProductDetailsViewController.swift
-//  RentGuru
-//
-//  Created by Workspace Infotech on 8/9/16.
-//  Copyright © 2016 Workspace Infotech. All rights reserved.
-//
-
 import UIKit
 import Kingfisher
 import Alamofire
 import ObjectMapper
 import Foundation
-class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource ,RatingViewDelegate {
+class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, RatingViewDelegate {
     
     @IBOutlet var ratingView: RatingView!
     @IBOutlet var baseScroll: UIScrollView!
@@ -25,7 +17,6 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
     @IBOutlet var categories: UILabel!
     @IBOutlet var descriptionText: UITextView!
     @IBOutlet var pickupLoc: UILabel!
-    var fromController :String = ""
     var product :RentalProduct!
     var defaults = UserDefaults.standard
     var baseUrl : String = ""
@@ -48,10 +39,6 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         self.ratingView.editable = false;
         self.ratingView.delegate = self;
         
-       
-        
-      
-       
     }
     
     
@@ -64,12 +51,7 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
                self.productName.text = product.name.uppercased()
         self.rentFee.text = "$\(product.rentFee!) / \(product.rentType.name!)"
         self.descriptionText.text = product.description
-        
-//        if let url  = URL(string: "\(baseUrl)/images/\(product.profileImage.original.path)"),
-//            let imageData = try? Data(contentsOf: url)
-//        {
-//            productProfileImageView.image = UIImage(data: imageData)
-//        }
+
         
         let path = product.profileImage.original.path!
         productProfileImageView.kf.setImage(with: URL(string: "\(baseUrl)/images/\(path)")!,
@@ -121,18 +103,9 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         self.pickupLoc.text = self.product.productLocation?.formattedAddress
     }
     
-    override func didReceiveMemoryWarning() {
-        
-    }
     
     @IBAction func rentNowAction(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "rentNow", sender: nil)
-    }
-
-    @IBAction func navigateBackAction(_ sender: AnyObject) {
-       // if(self.fromController == "Home"){
-            self.performSegue(withIdentifier: "Back", sender: nil)
-       // }
     }
     
     override func viewDidLayoutSubviews() {
@@ -142,13 +115,11 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         );
         
     }
-    override func viewWillDisappear(_ animated: Bool)
-    {
-
-            super.viewWillDisappear(animated)
-            self.navigationController?.isNavigationBarHidden = true
-//
-    }
+    
+//    override func viewWillDisappear(_ animated: Bool){
+//        super.viewWillDisappear(animated)
+//        self.navigationController?.isNavigationBarHidden = true
+//    }
     
     
     
@@ -166,36 +137,15 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! ImageCollectionCell
-        
-        // Configure the cell
-        // let dataImage : Picture  = product.otherImages![indexPath.row]
-        
-         cell.imageContainer.kf.setImage(with: URL(string: "\(baseUrl)/images/\(imageUrls[(indexPath as NSIndexPath).row])")!,
+        cell.imageContainer.kf.setImage(with: URL(string: "\(baseUrl)/images/\(imageUrls[(indexPath as NSIndexPath).row])")!,
                               placeholder: nil,
                               options: [.transition(.fade(1))],
                               progressBlock: nil,
                               completionHandler: nil)
-        
-        
-//        cell.imageContainer.kf_setImageWithURL(URL(string: "\(baseUrl)/images/\(imageUrls[(indexPath as NSIndexPath).row])")!,
-//                                               placeholderImage:UIImage(named: "placeholder.gif"),
-//                                               optionsInfo: nil,
-//                                               progressBlock: { (receivedSize, totalSize) -> () in
-//                                                //  print("Download Progress: \(receivedSize)/\(totalSize)")
-//            },
-//                                               completionHandler: { (image, error, cacheType, imageURL) -> () in
-//                                                // print("Downloaded and set!")
-//            }
-//        )
-        
         var scalingTransform : CGAffineTransform!
         scalingTransform = CGAffineTransform(scaleX: 1, y: -1);
         cell.transform = scalingTransform
-        
         return cell
-        
-        
-        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -207,8 +157,6 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
         self.productProfileImageView.image = cell.imageContainer.image
         
     }
-    
-    
     
     //MARK:- RatingViewDelegate
     
@@ -231,44 +179,19 @@ class ProductDetailsViewController: UIViewController,UICollectionViewDelegateFlo
                         self.ratingView.rating = self.product.averageRating
                         self.view.makeToast(message:ratingRes.responseStat.msg, duration: 2, position: HRToastPositionDefault as AnyObject)
                     }
-                    
-                    
-                    
-                    
                 case .failure(let error):
                     print(error)
                 }
         }
     }
     
-    
     // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "rentNow"){
             let navVC = segue.destination as! UINavigationController
             let rentVC = navVC.viewControllers.first as! RentRequestViewController
-          
             rentVC.product = self.product
-        }
-        if(segue.identifier == "Back"){
-            let tabVc = segue.destination as! UITabBarController
-            if(self.fromController == "Home"){
-             tabVc.selectedIndex = 0
-            }else if(self.fromController == "Category"){
-                tabVc.selectedIndex = 2
-               
-            }
-            else{
-//                print(tabVc.viewControllers?[1])
-                let vc = tabVc.viewControllers?[1] as! SearchViewController
-                vc.allProducts = self.allProducts
-                vc.selectedIndexPath = self.onIndexPath
-                vc.paremeters = self.paremeters
-                 tabVc.selectedIndex = 1
-            }
-            
         }
     }
     
